@@ -104,4 +104,4 @@ theme: landscape
 deploy:
     type: git
     repository: https://github.com/youwei997/youwei997.github.io.git #你的仓库地址
-    branch: master #绑定的仓库分支
+    branch: main #绑定的仓库分支
