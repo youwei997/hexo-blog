@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>nodejs入门 | 博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="web 服务 如何处理一个请求  url–&gt;网络–&gt;dns 解析–&gt;目标服务器 如何响应这个请求 –&gt; 路由&#x2F;&#x2F;规则  Express1234567const express &#x3D; require(&quot;express&quot;);  const app &#x3D; express();  &#x2F;&#x2F;app --&gt; application --&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nodejs入门">
+<meta property="og:url" content="https://youwei997.github.io/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="web 服务 如何处理一个请求  url–&gt;网络–&gt;dns 解析–&gt;目标服务器 如何响应这个请求 –&gt; 路由&#x2F;&#x2F;规则  Express1234567const express &#x3D; require(&quot;express&quot;);  const app &#x3D; express();  &#x2F;&#x2F;app --&gt; application --&gt;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-11T06:02:17.000Z">
+<meta property="article:modified_time" content="2023-11-11T06:03:16.424Z">
+<meta property="article:author" content="youwe1">
+<meta property="article:tag" content="nodejs">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://youwei997.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-后端/nodejs/nodejs入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E5%85%A5%E9%97%A8/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T06:02:17.000Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      nodejs入门
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>web 服务 如何处理一个请求</p>
+</blockquote>
+<h2 id="url–-网络–-dns-解析–-目标服务器"><a href="#url–-网络–-dns-解析–-目标服务器" class="headerlink" title="url–&gt;网络–&gt;dns 解析–&gt;目标服务器"></a>url–&gt;网络–&gt;dns 解析–&gt;目标服务器</h2><ol>
+<li>如何响应这个请求 –&gt; 路由&#x2F;&#x2F;规则</li>
+</ol>
+<h2 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);  </span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();  </span><br><span class="line"><span class="comment">//app --&gt; application --&gt; web服务的实例  </span></span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="function">() =&gt;</span> &#123;  </span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;服务器启动成功&quot;</span>);  </span><br><span class="line">&#125;);  </span><br></pre></td></tr></table></figure>
+
+<h2 id="请求的方法来区分"><a href="#请求的方法来区分" class="headerlink" title="请求的方法来区分"></a>请求的方法来区分</h2><ol>
+<li>get  </li>
+<li>post  </li>
+<li>put  </li>
+<li>delete  </li>
+<li>…</li>
+</ol>
+<h2 id="通过-uri-–-路径"><a href="#通过-uri-–-路径" class="headerlink" title="通过 uri –&gt; 路径"></a>通过 uri –&gt; 路径</h2><p><code>/user/getList</code>  </p>
+<h3 id="需要定义一个-api-路由，需要满足客户端，无论什么请求方式，请求方法或-uri-都可以得到响应"><a href="#需要定义一个-api-路由，需要满足客户端，无论什么请求方式，请求方法或-uri-都可以得到响应" class="headerlink" title="需要定义一个 api&#x2F;路由，需要满足客户端，无论什么请求方式，请求方法或 uri 都可以得到响应"></a>需要定义一个 api&#x2F;路由，需要满足客户端，无论什么请求方式，请求方法或 uri 都可以得到响应</h3><ol>
+<li>使用 app.all</li>
+</ol>
+<ul>
+<li>任何请求方法都响应</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">all</span>(<span class="string">&quot;/demo&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;  </span><br><span class="line">  res.<span class="title function_">json</span>(&#123;  </span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&quot;任何请求方法都响应&quot;</span>,  </span><br><span class="line">    <span class="attr">method</span>: req.<span class="property">method</span>,  </span><br><span class="line">  &#125;);  </span><br><span class="line">&#125;);  </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>任何请求方法及任何 uri 都响应</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用通配符  </span></span><br><span class="line">app.<span class="title function_">all</span>(<span class="string">&quot;*&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;  </span><br><span class="line">  res.<span class="title function_">json</span>(&#123;    <span class="attr">msg</span>: <span class="string">&quot;任何请求方法及任何uri都响应&quot;</span>,  </span><br><span class="line">    <span class="attr">method</span>: req.<span class="property">method</span>,    <span class="attr">uri</span>: req.<span class="property">path</span>,  &#125;);&#125;);  </span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用中间件，无论客户端使用任何 uri，服务端都可以响应 （日志）</li>
+</ol>
+<ul>
+<li>使用中间件拦截请求–任何请求方法都响应</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(<span class="string">&quot;/middleware&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;  </span><br><span class="line">  res.<span class="title function_">json</span>(&#123;  </span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&quot;使用中间件拦截请求--任何请求方法都响应&quot;</span>,  </span><br><span class="line">    <span class="attr">method</span>: req.<span class="property">method</span>,  </span><br><span class="line">    <span class="attr">path</span>: req.<span class="property">path</span>,  </span><br><span class="line">  &#125;);  </span><br><span class="line">&#125;);  </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用中间件拦截请求–任何请求方法及任何 uri 都响应</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(<span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;  </span><br><span class="line">  res.<span class="title function_">json</span>(&#123;  </span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&quot;使用中间件拦截请求--任何请求方法及任何uri都响应&quot;</span>,  </span><br><span class="line">    <span class="attr">method</span>: req.<span class="property">method</span>,  </span><br><span class="line">    <span class="attr">path</span>: req.<span class="property">path</span>,  </span><br><span class="line">  &#125;);  </span><br><span class="line">&#125;);  </span><br></pre></td></tr></table></figure>
+
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><h3 id="路由拆分"><a href="#路由拆分" class="headerlink" title="路由拆分"></a>路由拆分</h3><ol>
+<li>user  </li>
+<li>login  </li>
+<li>register</li>
+</ol>
+<h3 id="express-Router"><a href="#express-Router" class="headerlink" title="express.Router"></a>express.Router</h3><ol>
+<li><p>创建 routes 目录，存放路由文件  </p>
+<ul>
+<li><p>路由文件 如<strong>user</strong>  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);   </span><br><span class="line"><span class="keyword">const</span> router = express.<span class="title class_">Router</span>();   </span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&quot;/user&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;     </span><br><span class="line">    res.<span class="title function_">json</span>(&#123;       </span><br><span class="line">        <span class="attr">id</span>: <span class="number">123</span>,       </span><br><span class="line">        <span class="attr">name</span>: <span class="string">&quot;张三&quot;</span>,  </span><br><span class="line">	&#125;);   </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>app.js 使用  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);   </span><br><span class="line"><span class="keyword">const</span> userRouter = <span class="built_in">require</span>(<span class="string">&quot;./routes/user&quot;</span>);   </span><br><span class="line">app.<span class="title function_">use</span>(userRouter);  </span><br><span class="line"><span class="comment">//路由前缀命名空间  </span></span><br><span class="line"><span class="comment">// app.use(&#x27;/&#x27;,userRouter);  </span></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="function">() =&gt;</span> &#123;     </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;服务器启动成功&quot;</span>);  </span><br><span class="line">&#125;);  </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h2><h3 id="是一个函数"><a href="#是一个函数" class="headerlink" title="是一个函数"></a>是一个函数</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// err, req, res, next--&gt;function  </span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">demo_middleware</span>(<span class="params">err, req, res, next</span>) &#123;  </span><br><span class="line">  <span class="comment">// 1. 异常处理  </span></span><br><span class="line">  <span class="comment">// 2. 处理业务功能，然后转交控制权--next  </span></span><br><span class="line">  <span class="comment">// 3. 响应请求--结束响应--&gt;当作路由的处理函数  </span></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>app 级别  </p>
+<ul>
+<li>app 注册时，在最上层  </li>
+<li>app.use(middleware) app 级别中间件，处理任何请求</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//下面两个几乎相等  </span><br><span class="line">// app.all(&quot;\*&quot;, valid_name_middleware);  </span><br><span class="line">app.use(valid_name_middleware);   </span><br></pre></td></tr></table></figure>
+<ul>
+<li>express 内置中间件  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//express.static() 第一个参数为和 package.json 同级的一个目录。第二个为配置参数  </span></span><br><span class="line"><span class="comment">//浏览器输入 localhost:3000/index.html 会显示 static 目录下 index.html 页面  </span></span><br><span class="line"><span class="comment">//在配置参数配置 extensions: [&quot;html&quot;, &quot;htm&quot;], 就可以不写后面的,html。否则会去匹配路由  </span></span><br><span class="line">app.<span class="title function_">use</span>(  </span><br><span class="line">  express.<span class="title function_">static</span>(<span class="string">&quot;static&quot;</span>, &#123;       </span><br><span class="line">      <span class="comment">// extensions: [&quot;html&quot;, &quot;htm&quot;],     </span></span><br><span class="line">  &#125;)   </span><br><span class="line">);  </span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>router 级别  </p>
+<ul>
+<li><p>在 app 使用  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(<span class="string">&quot;/user&quot;</span>, userRouter);  </span><br></pre></td></tr></table></figure></li>
+<li><p>路由中间件  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);   </span><br><span class="line"><span class="keyword">const</span> router = express.<span class="title class_">Router</span>(); <span class="comment">//路由对象，类似子app  </span></span><br><span class="line">router.<span class="title function_">use</span>(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;     </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;user 路由中间件&quot;</span>);  </span><br><span class="line">	<span class="title function_">next</span>();   </span><br><span class="line">&#125;);   </span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&quot;/demo&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;     </span><br><span class="line">    res.<span class="title function_">json</span>(&#123;       </span><br><span class="line">        <span class="attr">msg</span>: <span class="string">&quot;user 路由&quot;</span>,  </span><br><span class="line">	&#125;);   </span><br><span class="line">&#125;);   </span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = router;  </span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>异常处理  </p>
+<ul>
+<li><p>app 级别异常处理  </p>
+</li>
+<li><p>路由级别异常处理，每个路由使用不同的异常处理</p>
+</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E5%85%A5%E9%97%A8/" data-id="cloto4g090012r4jwg6vna0hh" data-title="nodejs入门" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/11/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/%E8%85%BE%E8%AE%AF%E4%BA%91%E7%82%B9%E6%92%AD%E4%B8%8A%E4%BC%A0%E8%A7%86%E9%A2%91%E5%85%A5%E9%97%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          腾讯云点播上传视频入门
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/webpack/webapck.config.js%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">webpack.config.js基本使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 16.67px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 13.33px;">vite</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/jwt/">nestjs使用jwt</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/%E6%A8%A1%E5%9D%97/">模块</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/Providers%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">Providers依赖注入</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/swagger/">nestjs swagger</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/orm/typeorm%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">typeorm基本使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 youwe1<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
