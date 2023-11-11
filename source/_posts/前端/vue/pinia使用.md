@@ -1,8 +1,8 @@
 ---
 title: pinia使用
 date: 2023-11-11 02:39:45
-tags:
-categories: vue
+tags: vue
+categories: 前端
 ---
 ### 解构
 

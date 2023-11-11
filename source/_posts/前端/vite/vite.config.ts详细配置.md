@@ -1,8 +1,8 @@
 ---
 title: vite.config.ts详细配置
 date: 2023-11-11 02:58:58
-tags:
-categories:
+tags: vite
+categories: 前端
 ---
 
 ## base打包

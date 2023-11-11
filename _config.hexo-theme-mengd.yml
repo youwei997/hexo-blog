@@ -1,0 +1,81 @@
+favicon: /img/favicon.png
+logo:
+    html: <img src="/img/logo.gif" />
+    style:
+        width: auto
+        height: 4rem
+        border-radius: 50%;
+
+nav:
+    Home: /
+
+# custom aside
+aside:
+    # support html
+    before:
+        # - 123
+        # - 456
+    after:
+        # - 789
+        # - 0
+
+# custom improt resouces
+import:
+    # reference `custom aside` config
+    # support html
+    head:
+        before:
+        after:
+    body:
+        before:
+        after:
+
+# local search
+search:
+    enable: true
+    path: search.json
+
+# image lazy load
+lazyload:
+    enable: true
+    loding: /img/load.gif # image loading placeholder (defaults to 1px base64)
+
+# wordcount
+# required: npm install hexo-wordcount
+wordcount:
+    enable: true
+    wordcount: true
+    min2read: true
+    total_wordcount: true
+
+# article
+post:
+    # author avatar
+    avatar: https://www.imlete.cn/img/avatar.png
+    # article abstract
+    abstract: 200
+    # The default is the `date_format` and `time_format` fields in the hexo configuration file (_config.yml)
+    date_format: # YYYY-MM-DD HH:mm:ss
+    copyright:
+        enable: true
+        # The default is the `title` fields in the hexo configuration file (_config.yml)
+        title:
+        # The default is the `author` fields in the hexo configuration file (_config.yml)
+        author:
+        # The default is the `url` fields in the hexo configuration file (_config.yml)
+        # You can also write as email: mailto:xxx@gmail.com
+        url:
+        licenses: CC BY-NC-SA 4.0
+        licenses_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+        description: All posts on this blog are licensed under the ${licenses} license unless otherwise stated. Please cite ${title} !
+
+open_graph:
+    enable: true
+    options: # config: https://hexo.io/docs/helpers#open-graph
+
+# Code blocks theme
+highlight_theme: default # default / darker / pale night / light / ocean / mac / mac light
+
+footer:
+    since: 2020
+    custom: A clean and lightweight Hexo theme

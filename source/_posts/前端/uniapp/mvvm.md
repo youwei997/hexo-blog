@@ -1,6 +1,7 @@
 ---
 title: uniapp 基础
-categories: uniapp
+categories: 前端
+tags: uniapp
 ---
 > 软件就像做爱。一次犯错，你需要用余下一生来维护支持。—— Michael Sinz
 

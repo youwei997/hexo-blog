@@ -1,8 +1,8 @@
 ---
 title: vite.config.ts部分配置
 date: 2023-11-11 02:50:44
-tags:
-categories: vite
+tags: vite
+categories: 前端
 ---
 
 
