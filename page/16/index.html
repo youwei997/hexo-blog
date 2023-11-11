@@ -73,10 +73,140 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-开发工具/docker/dockerfile构建镜像" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-前端/typescript/接口" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/docker/dockerfile%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T07:19:00.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/typescript/%E6%8E%A5%E5%8F%A3/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T07:26:04.000Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/typescript/%E6%8E%A5%E5%8F%A3/">ts 接口</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer"/>
+
+<h2 id="定义任意属性"><a href="#定义任意属性" class="headerlink" title="定义任意属性"></a>定义任意属性</h2><p>如果我们在定义接口的时候无法预先知道有哪些属性的时候,可以使用 <code>[propName:string]:any</code>,propName 名字是任意的</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    [<span class="attr">propName</span>: <span class="built_in">string</span>]: <span class="built_in">any</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p1 = &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;hello&quot;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">10</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="接口的继承"><a href="#接口的继承" class="headerlink" title="接口的继承"></a>接口的继承</h2><p>我们除了类可以继承 接口也可以继承 同样的使用 extends 关键字</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Speakable</span> &#123;</span><br><span class="line">    <span class="title function_">speak</span>(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">SpeakChinese</span> <span class="keyword">extends</span> <span class="title class_">Speakable</span> &#123;</span><br><span class="line">    <span class="title function_">speakChinese</span>(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">SpeakChinese</span> &#123;</span><br><span class="line">    <span class="title function_">speak</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Person&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">speakChinese</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;speakChinese&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数类型接口"><a href="#函数类型接口" class="headerlink" title="函数类型接口"></a>函数类型接口</h2><p>可以用接口来定义函数类型</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> discount &#123;</span><br><span class="line">    (<span class="attr">price</span>: <span class="built_in">number</span>): <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">cost</span>: discount = <span class="keyword">function</span> (<span class="params">price: <span class="built_in">number</span></span>): <span class="built_in">number</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> price * <span class="number">0.8</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="构造函数的类型接口"><a href="#构造函数的类型接口" class="headerlink" title="构造函数的类型接口"></a>构造函数的类型接口</h2><p>使用特殊的 new()关键字来描述类的构造函数类型</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"><span class="keyword">public</span> name: <span class="built_in">string</span></span>) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//不加new是修饰函数的,加new是修饰类的</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">WithNameClass</span> &#123;</span><br><span class="line">    <span class="keyword">new</span> (<span class="attr">name</span>: <span class="built_in">string</span>): <span class="title class_">Animal</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">createAnimal</span>(<span class="params">clazz: WithNameClass, name: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title function_">clazz</span>(name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> a = <span class="title function_">createAnimal</span>(<span class="title class_">Animal</span>, <span class="string">&quot;hello&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a.<span class="property">name</span>);</span><br></pre></td></tr></table></figure>
+
+<p>作者：Big shark@LX<br>链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7031787942691471396">https://juejin.cn/post/7031787942691471396</a><br>来源：稀土掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/typescript/%E6%8E%A5%E5%8F%A3/" data-id="clotsx2au001zuwjwb52eew8z" data-title="ts 接口" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-前端/typescript/泛型" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/typescript/%E6%B3%9B%E5%9E%8B/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T07:24:52.000Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/typescript/%E6%B3%9B%E5%9E%8B/">ts 泛型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer"/>
+
+<h2 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h2><p>泛型（Generics）是指在定义函数、接口或类的时候，不预先指定具体的类型，而在使用的时候再指定类型的一种特性</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> createArray&lt;T&gt;(<span class="attr">length</span>: <span class="built_in">number</span>, <span class="attr">value</span>: T): <span class="title class_">Array</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="attr">result</span>: T[] = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">        result[i] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createArray&lt;<span class="built_in">string</span>&gt;(<span class="number">3</span>, <span class="string">&quot;x&quot;</span>); <span class="comment">// [&#x27;x&#x27;, &#x27;x&#x27;, &#x27;x&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="多个类型参数"><a href="#多个类型参数" class="headerlink" title="多个类型参数"></a>多个类型参数</h2><p>如果我们需要有多个未知的类型占位 那么我们可以定义任何的字母来表示不同的类型参数</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> swap&lt;T, U&gt;(<span class="attr">tuple</span>: [T, U]): [U, T] &#123;</span><br><span class="line">    <span class="keyword">return</span> [tuple[<span class="number">1</span>], tuple[<span class="number">0</span>]];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">swap</span>([<span class="number">7</span>, <span class="string">&quot;seven&quot;</span>]); <span class="comment">// [&#x27;seven&#x27;, 7]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型约束"><a href="#泛型约束" class="headerlink" title="泛型约束"></a>泛型约束</h2><p>在函数内部使用泛型变量的时候，由于事先不知道它是哪种类型，所以不能随意的操作它的属性或方法。<br>这时，我们可以对泛型进行约束，只允许这个函数传入那些包含 length 属性的变量。这就是泛型约束</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Lengthwise</span> &#123;</span><br><span class="line">    <span class="attr">length</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> loggingIdentity&lt;T <span class="keyword">extends</span> <span class="title class_">Lengthwise</span>&gt;(<span class="attr">arg</span>: T): T &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arg.<span class="property">length</span>);</span><br><span class="line">    <span class="keyword">return</span> arg;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：我们在泛型里面使用 extends 关键字代表的是泛型约束 需要和类的继承区分开</p>
+</blockquote>
+<h2 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h2><p>定义接口的时候也可以指定泛型</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Cart</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="attr">list</span>: T[];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">cart</span>: <span class="title class_">Cart</span>&lt;&#123; <span class="attr">name</span>: <span class="built_in">string</span>; <span class="attr">price</span>: <span class="built_in">number</span> &#125;&gt; = &#123;</span><br><span class="line">    <span class="attr">list</span>: [&#123; <span class="attr">name</span>: <span class="string">&quot;hello&quot;</span>, <span class="attr">price</span>: <span class="number">10</span> &#125;],</span><br><span class="line">&#125;;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(cart.<span class="property">list</span>[<span class="number">0</span>].<span class="property">name</span>, cart.<span class="property">list</span>[<span class="number">0</span>].<span class="property">price</span>);</span><br></pre></td></tr></table></figure>
+
+<p>我们定义了接口传入的类型 T 之后返回的对象数组里面 T 就是当时传入的参数类型</p>
+<h2 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyArray</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">list</span>: T[] = [];</span><br><span class="line">    <span class="title function_">add</span>(<span class="params">value: T</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">list</span>.<span class="title function_">push</span>(value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">getMax</span>(): T &#123;</span><br><span class="line">        <span class="keyword">let</span> result = <span class="variable language_">this</span>.<span class="property">list</span>[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="variable language_">this</span>.<span class="property">list</span>.<span class="property">length</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">list</span>[i] &gt; result) &#123;</span><br><span class="line">                result = <span class="variable language_">this</span>.<span class="property">list</span>[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> arr = <span class="keyword">new</span> <span class="title class_">MyArray</span>();</span><br><span class="line">arr.<span class="title function_">add</span>(<span class="number">1</span>);</span><br><span class="line">arr.<span class="title function_">add</span>(<span class="number">2</span>);</span><br><span class="line">arr.<span class="title function_">add</span>(<span class="number">3</span>);</span><br><span class="line"><span class="keyword">let</span> ret = arr.<span class="title function_">getMax</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ret);</span><br></pre></td></tr></table></figure>
+
+<p>上诉例子我们实现了一个在数组里面添加数字并且获取最大值的泛型类</p>
+<h2 id="keyof"><a href="#keyof" class="headerlink" title="keyof"></a>keyof</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 泛型 keyof</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line">    <span class="attr">gender</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Teacher</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> info: Person</span>) &#123;&#125;</span><br><span class="line">    <span class="comment">// keyof 遍历 interface ----&gt; T extends keyof Person</span></span><br><span class="line">    <span class="comment">// 这时候key 的类型就是一个字符串类型 ----&gt; T = &#x27;name&#x27;</span></span><br><span class="line">    <span class="comment">// getInfo 返回值就是  Person[T]</span></span><br><span class="line">    getInfo&lt;T <span class="keyword">extends</span> keyof <span class="title class_">Person</span>&gt;(<span class="attr">key</span>: T): <span class="title class_">Person</span>[T] &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">info</span>[key];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> teacher = <span class="keyword">new</span> <span class="title class_">Teacher</span>(&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;张三&quot;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">11</span>,</span><br><span class="line">    <span class="attr">gender</span>: <span class="string">&quot;男&quot;</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> res = teacher.<span class="title function_">getInfo</span>(<span class="string">&quot;name&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res);</span><br></pre></td></tr></table></figure>
+
+<h2 id="默认泛型"><a href="#默认泛型" class="headerlink" title="默认泛型"></a>默认泛型</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">IGetRepeatArr</span> = &lt;T = <span class="built_in">number</span>&gt;<span class="function">(<span class="params">target:T</span>)=&gt;</span>T[]</span><br><span class="line"><span class="keyword">const</span> <span class="attr">getRepeatArray</span>:<span class="title class_">IGetRepeatArr</span> = <span class="function"><span class="params">target</span>=&gt;</span><span class="keyword">new</span> <span class="title class_">Array</span>(<span class="number">10</span>).<span class="title function_">fill</span>(target)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getRepeatArray</span>(<span class="string">&#x27;1&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<h2 id="联合-交叉类型"><a href="#联合-交叉类型" class="headerlink" title="联合&#x2F;交叉类型"></a>联合&#x2F;交叉类型</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bookList = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">author</span>:<span class="string">&quot;xiaoming&quot;</span>,</span><br><span class="line">        <span class="attr">type</span>:<span class="string">&quot;history&quot;</span>,</span><br><span class="line">        <span class="attr">range</span>:<span class="string">&quot;2001-2021&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">author</span>:<span class="string">&quot;xiaoli&quot;</span>,</span><br><span class="line">        <span class="attr">type</span>:<span class="string">&quot;story&quot;</span>,</span><br><span class="line">        <span class="attr">theme</span>:<span class="string">&quot;love&quot;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"><span class="comment">// 类型,author是公共的类型，后面的是两种之一</span></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">IBookList</span> = <span class="title class_">Array</span>&lt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">author</span>:<span class="built_in">string</span>;</span><br><span class="line">    &#125; &amp; (&#123;</span><br><span class="line">        <span class="attr">type</span>:<span class="string">&quot;history&quot;</span>;</span><br><span class="line">        <span class="attr">range</span>:<span class="string">&quot;string&quot;</span>;</span><br><span class="line">    &#125; | &#123;</span><br><span class="line">        <span class="attr">type</span>:<span class="string">&quot;story&quot;</span>;</span><br><span class="line">        <span class="attr">theme</span>:<span class="built_in">string</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/typescript/%E6%B3%9B%E5%9E%8B/" data-id="clotsx2av0022uwjw43bz1kun" data-title="ts 泛型" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-开发工具/docker/基础使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/docker/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T07:21:58.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
@@ -91,7 +221,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/docker/dockerfile%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/">dockerfile</a>
+      <a class="p-name article-title" href="/2023/11/11/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/docker/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">docker基础使用</a>
     </h1>
   
 
@@ -101,139 +231,34 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<h2 id="Dockerfile主要命令"><a href="#Dockerfile主要命令" class="headerlink" title="Dockerfile主要命令"></a>Dockerfile主要命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FROM # 指定使用哪个镜像源</span><br><span class="line">MAINTAINER # 指定维护者信息</span><br><span class="line">RUN # 运行指定命令</span><br><span class="line">ENV # ENV指令用来指定在执行docker run命令运行镜像时，自动设置的环境变量</span><br><span class="line">COPY # 　这条指令用来将本地的文件或文件夹复制到镜像的指定路径下，类似单向的docker cp</span><br><span class="line">EXPOSE # 这条指令用于标明这个镜像中应用将会侦听某个端口，并希望能将这个端口映射到主机的网络界面上。EXPOSE并不会让容器的端口访问到主机。要使其可访问，需要在docker run运行容器时通过-p来发布这些端口，或通过-P参数来发布EXPOSE导出的所有端口</span><br><span class="line">CMD # CMD提供了容器默认的执行命令。Dockerfile只允许使用一次CMD指令，所以如果有多个CMD指令时只有最后一个指令生效(后面的指令会覆盖之前的所有指令)。</span><br><span class="line">VOLUME # 该指令用来向基于镜像创建的容器添加数据卷</span><br><span class="line">USER # USER指定运行容器时的用户名或UID(默认为root)。</span><br><span class="line">ENTRYPOINT # 这个指定与CMD很相似，其相当于把镜像变成一个固定的命令工具，它一般是不可能通过docker run 来改变的</span><br></pre></td></tr></table></figure>
+<h2 id="运行容器并输出"><a href="#运行容器并输出" class="headerlink" title="运行容器并输出"></a>运行容器并输出</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run ubuntu:15.10 /bin/echo &quot;Hello world&quot;</span><br></pre></td></tr></table></figure>
 
-<h2 id="简单构建镜像"><a href="#简单构建镜像" class="headerlink" title="简单构建镜像"></a>简单构建镜像</h2><ol>
-<li><p>创建一个docker文件夹 用于存放Dockerfile <code>mkdir docker</code></p>
-</li>
-<li><p>创建Dockerfile文件 <code>touch Dockerfile</code></p>
-</li>
-<li><p>编写Dockerfile文件 </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FROM alpine:latest # 指定使用哪个镜像源</span><br><span class="line">CMD &quot;Dockerfile&quot; # 输出内容</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>构建镜像</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t Dockerfile_image .</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><p>-t ：指定要创建的镜像名</p>
-</li>
-<li><p>. ：Dockerfile文件所在的目录，可以指定Dockerfile的绝对路径</p>
-</li>
-</ul>
-<h2 id="手动构建一个nginx镜像"><a href="#手动构建一个nginx镜像" class="headerlink" title="手动构建一个nginx镜像"></a>手动构建一个nginx镜像</h2><ol>
-<li>创建一个Dockerfile<ul>
-<li>这里需要一个同级的index.html文件</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu</span><br><span class="line">MAINTAINER youwei</span><br><span class="line">RUN apt-get update</span><br><span class="line">RUN apt-get install -y nginx</span><br><span class="line">COPY index.html /var/www/html</span><br><span class="line">ENTRYPOINT [&quot;/usr/sbin/nginx&quot;,&quot;-g&quot;,&quot;daemon off;&quot;]</span><br><span class="line">EXPOSE 80</span><br></pre></td></tr></table></figure>
+<h2 id="运行交互式的容器"><a href="#运行交互式的容器" class="headerlink" title="运行交互式的容器"></a>运行交互式的容器</h2><p>会进入 linux 命令行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -i -t ubuntu:15.10 /bin/bash</span><br></pre></td></tr></table></figure>
 
-<ol start="2">
-<li>运行</li>
+<h2 id="退出容器"><a href="#退出容器" class="headerlink" title="退出容器"></a>退出容器</h2><ol>
+<li>容器中执行 exit</li>
+<li>CTRL+D</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 yw/dockerfile_image</span><br></pre></td></tr></table></figure>
+<h2 id="启动容器（后台模式）"><a href="#启动容器（后台模式）" class="headerlink" title="启动容器（后台模式）"></a>启动容器（后台模式）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd ubuntu:15.10 /bin/sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看所有容器"><a href="#查看所有容器" class="headerlink" title="查看所有容器"></a>查看所有容器</h2><p>CONTAINER ID: 容器 ID。</p>
+<p>IMAGE: 使用的镜像。</p>
+<p>COMMAND: 启动容器时运行的命令。</p>
+<p>CREATED: 容器的创建时间。</p>
+<p>STATUS: 容器状态。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+
+<h2 id="停止容器"><a href="#停止容器" class="headerlink" title="停止容器"></a>停止容器</h2><p>docker stop</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop xxx</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/docker/dockerfile%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/" data-id="clots5imy003jdwjwezig5wo2" data-title="dockerfile" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/docker/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" data-id="clotsx2bt006ouwjwdgzlfvie" data-title="docker基础使用" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-开发工具/docker/镜像加速" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/11/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/docker/%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T07:17:45.000Z" itemprop="datePublished">2023-11-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/docker/%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/">docker 镜像加速</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <meta name="referrer" content="no-referrer"/>
-
-<h2 id="在docker-engine里"><a href="#在docker-engine里" class="headerlink" title="在docker engine里"></a>在docker engine里</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;:[&quot;https://docker.mirrors.ustc.edu.cn/&quot;,&quot;https://reg-mirror.qiniu.com/&quot;],</span><br><span class="line">  &quot;builder&quot;: &#123;</span><br><span class="line">    &quot;features&quot;: &#123;</span><br><span class="line">      &quot;buildkit&quot;: true</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;gc&quot;: &#123;</span><br><span class="line">      &quot;defaultKeepStorage&quot;: &quot;20GB&quot;,</span><br><span class="line">      &quot;enabled&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;experimental&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/docker/%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/" data-id="clots5in2003xdwjwa1qs8lxg" data-title="docker 镜像加速" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-后端/go/标准库/http" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/go/%E6%A0%87%E5%87%86%E5%BA%93/http/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T07:15:32.000Z" itemprop="datePublished">2023-11-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%90%8E%E7%AB%AF/go/%E6%A0%87%E5%87%86%E5%BA%93/http/">go 标准库 http</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <meta name="referrer" content="no-referrer"/>
-
-<h2 id="get"><a href="#get" class="headerlink" title="get"></a>get</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;encoding/json&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;io&quot;</span></span><br><span class="line">	<span class="string">&quot;io/ioutil&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line">	<span class="string">&quot;net/url&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 普通请求</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testGet</span><span class="params">()</span></span> &#123;</span><br><span class="line">	url := <span class="string">&quot;https://aws.random.cat/meow&quot;</span></span><br><span class="line">	r, err := http.Get(url)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> r.Body.Close()</span><br><span class="line">	b, _ := ioutil.ReadAll(r.Body)</span><br><span class="line">	fmt.Println(<span class="type">string</span>(b))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 手动设置参数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testGet2</span><span class="params">()</span></span> &#123;</span><br><span class="line">	params := url.Values&#123;&#125;</span><br><span class="line">	Url, err := url.Parse(<span class="string">&quot;http://82.157.150.149:3000/search&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	params.Set(<span class="string">&quot;keywords&quot;</span>, <span class="string">&quot;海阔天空&quot;</span>)</span><br><span class="line">	<span class="comment">// 有中文 编码一下</span></span><br><span class="line">	Url.RawQuery = params.Encode()</span><br><span class="line">	urlPath := Url.String()</span><br><span class="line">	fmt.Println(urlPath)</span><br><span class="line">	resp, err := http.Get(urlPath)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> resp.Body.Close()</span><br><span class="line">	body, err := ioutil.ReadAll(resp.Body)</span><br><span class="line">	fmt.Println(<span class="type">string</span>(body))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解析json</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test3</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">type</span> Result <span class="keyword">struct</span> &#123;</span><br><span class="line">		Result <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125; <span class="string">`json:&quot;result&quot;`</span></span><br><span class="line">		Code   <span class="type">int</span>                    <span class="string">`json:&quot;code&quot;`</span></span><br><span class="line">	&#125;</span><br><span class="line">	resp, err := http.Get(<span class="string">&quot;http://82.157.150.149:3000/search?keywords=%E6%B5%B7%E9%98%94%E5%A4%A9%E7%A9%BA&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> resp.Body.Close()</span><br><span class="line">	body, err := ioutil.ReadAll(resp.Body)</span><br><span class="line">	<span class="keyword">var</span> result Result</span><br><span class="line">	_ = json.Unmarshal(body, &amp;result)</span><br><span class="line">	fmt.Println(result)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// httpServer</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">httpServer</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 请求处理函数</span></span><br><span class="line">	f := <span class="function"><span class="keyword">func</span><span class="params">(resp http.ResponseWriter, req *http.Request)</span></span> &#123;</span><br><span class="line">		io.WriteString(resp, <span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 响应路径 前面需要加 /</span></span><br><span class="line">	http.HandleFunc(<span class="string">&quot;/hello&quot;</span>, f)</span><br><span class="line">	<span class="comment">// 设置监听端口，并监听，前面需要有冒号 :</span></span><br><span class="line">	err := http.ListenAndServe(<span class="string">&quot;:8080&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//testGet()</span></span><br><span class="line">	<span class="comment">//testGet2()</span></span><br><span class="line">	<span class="comment">//test3()</span></span><br><span class="line">	httpServer()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%90%8E%E7%AB%AF/go/%E6%A0%87%E5%87%86%E5%BA%93/http/" data-id="clots5io0008bdwjwc2mh9pa6" data-title="go 标准库 http" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/" rel="tag">go</a></li></ul>
 
     </footer>
   </div>
@@ -247,7 +272,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/15/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="extend next" rel="next" href="/page/17/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/15/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/17/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -258,7 +283,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
     </div>
   </div>
 
@@ -268,7 +293,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySql/" rel="tag">MySql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
     </div>
   </div>
 
@@ -278,7 +303,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/electron/" style="font-size: 12.22px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 18.89px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 16.67px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 14.44px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 15.56px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 11.11px;">vite</a> <a href="/tags/vue/" style="font-size: 17.78px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+      <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 10px;">MySql</a> <a href="/tags/docker/" style="font-size: 14px;">docker</a> <a href="/tags/electron/" style="font-size: 13px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 19px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 17px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 16px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 12px;">vite</a> <a href="/tags/vue/" style="font-size: 18px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
     </div>
   </div>
 
@@ -300,23 +325,23 @@
       <ul>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/">electron 输出中文</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E5%A4%8D%E5%88%B6%E6%96%87%E6%9C%AC/">vue 复制文本</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/">electron 常用第三方库</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E6%89%93%E5%8D%B0/">vue 打印</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">electron 基础使用</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%9F%BA%E7%A1%80/">mysql基础</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">electron 基础概念</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/Linux%E6%93%8D%E4%BD%9CMongoDB/">Linux操作MongoDB</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/key%E7%9A%84%E4%BD%9C%E7%94%A8/">vue key的作用</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E7%A1%80/">MongoDB基础</a>
           </li>
         
       </ul>

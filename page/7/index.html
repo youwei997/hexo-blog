@@ -73,10 +73,123 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-前端/nuxt/error" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-性能优化/项目" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/error/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T08:03:31.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E9%A1%B9%E7%9B%AE/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:09:14.727Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E9%A1%B9%E7%9B%AE/">项目性能优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>以下插件都是基于vite</p>
+</blockquote>
+<ul>
+<li><p>加载优化：通过懒加载可以直接减少http请求，减少不需要在首屏展示的非关键信息，占用了页面加载时间</p>
+</li>
+<li><p>构建用户：结合主流的构建工具webpack，vite，可以合并资源，压缩资源等减少http请求数量及数据包体积</p>
+</li>
+<li><p>缓存优化：避免重复请求</p>
+</li>
+<li><p>渲染优化：是否存在不必要的重绘和回流</p>
+</li>
+</ul>
+<h2 id="webpack-vite"><a href="#webpack-vite" class="headerlink" title="webpack&#x2F;vite"></a>webpack&#x2F;vite</h2><ol>
+<li>去除生产环境的日志打印</li>
+<li>第三方库按需加载</li>
+<li>图片懒加载</li>
+<li>图片压缩&#x2F;降低分辨率</li>
+<li>资源合并：将请求的多条资源合并成少量的请求，从而减少http请求数量</li>
+<li>启用gzip</li>
+<li>减少 ES6 转为 ES5 的冗余代码</li>
+</ol>
+<h2 id="代码（vue）"><a href="#代码（vue）" class="headerlink" title="代码（vue）"></a>代码（vue）</h2><ol>
+<li>路由懒加载</li>
+<li>图片使用精灵图</li>
+<li>v-for避免使用v-if</li>
+<li>v-if 和 v-show 区分使用场景</li>
+<li>v-for 遍历必须为 item 添加 key</li>
+<li>事件的销毁</li>
+</ol>
+<h2 id="加载优化"><a href="#加载优化" class="headerlink" title="加载优化"></a>加载优化</h2><h3 id="首屏优化"><a href="#首屏优化" class="headerlink" title="首屏优化"></a>首屏优化</h3><p>浏览器显示第一屏页面所消耗的时间。以iPhone6为例 375 * 667，667后的页面就需要使用懒加载。等用户滑到对应的位置时，在渲染页面，或提前渲染</p>
+<ol>
+<li>懒加载：针对不是首屏的资源进行懒加载。使用懒加载插件：<ol>
+<li>vue2：<code>vue-lazyload</code></li>
+<li>vue3：**<a target="_blank" rel="noopener" href="https://github.com/ustbhuangyi/vue3-lazy">vue3-lazy</a>**</li>
+</ol>
+</li>
+</ol>
+<h2 id="构建优化"><a href="#构建优化" class="headerlink" title="构建优化"></a>构建优化</h2><ol>
+<li>资源压缩：体积变小，所传输的时间响应就会变少</li>
+<li>资源合并：将请求的多条资源合并成少量的请求，从而减少http请求数量</li>
+<li>启用gzip：<ol>
+<li>vite插件：<code>vite-plugin-compression</code></li>
+</ol>
+</li>
+<li>去除console，debug，comments注释等。<ol>
+<li>具体看知乎文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/440890930?utm_id=0">https://zhuanlan.zhihu.com/p/440890930?utm_id=0</a></li>
+</ol>
+</li>
+<li>图片压缩<ol>
+<li>降低清晰度：<code>vite-plugin-imagemin</code></li>
+</ol>
+</li>
+<li>按需引入组件库<ol>
+<li>按需引入：<code>unplugin-vue-components</code></li>
+<li>自动导入：<code>unplugin-auto-import</code></li>
+</ol>
+</li>
+</ol>
+<h2 id="渲染性能优化"><a href="#渲染性能优化" class="headerlink" title="渲染性能优化"></a>渲染性能优化</h2><h3 id="减少重排操作"><a href="#减少重排操作" class="headerlink" title="减少重排操作"></a>减少重排操作</h3><ol>
+<li>dom元素几何属性的修改，如width，height，padding，margin，left，top等</li>
+<li>修改dom树的结构，增加、删除、移动dom节点</li>
+<li>获取特定的属性值，如offsetTop，scrollTop，clientWidth，clientHeight等</li>
+</ol>
+<h3 id="避免样式频繁修改"><a href="#避免样式频繁修改" class="headerlink" title="避免样式频繁修改"></a>避免样式频繁修改</h3><ol>
+<li>统一修改样式</li>
+</ol>
+<h2 id="节流-防抖"><a href="#节流-防抖" class="headerlink" title="节流&amp;防抖"></a>节流&amp;防抖</h2><h3 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h3><p>就是将短时间的函数调用以一个固定的频率间隔执行</p>
+<h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><p>抖动现象本质就是指短时间内高频次触发，因此，可以把短时间内的连续多个调用合并成一次，也就是只触发一次回调函数</p>
+<h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><p>根据浏览器的lighthouse，network，Performance 查看浏览器资源加载情况，优化对应的地方</p>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>略</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E9%A1%B9%E7%9B%AE/" data-id="clotsx2a80005uwjwhjgz6pzd" data-title="项目性能优化" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-前端/nuxt/连接MongoDB" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/%E8%BF%9E%E6%8E%A5MongoDB/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:06:24.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
@@ -91,7 +204,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/error/">nuxt error</a>
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/%E8%BF%9E%E6%8E%A5MongoDB/">nuxt 连接MongoDB</a>
     </h1>
   
 
@@ -101,16 +214,24 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<h2 id="404-页面"><a href="#404-页面" class="headerlink" title="404 页面"></a>404 页面</h2><ol>
-<li>创建 <code>~/error.vue</code></li>
+<h2 id="mongodb"><a href="#mongodb" class="headerlink" title="mongodb"></a>mongodb</h2><ol>
+<li>安装mongoose</li>
 </ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;handleError&quot;</span>&gt;</span>Clear errors<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> props = <span class="title function_">defineProps</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">error</span>: <span class="title class_">Object</span>,</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> <span class="title function_">handleError</span> = (<span class="params"></span>) =&gt; <span class="title function_">clearError</span>(&#123; <span class="attr">redirect</span>: <span class="string">&quot;/&quot;</span> &#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i mongoose</span><br></pre></td></tr></table></figure>
 
+<ol start="2">
+<li>创建连接mongodb服务plugin</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// /server/db/index.ts</span></span><br><span class="line"><span class="keyword">import</span> mongoose <span class="keyword">from</span> <span class="string">&quot;mongoose&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">await</span> mongoose.<span class="title function_">connect</span>(<span class="string">&quot;mongodb://localhost:27017/test&quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;数据库连接建立。&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;数据库连接失败。&quot;</span>, err);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<ol start="3">
+<li>使用 <code>nuxt.config</code> 引入插件</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// nuxt.config.ts</span></span><br><span class="line"><span class="comment">// https://v3.nuxtjs.org/api/configuration/nuxt.config</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineNuxtConfig</span>(&#123;</span><br><span class="line">    <span class="attr">typescript</span>: &#123;</span><br><span class="line">        <span class="attr">shim</span>: <span class="literal">false</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">nitro</span>: &#123;</span><br><span class="line">        <span class="attr">plugins</span>: [<span class="string">&quot;~/server/db/index.ts&quot;</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/error/" data-id="clots5in7004ldwjw6sdubkq8" data-title="nuxt error" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/%E8%BF%9E%E6%8E%A5MongoDB/" data-id="clotsx2as001ouwjw1d2agoel" data-title="nuxt 连接MongoDB" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -124,10 +245,10 @@
 
 
   
-    <article id="post-前端/nuxt/layout" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-前端/nuxt/数据请求" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/layout/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T08:03:05.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/%E6%95%B0%E6%8D%AE%E8%AF%B7%E6%B1%82/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:05:47.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
@@ -142,7 +263,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/layout/">nuxt layout</a>
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/%E6%95%B0%E6%8D%AE%E8%AF%B7%E6%B1%82/">nuxt 数据请求</a>
     </h1>
   
 
@@ -152,77 +273,18 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
-<li>创建 layouts 文件夹</li>
-<li>创建 default.vue 和 custom.vue</li>
-</ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// default.vue</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        使用layout布局，在app.vue中使用，所有页面都会被包含</span><br><span class="line">        <span class="tag">&lt;<span class="name">slot</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="api"><a href="#api" class="headerlink" title="api"></a>api</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server/api/count.ts</span></span><br><span class="line"><span class="keyword">let</span> counter = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; &#123;</span><br><span class="line">    counter++;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(counter);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// custom.vue</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>custom layout<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">slot</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="useFetch"><a href="#useFetch" class="headerlink" title="useFetch"></a>useFetch</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> &#123; <span class="attr">data</span>: count &#125; = <span class="keyword">await</span> <span class="title function_">useFetch</span>(<span class="string">&quot;/api/count&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Page visits: &#123;&#123; count &#125;&#125;<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// app.vue</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;NuxtLayout :name=&quot;layout&quot;&gt;</span></span><br><span class="line"><span class="comment">        &lt;NuxtPage /&gt;</span></span><br><span class="line"><span class="comment">    &lt;/NuxtLayout&gt; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">NuxtLayout</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">NuxtPage</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">NuxtLayout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// You might choose this based on an API call or logged-in status</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> layout = <span class="string">&quot;default&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="动态更改布局"><a href="#动态更改布局" class="headerlink" title="动态更改布局"></a>动态更改布局</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;enableCustomLayout&quot;</span>&gt;</span>Update layout<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">enableCustomLayout</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">setPageLayout</span>(<span class="string">&quot;custom&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">definePageMeta</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">layout</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/layout/" data-id="clots5in9004pdwjwhdl27qer" data-title="nuxt layout" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-前端/nuxt/middleware" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/middleware/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T08:02:39.000Z" itemprop="datePublished">2023-11-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/middleware/">nuxt middleware</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <meta name="referrer" content="no-referrer"/>
-
-<h2 id="路由中间件"><a href="#路由中间件" class="headerlink" title="路由中间件"></a>路由中间件</h2><ul>
-<li>auth.ts</li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineNuxtRouteMiddleware</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;auth&quot;</span>, to);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// if (to.params.id === &quot;1&quot;) &#123;</span></span><br><span class="line">    <span class="comment">//     return abortNavigation();</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// return navigateTo(&quot;/&quot;);</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h2 id="全局中间件"><a href="#全局中间件" class="headerlink" title="全局中间件"></a>全局中间件</h2><ul>
-<li>auth.global.ts</li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineNuxtRouteMiddleware</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;auth-global&quot;</span>, to);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// if (to.params.id === &quot;1&quot;) &#123;</span></span><br><span class="line">    <span class="comment">//     return abortNavigation();</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// return navigateTo(&quot;/&quot;);</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="useAsyncData"><a href="#useAsyncData" class="headerlink" title="useAsyncData"></a>useAsyncData</h2><p>useFetch 您可能会问自己：和有什么区别 useAsyncData？<br>简而言之，useFetch 接收一个 URL 并获取该数据，而 useAsyncData 可能有更复杂的逻辑。useFetch(url)几乎等同于 useAsyncData(url, () &#x3D;&gt; $fetch(url))- 它是最常见用例的开发人员体验糖。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> &#123; data &#125; = <span class="keyword">await</span> <span class="title function_">useAsyncData</span>(<span class="string">&quot;count&quot;</span>, <span class="function">() =&gt;</span> $fetch(<span class="string">&quot;/api/count&quot;</span>));</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Page visits: &#123;&#123; data &#125;&#125;<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/middleware/" data-id="clots5in9004rdwjw04vxfv55" data-title="nuxt middleware" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/%E6%95%B0%E6%8D%AE%E8%AF%B7%E6%B1%82/" data-id="clotsx2ar001kuwjw04ez1u6t" data-title="nuxt 数据请求" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -240,7 +302,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/6/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="extend next" rel="next" href="/page/8/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/6/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/8/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -251,7 +313,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
     </div>
   </div>
 
@@ -261,7 +323,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySql/" rel="tag">MySql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
     </div>
   </div>
 
@@ -271,7 +333,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/electron/" style="font-size: 12.22px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 18.89px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 16.67px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 14.44px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 15.56px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 11.11px;">vite</a> <a href="/tags/vue/" style="font-size: 17.78px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+      <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 10px;">MySql</a> <a href="/tags/docker/" style="font-size: 14px;">docker</a> <a href="/tags/electron/" style="font-size: 13px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 19px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 17px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 16px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 12px;">vite</a> <a href="/tags/vue/" style="font-size: 18px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
     </div>
   </div>
 
@@ -293,23 +355,23 @@
       <ul>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/">electron 输出中文</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E5%A4%8D%E5%88%B6%E6%96%87%E6%9C%AC/">vue 复制文本</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/">electron 常用第三方库</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E6%89%93%E5%8D%B0/">vue 打印</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">electron 基础使用</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%9F%BA%E7%A1%80/">mysql基础</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">electron 基础概念</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/Linux%E6%93%8D%E4%BD%9CMongoDB/">Linux操作MongoDB</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/key%E7%9A%84%E4%BD%9C%E7%94%A8/">vue key的作用</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E7%A1%80/">MongoDB基础</a>
           </li>
         
       </ul>

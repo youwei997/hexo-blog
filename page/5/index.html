@@ -73,10 +73,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-前端/vue/vue-router" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-前端/vue/响应式数据的判断" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/vue-router/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T08:11:19.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%93%8D%E5%BA%94%E5%BC%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%A4%E6%96%AD/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:17:10.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
@@ -91,7 +91,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/vue-router/">vue vue-router</a>
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%93%8D%E5%BA%94%E5%BC%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%A4%E6%96%AD/">vue 响应式数据的判断</a>
     </h1>
   
 
@@ -101,26 +101,19 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<h2 id="全局前置守卫-beforeEach"><a href="#全局前置守卫-beforeEach" class="headerlink" title="全局前置守卫 beforeEach"></a>全局前置守卫 beforeEach</h2><ul>
-<li>每一次跳转路由之前调用</li>
+<ul>
+<li><strong>isRef</strong>: 检查一个值是否为一个 <code>ref</code> 对象</li>
+<li><strong>isReactive</strong>: 检查一个对象是否是由 <code>reactive</code> 创建的响应式代理</li>
+<li><strong>isReadonly</strong>: 检查一个对象是否是由 <code>readonly</code> 创建的只读代理</li>
+<li><strong>isProxy</strong>: 检查一个对象是否是由 <code>reactive</code> 或者 <code>readonly</code> 方法创建的代理。</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123; ... &#125;)</span><br><span class="line"></span><br><span class="line">router.<span class="title function_">beforeEach</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setup</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> state1 = <span class="title function_">ref</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;isref:&#x27;</span>, <span class="title function_">isRef</span>(state1));<span class="comment">//isref: true</span></span><br><span class="line">    <span class="keyword">const</span> state2 = <span class="title function_">reactive</span>(&#123;&#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;isReactive:&#x27;</span>, <span class="title function_">isReactive</span>(state2));<span class="comment">//isReactive: true</span></span><br><span class="line">    <span class="keyword">const</span> state3 = <span class="title function_">readonly</span>(&#123;&#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;isReadonly:&#x27;</span>, <span class="title function_">isReadonly</span>(state3));<span class="comment">//isReadonly: true</span></span><br><span class="line">    <span class="keyword">const</span> state4 = <span class="title function_">reactive</span>(&#123;&#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;isProxy:&#x27;</span>, <span class="title function_">isProxy</span>(state2));<span class="comment">//isProxy: true</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;isProxy:&#x27;</span>, <span class="title function_">isProxy</span>(state4));<span class="comment">//isProxy: true</span></span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
 
-<h2 id="全局解析守卫-beforeResolve"><a href="#全局解析守卫-beforeResolve" class="headerlink" title="全局解析守卫 beforeResolve"></a>全局解析守卫 beforeResolve</h2><h2 id="全局后置钩子-afterEach"><a href="#全局后置钩子-afterEach" class="headerlink" title="全局后置钩子 afterEach"></a>全局后置钩子 afterEach</h2><ul>
-<li>每一次跳转路由之后调用</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">router.<span class="title function_">afterEach</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<h2 id="路由独享的守卫-beforeEnter"><a href="#路由独享的守卫-beforeEnter" class="headerlink" title="路由独享的守卫 beforeEnter"></a>路由独享的守卫 beforeEnter</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;</span><br><span class="line">  <span class="attr">routes</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">path</span>: <span class="string">&#x27;/foo&#x27;</span>,</span><br><span class="line">      <span class="attr">component</span>: <span class="title class_">Foo</span>,</span><br><span class="line">      <span class="attr">beforeEnter</span>: <span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="组件内的守卫"><a href="#组件内的守卫" class="headerlink" title="组件内的守卫"></a>组件内的守卫</h2><ol>
-<li>通过行为跳转触发</li>
-</ol>
-<h3 id="beforeRouteEnter"><a href="#beforeRouteEnter" class="headerlink" title="beforeRouteEnter"></a>beforeRouteEnter</h3><h3 id="beforeRouteUpdate"><a href="#beforeRouteUpdate" class="headerlink" title="beforeRouteUpdate"></a>beforeRouteUpdate</h3><h3 id="beforeRouteLeave"><a href="#beforeRouteLeave" class="headerlink" title="beforeRouteLeave"></a>beforeRouteLeave</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Foo</span> = &#123;</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`...`</span>,</span><br><span class="line">  <span class="title function_">beforeRouteEnter</span>(<span class="params">to, <span class="keyword">from</span>, next</span>) &#123;</span><br><span class="line">    <span class="comment">// 在渲染该组件的对应路由被 confirm 前调用</span></span><br><span class="line">    <span class="comment">// 不！能！获取组件实例 `this`</span></span><br><span class="line">    <span class="comment">// 因为当守卫执行前，组件实例还没被创建</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">beforeRouteUpdate</span>(<span class="params">to, <span class="keyword">from</span>, next</span>) &#123;</span><br><span class="line">    <span class="comment">// 在当前路由改变，但是该组件被复用时调用</span></span><br><span class="line">    <span class="comment">// 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，</span></span><br><span class="line">    <span class="comment">// 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。</span></span><br><span class="line">    <span class="comment">// 可以访问组件实例 `this`</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">beforeRouteLeave</span>(<span class="params">to, <span class="keyword">from</span>, next</span>) &#123;</span><br><span class="line">    <span class="comment">// 导航离开该组件的对应路由时调用</span></span><br><span class="line">    <span class="comment">// 可以访问组件实例 `this`</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/vue/vue-router/" data-id="clots5inq006vdwjw2dm44ai9" data-title="vue vue-router" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%93%8D%E5%BA%94%E5%BC%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%A4%E6%96%AD/" data-id="clotsx2b5003cuwjweum40egx" data-title="vue 响应式数据的判断" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -134,123 +127,10 @@
 
 
   
-    <article id="post-性能优化/项目" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-前端/vue/proxy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E9%A1%B9%E7%9B%AE/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T08:09:14.727Z" itemprop="datePublished">2023-11-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E9%A1%B9%E7%9B%AE/">项目性能优化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>以下插件都是基于vite</p>
-</blockquote>
-<ul>
-<li><p>加载优化：通过懒加载可以直接减少http请求，减少不需要在首屏展示的非关键信息，占用了页面加载时间</p>
-</li>
-<li><p>构建用户：结合主流的构建工具webpack，vite，可以合并资源，压缩资源等减少http请求数量及数据包体积</p>
-</li>
-<li><p>缓存优化：避免重复请求</p>
-</li>
-<li><p>渲染优化：是否存在不必要的重绘和回流</p>
-</li>
-</ul>
-<h2 id="webpack-vite"><a href="#webpack-vite" class="headerlink" title="webpack&#x2F;vite"></a>webpack&#x2F;vite</h2><ol>
-<li>去除生产环境的日志打印</li>
-<li>第三方库按需加载</li>
-<li>图片懒加载</li>
-<li>图片压缩&#x2F;降低分辨率</li>
-<li>资源合并：将请求的多条资源合并成少量的请求，从而减少http请求数量</li>
-<li>启用gzip</li>
-<li>减少 ES6 转为 ES5 的冗余代码</li>
-</ol>
-<h2 id="代码（vue）"><a href="#代码（vue）" class="headerlink" title="代码（vue）"></a>代码（vue）</h2><ol>
-<li>路由懒加载</li>
-<li>图片使用精灵图</li>
-<li>v-for避免使用v-if</li>
-<li>v-if 和 v-show 区分使用场景</li>
-<li>v-for 遍历必须为 item 添加 key</li>
-<li>事件的销毁</li>
-</ol>
-<h2 id="加载优化"><a href="#加载优化" class="headerlink" title="加载优化"></a>加载优化</h2><h3 id="首屏优化"><a href="#首屏优化" class="headerlink" title="首屏优化"></a>首屏优化</h3><p>浏览器显示第一屏页面所消耗的时间。以iPhone6为例 375 * 667，667后的页面就需要使用懒加载。等用户滑到对应的位置时，在渲染页面，或提前渲染</p>
-<ol>
-<li>懒加载：针对不是首屏的资源进行懒加载。使用懒加载插件：<ol>
-<li>vue2：<code>vue-lazyload</code></li>
-<li>vue3：**<a target="_blank" rel="noopener" href="https://github.com/ustbhuangyi/vue3-lazy">vue3-lazy</a>**</li>
-</ol>
-</li>
-</ol>
-<h2 id="构建优化"><a href="#构建优化" class="headerlink" title="构建优化"></a>构建优化</h2><ol>
-<li>资源压缩：体积变小，所传输的时间响应就会变少</li>
-<li>资源合并：将请求的多条资源合并成少量的请求，从而减少http请求数量</li>
-<li>启用gzip：<ol>
-<li>vite插件：<code>vite-plugin-compression</code></li>
-</ol>
-</li>
-<li>去除console，debug，comments注释等。<ol>
-<li>具体看知乎文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/440890930?utm_id=0">https://zhuanlan.zhihu.com/p/440890930?utm_id=0</a></li>
-</ol>
-</li>
-<li>图片压缩<ol>
-<li>降低清晰度：<code>vite-plugin-imagemin</code></li>
-</ol>
-</li>
-<li>按需引入组件库<ol>
-<li>按需引入：<code>unplugin-vue-components</code></li>
-<li>自动导入：<code>unplugin-auto-import</code></li>
-</ol>
-</li>
-</ol>
-<h2 id="渲染性能优化"><a href="#渲染性能优化" class="headerlink" title="渲染性能优化"></a>渲染性能优化</h2><h3 id="减少重排操作"><a href="#减少重排操作" class="headerlink" title="减少重排操作"></a>减少重排操作</h3><ol>
-<li>dom元素几何属性的修改，如width，height，padding，margin，left，top等</li>
-<li>修改dom树的结构，增加、删除、移动dom节点</li>
-<li>获取特定的属性值，如offsetTop，scrollTop，clientWidth，clientHeight等</li>
-</ol>
-<h3 id="避免样式频繁修改"><a href="#避免样式频繁修改" class="headerlink" title="避免样式频繁修改"></a>避免样式频繁修改</h3><ol>
-<li>统一修改样式</li>
-</ol>
-<h2 id="节流-防抖"><a href="#节流-防抖" class="headerlink" title="节流&amp;防抖"></a>节流&amp;防抖</h2><h3 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h3><p>就是将短时间的函数调用以一个固定的频率间隔执行</p>
-<h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><p>抖动现象本质就是指短时间内高频次触发，因此，可以把短时间内的连续多个调用合并成一次，也就是只触发一次回调函数</p>
-<h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><p>根据浏览器的lighthouse，network，Performance 查看浏览器资源加载情况，优化对应的地方</p>
-<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>略</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E9%A1%B9%E7%9B%AE/" data-id="clots5im00007dwjwh47q3t36" data-title="项目性能优化" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-前端/nuxt/连接MongoDB" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/%E8%BF%9E%E6%8E%A5MongoDB/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T08:06:24.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/proxy/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:15:23.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
@@ -265,7 +145,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/%E8%BF%9E%E6%8E%A5MongoDB/">nuxt 连接MongoDB</a>
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/proxy/">vue proxy</a>
     </h1>
   
 
@@ -275,28 +155,73 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<h2 id="mongodb"><a href="#mongodb" class="headerlink" title="mongodb"></a>mongodb</h2><ol>
-<li>安装mongoose</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i mongoose</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> person = &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">name</span>: <span class="string">&#x27;John&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">age</span>:<span class="number">12</span>,</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> p = <span class="keyword">new</span> <span class="title class_">Proxy</span>(person,&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">get</span>(<span class="params">target,propName</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;读取p的&#x27;</span>+propName+<span class="string">&#x27;属性&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> target[propName]</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">set</span>(<span class="params">target,propName,value</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">             <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;修改或新增p的&#x27;</span>+propName+<span class="string">&#x27;属性&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">             target[propName] = value</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">deleteProperty</span>(<span class="params">target,propName</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;删除p的&#x27;</span>+propName+<span class="string">&#x27;属性&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="keyword">delete</span> target[propName]</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<ol start="2">
-<li>创建连接mongodb服务plugin</li>
-</ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// /server/db/index.ts</span></span><br><span class="line"><span class="keyword">import</span> mongoose <span class="keyword">from</span> <span class="string">&quot;mongoose&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">await</span> mongoose.<span class="title function_">connect</span>(<span class="string">&quot;mongodb://localhost:27017/test&quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;数据库连接建立。&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;数据库连接失败。&quot;</span>, err);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<ol start="3">
-<li>使用 <code>nuxt.config</code> 引入插件</li>
-</ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// nuxt.config.ts</span></span><br><span class="line"><span class="comment">// https://v3.nuxtjs.org/api/configuration/nuxt.config</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineNuxtConfig</span>(&#123;</span><br><span class="line">    <span class="attr">typescript</span>: &#123;</span><br><span class="line">        <span class="attr">shim</span>: <span class="literal">false</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">nitro</span>: &#123;</span><br><span class="line">        <span class="attr">plugins</span>: [<span class="string">&quot;~/server/db/index.ts&quot;</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/%E8%BF%9E%E6%8E%A5MongoDB/" data-id="clots5inf005gdwjwbp4c7utc" data-title="nuxt 连接MongoDB" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/vue/proxy/" data-id="clotsx2b1002xuwjw0i2l9jj2" data-title="vue proxy" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-前端/vue/setup语法糖" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/setup%E8%AF%AD%E6%B3%95%E7%B3%96/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:14:56.000Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/setup%E8%AF%AD%E6%B3%95%E7%B3%96/">vue setup script语法糖</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer"/>
+
+<p>setup script<code>语法糖提供了三个新的</code>API<code>来供我们使用：</code>defineProps<code>、</code>defineEmit<code>和</code>useContext</p>
+<ul>
+<li><strong>defineProps</strong> 用来接收父组件传来的值<code>props</code>。</li>
+<li><strong>defineEmit</strong>   用来声明触发的事件表。</li>
+<li><strong>useContext</strong>  用来获取组件上下文<code>context</code>。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 父组件 --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h2&gt;我是父组件！&lt;/h2&gt;</span><br><span class="line">    &lt;Child msg=&quot;hello&quot;</span><br><span class="line">           @child-click=&quot;handleClick&quot; /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup&gt;</span><br><span class="line">import Child from &#x27;./components/Child.vue&#x27;</span><br><span class="line"></span><br><span class="line">const handleClick = (ctx) =&gt; &#123;</span><br><span class="line">  console.log(ctx)</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;span @click=&quot;sonClick&quot;&gt;msg: &#123;&#123; props.msg &#125;&#125;&lt;/span&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; useContext, defineProps, defineEmit &#125; from &#x27;vue&#x27;</span><br><span class="line"></span><br><span class="line">const emit = defineEmit([&#x27;child-click&#x27;])</span><br><span class="line">const ctx = useContext()</span><br><span class="line">const props = defineProps(&#123;</span><br><span class="line">  msg: String,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">const sonClick = () =&gt; &#123;</span><br><span class="line">  emit(&#x27;child-click&#x27;, ctx)</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/vue/setup%E8%AF%AD%E6%B3%95%E7%B3%96/" data-id="clotsx2b20030uwjw17g98428" data-title="vue setup script语法糖" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
 
     </footer>
   </div>
@@ -310,7 +235,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="extend next" rel="next" href="/page/6/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/6/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -321,7 +246,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
     </div>
   </div>
 
@@ -331,7 +256,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySql/" rel="tag">MySql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
     </div>
   </div>
 
@@ -341,7 +266,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/electron/" style="font-size: 12.22px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 18.89px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 16.67px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 14.44px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 15.56px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 11.11px;">vite</a> <a href="/tags/vue/" style="font-size: 17.78px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+      <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 10px;">MySql</a> <a href="/tags/docker/" style="font-size: 14px;">docker</a> <a href="/tags/electron/" style="font-size: 13px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 19px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 17px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 16px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 12px;">vite</a> <a href="/tags/vue/" style="font-size: 18px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
     </div>
   </div>
 
@@ -363,23 +288,23 @@
       <ul>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/">electron 输出中文</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E5%A4%8D%E5%88%B6%E6%96%87%E6%9C%AC/">vue 复制文本</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/">electron 常用第三方库</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E6%89%93%E5%8D%B0/">vue 打印</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">electron 基础使用</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%9F%BA%E7%A1%80/">mysql基础</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">electron 基础概念</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/Linux%E6%93%8D%E4%BD%9CMongoDB/">Linux操作MongoDB</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/key%E7%9A%84%E4%BD%9C%E7%94%A8/">vue key的作用</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E7%A1%80/">MongoDB基础</a>
           </li>
         
       </ul>

@@ -73,10 +73,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-前端/electron/输出中文" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-前端/vue/工具库/复制文本" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T08:22:26.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E5%A4%8D%E5%88%B6%E6%96%87%E6%9C%AC/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:39:03.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
@@ -91,7 +91,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/">electron 输出中文</a>
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E5%A4%8D%E5%88%B6%E6%96%87%E6%9C%AC/">vue 复制文本</a>
     </h1>
   
 
@@ -101,18 +101,28 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<p>我们可能在Windows的控制台会出现中文<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E4%B9%B1%E7%A0%81&spm=1001.2101.3001.7020">乱码</a>的问题，当我们在Windows的控制台下输入chcp,可以查看到当前字符编码，常见的gb2312的值是936，utf8的值是65001。这种情况下只要对package.json进行设置就能解决。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chcp <span class="number">65001</span> &amp;&amp; nodemon --watch main.js --exec electron .</span><br></pre></td></tr></table></figure>
+<h3 id="js"><a href="#js" class="headerlink" title="js"></a>js</h3><ul>
+<li><code>execCommand </code> mdn已弃用</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">methods</span>: &#123;</span><br><span class="line">      <span class="comment">///定义点击复制的功能</span></span><br><span class="line">      <span class="title function_">copyUrl</span>(<span class="params">url</span>)&#123;</span><br><span class="line">        <span class="comment">//创建一个 Input标签 </span></span><br><span class="line">        <span class="keyword">let</span> oInput = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;input&#x27;</span>);</span><br><span class="line">        oInput.<span class="property">value</span> = url;</span><br><span class="line">        <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(oInput);</span><br><span class="line">        oInput.<span class="title function_">select</span>(); <span class="comment">// 选择对象;</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(oInput.<span class="property">value</span>)</span><br><span class="line">        <span class="comment">// 执行浏览器复制命令</span></span><br><span class="line">        <span class="comment">/// 复制命令会将当前选中的内容复制到剪切板中</span></span><br><span class="line">        <span class="comment">/// 如这里构建的 Input标签 </span></span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">execCommand</span>(<span class="string">&quot;Copy&quot;</span>); </span><br><span class="line">        <span class="variable language_">this</span>.$message(&#123;</span><br><span class="line">          <span class="attr">message</span>: <span class="string">&#x27;复制成功&#x27;</span>,</span><br><span class="line">          <span class="attr">type</span>: <span class="string">&#x27;success&#x27;</span></span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">///复制成功后再将构造的标签 移除</span></span><br><span class="line">        oInput.<span class="title function_">remove</span>()</span><br><span class="line">      &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<ul>
+<li><code>navigator.clipboard.writeText</code> 推荐</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">navigator.<span class="property">clipboard</span></span><br><span class="line">    .<span class="title function_">writeText</span>(text)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title class_">ElMessage</span>.<span class="title function_">success</span>(<span class="string">&#x27;复制成功&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="title class_">ElMessage</span>.<span class="title function_">success</span>(<span class="string">&#x27;复制失败&#x27;</span>)</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="第三方组件"><a href="#第三方组件" class="headerlink" title="第三方组件"></a>第三方组件</h3><ul>
+<li>clipboard js</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/" data-id="clots5in5004ddwjw94t8c3ua" data-title="electron 输出中文" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E5%A4%8D%E5%88%B6%E6%96%87%E6%9C%AC/" data-id="clotsx2c7008muwjw8ofzb79f" data-title="vue 复制文本" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/electron/" rel="tag">electron</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
 
     </footer>
   </div>
@@ -122,10 +132,10 @@
 
 
   
-    <article id="post-前端/electron/常用第三方库" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-前端/vue/工具库/打印" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T08:21:56.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E6%89%93%E5%8D%B0/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:38:23.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
@@ -140,7 +150,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/">electron 常用第三方库</a>
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E6%89%93%E5%8D%B0/">vue 打印</a>
     </h1>
   
 
@@ -150,20 +160,23 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @electron/remote 使用远程</span></span><br><span class="line"><span class="comment">// electron-is-dev 判断是不是开发环境</span></span><br><span class="line"><span class="comment">// concurrently 并行命令</span></span><br><span class="line"><span class="comment">// wait-on 等待某个url加载完成再执行</span></span><br><span class="line"><span class="comment">// cross-env 跨平台获取环境变量</span></span><br><span class="line"><span class="comment">// electron-store 存储本地</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 运行 npm run dev</span></span><br><span class="line"><span class="comment">// 等待 http://localhost:3000 加载完再启动electron，把环境变量的浏览器设为none，执行npm start时浏览器就不启动，</span></span><br><span class="line"><span class="comment">// &quot;dev&quot;: &quot;concurrently \&quot;wait-on http://localhost:3000 &amp;&amp; npm run ele\&quot; \&quot; cross-env BROWSER=none  npm start\&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// package.json</span></span><br><span class="line"> <span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;start&quot;</span>: <span class="string">&quot;react-scripts start&quot;</span>,</span><br><span class="line">        <span class="string">&quot;build&quot;</span>: <span class="string">&quot;react-scripts build&quot;</span>,</span><br><span class="line">        <span class="string">&quot;test&quot;</span>: <span class="string">&quot;react-scripts test&quot;</span>,</span><br><span class="line">        <span class="string">&quot;eject&quot;</span>: <span class="string">&quot;react-scripts eject&quot;</span>,</span><br><span class="line">        <span class="string">&quot;ele&quot;</span>: <span class="string">&quot;electron .&quot;</span>,</span><br><span class="line">        <span class="string">&quot;dev&quot;</span>: <span class="string">&quot;concurrently \&quot;wait-on http://localhost:3000 &amp;&amp; npm run ele\&quot; \&quot; cross-env BROWSER=none  npm start\&quot;&quot;</span></span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+<h2 id="window-print"><a href="#window-print" class="headerlink" title="window.print"></a>window.print</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;el-button type=&quot;primary&quot; @click=&quot;handlePrint&quot;&gt;打印&lt;/el-button&gt;</span><br><span class="line">    //打印区域</span><br><span class="line">    &lt;basic-container id=&quot;printFrom&quot;&gt;&lt;/basic-container&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">        handlePrint() &#123;</span><br><span class="line">          const printData = &#123;</span><br><span class="line">            printable: &#x27;printFrom&#x27;,</span><br><span class="line">            header: &#x27;申请表&#x27;,</span><br><span class="line">            ignore: [&#x27;no-print&#x27;]</span><br><span class="line">          &#125;</span><br><span class="line">          printJS(&#123;</span><br><span class="line">            printable: printData.printable, // &#x27;printFrom&#x27;, // 标签元素id</span><br><span class="line">            type: printData.type || &#x27;html&#x27;,</span><br><span class="line">            header: printData.header, // &#x27;表单&#x27;,</span><br><span class="line">            targetStyles: [&#x27;*&#x27;],</span><br><span class="line">            style: &#x27;@page &#123;margin:0 10mm&#125;;&#x27;, // 可选-打印时去掉眉页眉尾</span><br><span class="line">            ignoreElements: printData.ignore || [], // [&#x27;no-print&#x27;]</span><br><span class="line">            properties: printData.properties || null</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="electron-store"><a href="#electron-store" class="headerlink" title="electron-store"></a>electron-store</h2><p>渲染进程使用 electron-store 时，必须在 main.js 初始化，否则每次启动加载缓慢</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">main.<span class="property">js</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Store</span> = <span class="built_in">require</span>(<span class="string">&quot;electron-store&quot;</span>);</span><br><span class="line"><span class="title class_">Store</span>.<span class="title function_">initRenderer</span>();</span><br></pre></td></tr></table></figure>
+<h2 id="vue-print-nb"><a href="#vue-print-nb" class="headerlink" title="vue-print-nb"></a>vue-print-nb</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vue-print-nb</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Print</span> <span class="keyword">from</span> <span class="string">&quot;vue-print-nb&quot;</span>;</span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">Print</span>); <span class="comment">//打印插件</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;el-button type=&quot;primary&quot; v-print=&quot;print&quot;&gt;打印&lt;/el-button&gt;--&gt;</span><br><span class="line">    //打印区域</span><br><span class="line">    &lt;basic-container id=&quot;printFrom&quot;&gt;&lt;/basic-container&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">          print: &#123;</span><br><span class="line">            id: &#x27;printFrom&#x27;,</span><br><span class="line">            popTitle: &#x27;打印&#x27;, // 打印配置页上方标题</span><br><span class="line">            extraHead: &#x27;&#x27;, //最上方的头部文字，附加在head标签上的额外标签,使用逗号分隔</span><br><span class="line">            preview: &#x27;&#x27;, // 是否启动预览模式，默认是false（开启预览模式，可以先预览后打印）</span><br><span class="line">            previewTitle: &#x27;&#x27;, // 打印预览的标题（开启预览模式后出现）,</span><br><span class="line">            previewPrintBtnLabel: &#x27;&#x27;, // 打印预览的标题的下方按钮文本，点击可进入打印（开启预览模式后出现）</span><br><span class="line">            zIndex: &#x27;&#x27;, // 预览的窗口的z-index，默认是 20002（此值要高一些，这涉及到预览模式是否显示在最上面）</span><br><span class="line">            previewBeforeOpenCallback() &#123;</span><br><span class="line">              console.log(&#x27;预览窗口打开之前的callback&#x27;)</span><br><span class="line">            &#125;, //预览窗口打开之前的callback（开启预览模式调用）</span><br><span class="line">            previewOpenCallback() &#123;</span><br><span class="line">              console.log(&#x27;预览窗口打开之后的callback&#x27;)</span><br><span class="line">            &#125;, // 预览窗口打开之后的callback（开启预览模式调用）</span><br><span class="line">            beforeOpenCallback() &#123;</span><br><span class="line">              console.log(&#x27;开启打印前的回调事件&#x27;)</span><br><span class="line">            &#125;, // 开启打印前的回调事件</span><br><span class="line">            openCallback() &#123;</span><br><span class="line">              console.log(&#x27;调用打印之后的回调事件&#x27;)</span><br><span class="line">            &#125;, // 调用打印之后的回调事件</span><br><span class="line">            closeCallback() &#123;</span><br><span class="line">            &#125;, //关闭打印的回调事件（无法确定点击的是确认还是取消）</span><br><span class="line">            url: &#x27;&#x27;,</span><br><span class="line">            standard: &#x27;&#x27;,</span><br><span class="line">            extraCss: &#x27;&#x27;,</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        handlePrint() &#123;</span><br><span class="line">          const printData = &#123;</span><br><span class="line">            printable: &#x27;printFrom&#x27;,</span><br><span class="line">            header: &#x27;申请表&#x27;,</span><br><span class="line">            ignore: [&#x27;no-print&#x27;]</span><br><span class="line">          &#125;</span><br><span class="line">          printJS(&#123;</span><br><span class="line">            printable: printData.printable, // &#x27;printFrom&#x27;, // 标签元素id</span><br><span class="line">            type: printData.type || &#x27;html&#x27;,</span><br><span class="line">            header: printData.header, // &#x27;表单&#x27;,</span><br><span class="line">            targetStyles: [&#x27;*&#x27;],</span><br><span class="line">            style: &#x27;@page &#123;margin:0 10mm&#125;;&#x27;, // 可选-打印时去掉眉页眉尾</span><br><span class="line">            ignoreElements: printData.ignore || [], // [&#x27;no-print&#x27;]</span><br><span class="line">            properties: printData.properties || null</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" data-id="clots5in5004adwjw9rws67i6" data-title="electron 常用第三方库" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E6%89%93%E5%8D%B0/" data-id="clotsx2c7008puwjw9visayf3" data-title="vue 打印" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/electron/" rel="tag">electron</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
 
     </footer>
   </div>
@@ -173,14 +186,14 @@
 
 
   
-    <article id="post-前端/electron/基础使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-数据库/MySQL/基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T08:21:23.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:35:25.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
   </div>
 
   </div>
@@ -191,7 +204,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">electron 基础使用</a>
+      <a class="p-name article-title" href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%9F%BA%E7%A1%80/">mysql基础</a>
     </h1>
   
 
@@ -201,26 +214,393 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<h2 id="初始"><a href="#初始" class="headerlink" title="初始"></a>初始</h2><p>main.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; app, <span class="title class_">BrowserWindow</span> &#125; = <span class="built_in">require</span>(<span class="string">&quot;electron&quot;</span>);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">on</span>(<span class="string">&quot;ready&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//  new BrowserWindow() 创建窗口</span></span><br><span class="line">  <span class="keyword">const</span> mainWindow = <span class="keyword">new</span> <span class="title class_">BrowserWindow</span>(&#123;</span><br><span class="line">    <span class="attr">width</span>: <span class="number">800</span>, <span class="comment">// 窗口宽度</span></span><br><span class="line">    <span class="attr">height</span>: <span class="number">600</span>, <span class="comment">// 窗口高度</span></span><br><span class="line">    <span class="attr">webPreferences</span>: &#123;</span><br><span class="line">      <span class="comment">// 网页功能设置</span></span><br><span class="line">      <span class="attr">nodeIntegration</span>: <span class="literal">true</span>, <span class="comment">// 是否集成node</span></span><br><span class="line">      <span class="comment">// 上下文隔离</span></span><br><span class="line">      <span class="attr">contextIsolation</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="comment">// 启用远程</span></span><br><span class="line">      <span class="attr">enableRemoteModule</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">  mainWindow.<span class="title function_">loadFile</span>(<span class="string">&quot;index.html&quot;</span>); <span class="comment">// 加载文件</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// const secondWindow = new BrowserWindow(&#123;</span></span><br><span class="line">  <span class="comment">//   width: 400,</span></span><br><span class="line">  <span class="comment">//   height: 300,</span></span><br><span class="line">  <span class="comment">//   webPreferences: &#123;</span></span><br><span class="line">  <span class="comment">//     nodeIntegration: true,</span></span><br><span class="line">  <span class="comment">//   &#125;,</span></span><br><span class="line">  <span class="comment">//   parent: mainWindow, // 设置父级窗口，父级窗口关闭，当前窗口也关闭</span></span><br><span class="line">  <span class="comment">// &#125;);</span></span><br><span class="line">  <span class="comment">// secondWindow.loadFile(&quot;second.html&quot;);</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>操作数据库时，语句的关键字最好都大写（SELECT, TABLE等）</p>
+</blockquote>
+<h2 id="1-数据库（ddl）"><a href="#1-数据库（ddl）" class="headerlink" title="1. 数据库（ddl）"></a>1. 数据库（ddl）</h2><blockquote>
+<p>Data Definition Language 数据库定义语言； 如create procedure之类</p>
+</blockquote>
+<h3 id="1-1-创建数据库"><a href="#1-1-创建数据库" class="headerlink" title="1.1 创建数据库"></a>1.1 创建数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE TEST1;</span><br></pre></td></tr></table></figure>
 
-<p>renderer.js</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;DOMContentLoaded&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//Dom 渲染完即可执行 此时图片视频还可能没加载完</span></span><br><span class="line">  <span class="title function_">alert</span>(<span class="string">&quot;DOMContentLoaded&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="1-1-1-判断数据库是否存在，不存在时创建数据库"><a href="#1-1-1-判断数据库是否存在，不存在时创建数据库" class="headerlink" title="1.1.1 判断数据库是否存在，不存在时创建数据库"></a>1.1.1 判断数据库是否存在，不存在时创建数据库</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> TEST1;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-删除数据库"><a href="#1-2-删除数据库" class="headerlink" title="1.2 删除数据库"></a>1.2 删除数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> DATABASE test;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-查看当前正在使用的数据库"><a href="#1-3-查看当前正在使用的数据库" class="headerlink" title="1.3 查看当前正在使用的数据库"></a>1.3 查看当前正在使用的数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DATABASE();</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4使用-切换数据库"><a href="#1-4使用-切换数据库" class="headerlink" title="1.4使用&#x2F;切换数据库"></a>1.4使用&#x2F;切换数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USE test;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-表操作（ddl）"><a href="#2-表操作（ddl）" class="headerlink" title="2. 表操作（ddl）"></a>2. 表操作（ddl）</h2><blockquote>
+</blockquote>
+<h3 id="2-1-创建表"><a href="#2-1-创建表" class="headerlink" title="2.1 创建表"></a>2.1 创建表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> student (id <span class="type">INT</span>,name <span class="type">VARCHAR</span>(<span class="number">20</span>),birthday <span class="type">DATE</span>,sex <span class="type">CHAR</span>(<span class="number">5</span>));</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-1-附加"><a href="#2-1-1-附加" class="headerlink" title="2.1.1 附加"></a>2.1.1 附加</h4><ol>
+<li><p><strong>AUTO_INCREMENT</strong>自增</p>
+</li>
+<li><p><strong>NOT NULL</strong> 不为空</p>
+</li>
+<li><p><strong>PRIMARY KEY</strong> 设置主键</p>
+</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `users` (</span><br><span class="line">  `id` <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  `username` <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `password` <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `realname` <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8mb4 <span class="keyword">COLLATE</span><span class="operator">=</span>utf8mb4_0900_ai_ci;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-2-快速创建一个表结构相同的表（类似复制表）"><a href="#2-1-2-快速创建一个表结构相同的表（类似复制表）" class="headerlink" title="2.1.2 快速创建一个表结构相同的表（类似复制表）"></a>2.1.2 快速创建一个表结构相同的表（类似复制表）</h4><blockquote>
+<p>只会复制表结构！！！！！！！！！</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test2 <span class="keyword">like</span> test;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-显示创建表语句"><a href="#2-2-显示创建表语句" class="headerlink" title="2.2 显示创建表语句"></a>2.2 显示创建表语句</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> users;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-显示表详情"><a href="#2-3-显示表详情" class="headerlink" title="2.3 显示表详情"></a>2.3 显示表详情</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">desc</span> users;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-显示所有表"><a href="#2-4-显示所有表" class="headerlink" title="2.4 显示所有表"></a>2.4 显示所有表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> tables;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-5-删除表"><a href="#2-5-删除表" class="headerlink" title="2.5 删除表"></a>2.5 删除表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> users;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-5-1-判断表是否存在并删除表"><a href="#2-5-1-判断表是否存在并删除表" class="headerlink" title="2.5.1 判断表是否存在并删除表"></a>2.5.1 判断表是否存在并删除表</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> if <span class="keyword">exists</span> test1;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-6-修改表结构"><a href="#2-6-修改表结构" class="headerlink" title="2.6 修改表结构"></a>2.6 修改表结构</h3><h4 id="2-6-1-增加个remark字段"><a href="#2-6-1-增加个remark字段" class="headerlink" title="2.6.1 增加个remark字段"></a>2.6.1 增加个<code>remark</code>字段</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">add</span> remark <span class="type">varchar</span>(<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-6-2-修改列类型"><a href="#2-6-2-修改列类型" class="headerlink" title="2.6.2 修改列类型"></a>2.6.2 修改列类型</h4><p><code>remark</code>的类型改成<code>varchar(100)</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student modify remark <span class="type">varchar</span>(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-6-3-修改列名"><a href="#2-6-3-修改列名" class="headerlink" title="2.6.3 修改列名"></a>2.6.3 修改列名</h4><p><code>remark</code>的列名改成<code>intro</code>，列类型改成<code>varchar(30)</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student change remark intro <span class="type">varchar</span>(<span class="number">30</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-6-4-删除列"><a href="#2-6-4-删除列" class="headerlink" title="2.6.4 删除列"></a>2.6.4 删除列</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="keyword">drop</span> intro;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-7-修改表名"><a href="#2-7-修改表名" class="headerlink" title="2.7 修改表名"></a>2.7 修改表名</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rename <span class="keyword">table</span> student <span class="keyword">to</span> student1;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-8-修改表的编码（字符集）"><a href="#2-8-修改表的编码（字符集）" class="headerlink" title="2.8 修改表的编码（字符集）"></a>2.8 修改表的编码（字符集）</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> student <span class="type">character</span> <span class="keyword">set</span> gbk;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-表数据操作（dml）"><a href="#3-表数据操作（dml）" class="headerlink" title="3. 表数据操作（dml）"></a>3. 表数据操作（dml）</h2><blockquote>
+<p>Data Manipulation Language 数据操纵语言，如insert,delete,update,select(插入、删除、修改、检索)插入修改数据。</p>
+</blockquote>
+<h3 id="3-1-插入记录"><a href="#3-1-插入记录" class="headerlink" title="3.1 插入记录"></a>3.1 插入记录</h3><ol>
+<li>除了数字类型和<code>null</code>，其他的都需要引号</li>
+<li>insert into 表名(列名1,列名2,…列名n) values(值1,值2,…值n);</li>
+<li><code>null</code> 不要加引号！！！！！！！！！！！</li>
+</ol>
+<h4 id="3-1-1-插入全部字段"><a href="#3-1-1-插入全部字段" class="headerlink" title="3.1.1 插入全部字段"></a>3.1.1 插入全部字段</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> student(id,name,sex,age,birthday,address,phone,math,english) <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;zhangsan&#x27;</span>,<span class="string">&#x27;男&#x27;</span>,<span class="number">11</span>,<span class="string">&#x27;2010-1-1&#x27;</span>,<span class="string">&#x27;fuzhou&#x27;</span>,<span class="string">&#x27;123456789011&#x27;</span>,<span class="number">33.4</span>,<span class="number">77</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-1-2-顺序插入"><a href="#3-1-2-顺序插入" class="headerlink" title="3.1.2 顺序插入"></a>3.1.2 顺序插入</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> student <span class="keyword">values</span>(<span class="number">2</span>,<span class="string">&#x27;lisi&#x27;</span>,<span class="string">&#x27;男&#x27;</span>,<span class="number">33</span>,<span class="string">&#x27;2033-5-5&#x27;</span>,<span class="string">&#x27;beijin&#x27;</span>,<span class="string">&#x27;18888888888&#x27;</span>,<span class="number">44</span>,<span class="number">88</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-1-3-指定字段插入"><a href="#3-1-3-指定字段插入" class="headerlink" title="3.1.3 指定字段插入"></a>3.1.3 指定字段插入</h4><ol>
+<li>未指定插入的字段值为<code>null</code></li>
+<li>也可以设置值为<code>null</code></li>
+<li><code>null</code>不区分大小写。可以设置<code>NULL</code>,也可以设置<code>null</code></li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> student(id,name,sex,address) <span class="keyword">values</span>(<span class="number">3</span>,<span class="string">&#x27;tom&#x27;</span>,<span class="string">&#x27;女&#x27;</span>,<span class="keyword">NULL</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-1-4-查询插入"><a href="#3-1-4-查询插入" class="headerlink" title="3.1.4 查询插入"></a>3.1.4 查询插入</h4><ol>
+<li>查询student表的数据，插入到student1表中</li>
+<li>重复执行会添加到尾部，不是覆盖操作！！！</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> student1 <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> student2(id,name) <span class="keyword">select</span> id,name <span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-修改记录"><a href="#3-2-修改记录" class="headerlink" title="3.2 修改记录"></a>3.2 修改记录</h3><h4 id="3-2-1-修改全部"><a href="#3-2-1-修改全部" class="headerlink" title="3.2.1 修改全部"></a>3.2.1 修改全部</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> student1 <span class="keyword">set</span> sex <span class="operator">=</span> <span class="string">&#x27;女&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-2-指定条件修改"><a href="#3-2-2-指定条件修改" class="headerlink" title="3.2.2 指定条件修改"></a>3.2.2 指定条件修改</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> student1 <span class="keyword">set</span> sex <span class="operator">=</span> <span class="string">&#x27;女&#x27;</span> <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-3-指定条件修改多个字段"><a href="#3-2-3-指定条件修改多个字段" class="headerlink" title="3.2.3 指定条件修改多个字段"></a>3.2.3 指定条件修改多个字段</h4><blockquote>
+<p>使用逗号进行分割</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> student1 <span class="keyword">set</span> sex <span class="operator">=</span> <span class="string">&#x27;女&#x27;</span>,age<span class="operator">=</span><span class="number">22</span>,address <span class="operator">=</span><span class="string">&#x27;印度&#x27;</span> <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-删除记录"><a href="#3-3-删除记录" class="headerlink" title="3.3 删除记录"></a>3.3 删除记录</h3><ol>
+<li><code>truncate</code> 删除是将整张表删除，再创建一个与之前表结构相同的表。所以执行sql语句后，返回的是没有数据被影响</li>
+<li><code>delete</code> 是将表里的数据一条一条删除，直至删除所有数据。所以sql语句会返回影响的行数</li>
+</ol>
+<h4 id="3-3-1-删除全部"><a href="#3-3-1-删除全部" class="headerlink" title="3.3.1 删除全部"></a>3.3.1 删除全部</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> student3;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-2-指定条件删除"><a href="#3-3-2-指定条件删除" class="headerlink" title="3.3.2 指定条件删除"></a>3.3.2 指定条件删除</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-3-trncate-删除数据"><a href="#3-3-3-trncate-删除数据" class="headerlink" title="3.3.3 trncate 删除数据"></a>3.3.3 trncate 删除数据</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> student3;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-表查询（dql）"><a href="#4-表查询（dql）" class="headerlink" title="4. 表查询（dql）"></a>4. 表查询（dql）</h2><blockquote>
+<p> DQL（Data Query Language）：数据查询语言，用来查询数据库中表的记录(数据)</p>
+</blockquote>
+<h3 id="4-1-简单查询"><a href="#4-1-简单查询" class="headerlink" title="4.1 简单查询"></a>4.1 简单查询</h3><h4 id="4-1-1-查询全部"><a href="#4-1-1-查询全部" class="headerlink" title="4.1.1 查询全部"></a>4.1.1 查询全部</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-1-2-指定字段查询"><a href="#4-1-2-指定字段查询" class="headerlink" title="4.1.2 指定字段查询"></a>4.1.2 指定字段查询</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id,name <span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-1-3-指定字段查询起别名"><a href="#4-1-3-指定字段查询起别名" class="headerlink" title="4.1.3 指定字段查询起别名"></a>4.1.3 指定字段查询起别名</h4><ol>
+<li>别名不用加引号！！！</li>
+<li><code>as</code> 可以省略</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name <span class="keyword">as</span> 姓名, age <span class="keyword">as</span> 年龄 <span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-1-4-清除重复值"><a href="#4-1-4-清除重复值" class="headerlink" title="4.1.4 清除重复值"></a>4.1.4 清除重复值</h4><blockquote>
+<p>name 重复的字段只会显示第一个</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> name <span class="keyword">from</span> student3;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-1-5-查询结果参与运算"><a href="#4-1-5-查询结果参与运算" class="headerlink" title="4.1.5 查询结果参与运算"></a>4.1.5 查询结果参与运算</h4><ol>
+<li>查询结果参与运算不会影响原数据！！！</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> math<span class="operator">+</span><span class="number">100</span> <span class="keyword">from</span> student3;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> math<span class="operator">+</span>english <span class="keyword">from</span> student3;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> math<span class="operator">+</span>english <span class="keyword">as</span> 总成绩 <span class="keyword">from</span> student3;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">as</span> 姓名,age <span class="keyword">as</span> 年龄, math <span class="keyword">as</span> 数学成绩, english <span class="keyword">as</span> 英语成绩, math<span class="operator">+</span>english <span class="keyword">as</span> 总成绩 <span class="keyword">from</span> student3;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span>,math<span class="operator">+</span>english <span class="keyword">as</span> 总成绩 <span class="keyword">from</span> student3;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> name 姓名,age<span class="operator">+</span><span class="number">100</span> <span class="keyword">as</span> 年龄 <span class="keyword">from</span> student3;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-条件查询"><a href="#4-2-条件查询" class="headerlink" title="4.2 条件查询"></a>4.2 条件查询</h3><h4 id="4-2-1-比较运算符"><a href="#4-2-1-比较运算符" class="headerlink" title="4.2.1 比较运算符"></a>4.2.1 比较运算符</h4><ol>
+<li><code>&gt;</code> 大于</li>
+<li><code>&lt;</code> 小于</li>
+<li><code>&lt;=</code> 小于等于</li>
+<li><code>&gt;=</code> 大于等于</li>
+<li><code>=</code> 等于</li>
+<li><code>&lt;&gt;</code>,<code>!=</code> 不等于，<code>!=</code> 常用</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> age <span class="operator">&gt;</span> <span class="number">11</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> age <span class="operator">&lt;</span> <span class="number">55</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> age <span class="operator">&gt;=</span> <span class="number">11</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> age <span class="operator">&lt;=</span> <span class="number">55</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> age <span class="operator">=</span> <span class="number">55</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> age <span class="operator">&lt;&gt;</span> <span class="number">55</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> age <span class="operator">!=</span> <span class="number">55</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-2-2-逻辑运算符"><a href="#4-2-2-逻辑运算符" class="headerlink" title="4.2.2 逻辑运算符"></a>4.2.2 逻辑运算符</h4><ol>
+<li><code>and</code> 与</li>
+<li><code>or</code> 或</li>
+<li><code>not</code> 非</li>
+<li><code>in</code> 在里面</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> math<span class="operator">&gt;=</span><span class="number">60</span> <span class="keyword">and</span> english <span class="operator">&gt;=</span><span class="number">60</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> math<span class="operator">&gt;=</span><span class="number">60</span> <span class="keyword">or</span> english <span class="operator">&gt;=</span><span class="number">60</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span> <span class="keyword">or</span> id<span class="operator">=</span><span class="number">2</span> <span class="keyword">or</span> id<span class="operator">=</span><span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> id <span class="keyword">in</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> id <span class="keyword">not</span> <span class="keyword">in</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-2-3-范围"><a href="#4-2-3-范围" class="headerlink" title="4.2.3 范围"></a>4.2.3 范围</h4><ol>
+<li><code>between 值1 and 值2</code>  表示从值1到值2范围，包头又包围</li>
+<li><code>age between 35 and 60</code> 相当于 <code>age &gt;= 35 and age &lt;= 60</code></li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> age <span class="keyword">between</span> <span class="number">50</span> <span class="keyword">and</span> <span class="number">60</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> age<span class="operator">&gt;=</span><span class="number">50</span> <span class="keyword">and</span> age<span class="operator">&lt;=</span><span class="number">60</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-2-4-模糊查询"><a href="#4-2-4-模糊查询" class="headerlink" title="4.2.4 模糊查询"></a>4.2.4 模糊查询</h4><ol>
+<li><code>like</code> 表示模糊查询<ol>
+<li><code>select * from 表名 where 字段名 like &#39;通配符字符串&#39;</code></li>
+<li>满足<code>通配符字符串</code>规则的数据就会显示出来</li>
+</ol>
+</li>
+<li>mysql通配符有两个<ol>
+<li><code>%</code>：表示0个或多个（任意个字符）</li>
+<li><code>_</code>：表示一个字符</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询孙开头的，后面不管多少个字符</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;孙%&#x27;</span></span><br><span class="line"><span class="comment">-- 查询前面不管多少个字符，最后以孙结尾的</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;%孙&#x27;</span></span><br><span class="line"><span class="comment">-- 查询中间是孙字，前后不管多少个字符</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;%孙%&#x27;</span></span><br><span class="line"><span class="comment">-- 查询孙开头后面只有一个字符的</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;孙_&#x27;</span></span><br><span class="line"><span class="comment">-- 查询孙开头后面只有两个字符的</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;孙__&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-2-5-排序"><a href="#4-2-5-排序" class="headerlink" title="4.2.5 排序"></a>4.2.5 排序</h4><blockquote>
+<p>通过<code>order by</code> 子句，可以将查询出的结果进行排序只是显示方式，不会影响数据库中的数据顺序</p>
+</blockquote>
+<ul>
+<li>语法：<code>select 字段名 from 表名 where 字段=值 order by 字段名 [asc|desc];</code><ul>
+<li><code>asc</code>：升序（从小到大）</li>
+<li><code>desc</code>：降序（从大到小）</li>
+<li><code>asc desc</code> 可写可不写，不写默认就是升序（asc）！！！！</li>
+</ul>
+</li>
+</ul>
+<h5 id="4-2-5-1-单列排序"><a href="#4-2-5-1-单列排序" class="headerlink" title="4.2.5.1 单列排序"></a>4.2.5.1 单列排序</h5><blockquote>
+<p>单列排序就是使用一个字段排序</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询年龄小于100，年龄按升序排列</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> age<span class="operator">&lt;</span><span class="number">100</span> <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">asc</span></span><br><span class="line"><span class="comment">-- 查询年龄小于100，年龄按降序排列</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> age<span class="operator">&lt;</span><span class="number">100</span> <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="4-2-5-2-组合排序"><a href="#4-2-5-2-组合排序" class="headerlink" title="4.2.5.2 组合排序"></a>4.2.5.2 组合排序</h5><blockquote>
+<p>组合排序就是先按的第一个排序，如果第一个字段值相同，才按第二个字段进行排序，以此类推。</p>
+</blockquote>
+<ul>
+<li>语法：<code>select 字段名 from 表名 where 字段=值 order by 字段名1 [asc|desc], 字段名2 [asc|desc];</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询年龄小于100，年龄按升序排列，数学成绩按降序排列</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student3 <span class="keyword">where</span> age<span class="operator">&lt;</span><span class="number">100</span> <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">asc</span>,math <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-2-6-聚合函数"><a href="#4-2-6-聚合函数" class="headerlink" title="4.2.6 聚合函数"></a>4.2.6 聚合函数</h4><blockquote>
+<p>之前做的查询都是横向查询，都是根据条件一行一行进行判断。而使用聚合函数查询是纵向查询，它是对一列的值进行计算，然后返回一个结果值，另外聚合函数会忽略空值！！！</p>
+</blockquote>
+<ul>
+<li><p>五个聚合函数：</p>
+<ul>
+<li><code>count</code>：统计指定列记录数，记录为null的不统计</li>
+<li><code>sum</code>：计算指定列的数值和，如果不是数值类型，那么计算结果为0</li>
+<li><code>max</code>：计算指定列的最大值</li>
+<li><code>min</code>：计算指定列的最小值</li>
+<li><code>avg</code>：计算指定列的平均值，如果不是数值类型，那么计算结果为0</li>
+</ul>
+</li>
+<li><p>聚合函数的使用：写在sql语句<code>select</code>后<code>字段名</code>的地方</p>
+<ul>
+<li><code>select count(age) from 表名</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询所有学生总数</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(id) <span class="keyword">from</span> studnet</span><br><span class="line"><span class="comment">-- 也可以使用count(*)</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> student</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询年龄大于40的显示总数</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> student <span class="keyword">where</span> age<span class="operator">&gt;</span><span class="number">40</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询学生的总年龄</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">sum</span>(age) <span class="keyword">from</span> student;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询学生的平均年龄</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(age) <span class="keyword">from</span> student;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询学生的最大年龄</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">max</span>(age) <span class="keyword">from</span> student;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询学生的最小年龄</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">min</span>(age) <span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-2-7-分组查询"><a href="#4-2-7-分组查询" class="headerlink" title="4.2.7 分组查询"></a>4.2.7 分组查询</h4><blockquote>
+<p>分组查询是指使用<code>group by</code> 语句对查询信息进行分组，相同数据作为一组。</p>
+</blockquote>
+<p>语法：<code>select 字段1,字段2,... from 表名 group by 分组字段 [having 条件]</code></p>
+<ul>
+<li><code>select * from student group by sex</code>。这句会把sex相同的数据作为一组，但是只会返回每组的第一条数据，没有意义！！！！！</li>
+<li>当使用某个字段进行分组查询时，也要把这个字段查询出来！！！</li>
+</ul>
+<h5 id="4-2-7-1-分组"><a href="#4-2-7-1-分组" class="headerlink" title="4.2.7.1 分组"></a>4.2.7.1 分组</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 分别查询学生男女年龄总和</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">sum</span>(age) ,sex <span class="keyword">from</span> student <span class="keyword">group</span> <span class="keyword">by</span> sex;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询年龄小于80的学生，按性别分组，并统计每组学生的人数</span></span><br><span class="line"><span class="keyword">select</span> sex,<span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> student <span class="keyword">where</span> age <span class="operator">&lt;</span> <span class="number">80</span> <span class="keyword">group</span> <span class="keyword">by</span> sex;</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-2-7-2-having"><a href="#4-2-7-2-having" class="headerlink" title="4.2.7.2 having"></a>4.2.7.2 having</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询年龄小于90的学生，按性别分组，并统计每组学生的人数，最后只显示性别人数大于2的组</span></span><br><span class="line"><span class="keyword">select</span> sex,<span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> student <span class="keyword">where</span> age<span class="operator">&lt;</span><span class="number">90</span> <span class="keyword">group</span> <span class="keyword">by</span> sex <span class="keyword">having</span> <span class="built_in">count</span>(<span class="operator">*</span>)<span class="operator">&gt;</span><span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-2-8-limit-分页"><a href="#4-2-8-limit-分页" class="headerlink" title="4.2.8 limit 分页"></a>4.2.8 limit 分页</h4><blockquote>
+<p>limit 是限制的意思，所以limit的作用就是限制查询记录的条数</p>
+</blockquote>
+<ul>
+<li><code>select *|字段列表 [as 别名] from 表名 [where子句] [group by子句] [having子句] [order by子句] [limit子句]</code></li>
+<li>limit排在后面的原因是，前面条件都处理完了，只剩下显示多少记录的问题了（分页）。</li>
+</ul>
+<p>语法格式：</p>
+<ul>
+<li><code>limit offest,length; 或者 limit length</code></li>
+<li><code>offset</code>：偏移量，可以认为是跳过的记录数量，默认为0</li>
+<li><code>length</code>：指需要显示的总记录量。不满足显示量时，就是全显示</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询学生表，从第三条数据开始，显示3条数据</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student limit <span class="number">2</span>,<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-数据库约束"><a href="#5-数据库约束" class="headerlink" title="5. 数据库约束"></a>5. 数据库约束</h2><blockquote>
+<p>对表在的数据进行进一步的限制，保证数据的<strong>正确性</strong>，<strong>有效性</strong>和<strong>完整性</strong></p>
+</blockquote>
+<p>约束种类：</p>
+<ul>
+<li><code>primary key</code>：主键</li>
+<li><code>unique</code>：唯一</li>
+<li><code>not null</code>：非空</li>
+<li><code>default</code>：默认</li>
+<li><code>foreign key</code>：外键</li>
+</ul>
+<h3 id="5-1主键"><a href="#5-1主键" class="headerlink" title="5.1主键"></a>5.1主键</h3><p>主键：<code>primary key</code></p>
+<h4 id="5-1-1-主键的作用"><a href="#5-1-1-主键的作用" class="headerlink" title="5.1.1 主键的作用"></a>5.1.1 主键的作用</h4><blockquote>
+<p>用来唯一标识一条记录</p>
+</blockquote>
+<ul>
+<li>每一个表都应该有一个主键，并且每个表只能有一个主键</li>
+<li>如果有些记录的字段的值有重复，那么就没办法区分这些数据，造成数据库的记录不唯一，不方便管理数据</li>
+<li>通常不用业务字段作为主键，单独给每张表设计一个id字段，把id作为主键。主键是给数据库和程序使用的，不是给最终的客户使用。所以主键有没有含义不重要，只要不重复，非空就行。</li>
+</ul>
+<h4 id="5-1-2-创建主键"><a href="#5-1-2-创建主键" class="headerlink" title="5.1.2 创建主键"></a>5.1.2 创建主键</h4><p>主键特点：</p>
+<ul>
+<li>主键必须包含唯一值</li>
+<li>主键列不能包含<code>null</code>值</li>
+</ul>
+<p>创建主键的方式：</p>
+<ul>
+<li>在创建表的时候，给字段添加主键</li>
+<li><code>字段名 字段类型 primary key</code></li>
+</ul>
+<p>具体操作：</p>
+<ul>
+<li>创建英雄表<code>hero</code>，包含字段<code>(id,name,age)</code>，将id作为主键</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> hero(id <span class="type">int</span> <span class="keyword">primary</span> key,name <span class="type">varchar</span>(<span class="number">50</span>),age <span class="type">int</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加数据</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero(id,name) <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;孙尚香&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero(id,name) <span class="keyword">values</span>(<span class="number">2</span>,<span class="string">&#x27;孙策&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero(id,name) <span class="keyword">values</span>(<span class="number">3</span>,<span class="string">&#x27;李白&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero(id,name) <span class="keyword">values</span>(<span class="number">4</span>,<span class="string">&#x27;白起&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>插入重复的主键</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 主键是唯一的不能重复 Duplicate entry &#x27;1&#x27; for key &#x27;hero.PRIMARY&#x27;</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero(id,name) <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;孙尚香&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>插入<code>null</code>的主键</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 主键不能为空 Column &#x27;id&#x27; cannot be null</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero(id,name) <span class="keyword">values</span>(<span class="keyword">null</span>,<span class="string">&#x27;孙尚香&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
 
-<h2 id="通信-ipc"><a href="#通信-ipc" class="headerlink" title="通信 ipc"></a>通信 ipc</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 渲染进程 renderer,js</span></span><br><span class="line"><span class="keyword">const</span> &#123; ipcRenderer &#125; = <span class="built_in">require</span>(<span class="string">&quot;electron&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;DOMContentLoaded&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;node-version&quot;</span>).<span class="property">innerHTML</span> = process.<span class="property">versions</span>.<span class="property">node</span>;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;send-main&quot;</span>).<span class="property">onclick</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 给主进程发送消息</span></span><br><span class="line">    ipcRenderer.<span class="title function_">send</span>(<span class="string">&quot;message&quot;</span>, <span class="string">&quot;from renderer&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 监听消息</span></span><br><span class="line">  ipcRenderer.<span class="title function_">on</span>(<span class="string">&quot;reply&quot;</span>, <span class="function">(<span class="params">e, arg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;message&quot;</span>).<span class="property">innerHTML</span> = arg;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 主进程 main.js</span></span><br><span class="line"><span class="keyword">const</span> &#123; app, <span class="title class_">BrowserWindow</span>, ipcMain &#125; = <span class="built_in">require</span>(<span class="string">&quot;electron&quot;</span>);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">on</span>(<span class="string">&quot;ready&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 安装devtron</span></span><br><span class="line">  <span class="keyword">const</span> mainWindow = <span class="keyword">new</span> <span class="title class_">BrowserWindow</span>(&#123;</span><br><span class="line">    <span class="attr">width</span>: <span class="number">1800</span>,</span><br><span class="line">    <span class="attr">height</span>: <span class="number">1600</span>,</span><br><span class="line">    <span class="attr">webPreferences</span>: &#123;</span><br><span class="line">      <span class="attr">nodeIntegration</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">contextIsolation</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">enableRemoteModule</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">  mainWindow.<span class="title function_">loadFile</span>(<span class="string">&quot;./index.html&quot;</span>);</span><br><span class="line">  <span class="comment">// 打开 开发者工具</span></span><br><span class="line">  mainWindow.<span class="property">webContents</span>.<span class="title function_">openDevTools</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 接收渲染进程传递过来的消息，第一个是事件，第二个是传递的参数</span></span><br><span class="line">  ipcMain.<span class="title function_">on</span>(<span class="string">&quot;message&quot;</span>, <span class="function">(<span class="params">e, arg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arg);</span><br><span class="line">    <span class="comment">// 给渲染进程回复信息</span></span><br><span class="line">    e.<span class="title function_">reply</span>(<span class="string">&quot;reply&quot;</span>, <span class="string">&quot;from main&quot;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// const secondWindow = new BrowserWindow(&#123;</span></span><br><span class="line">  <span class="comment">//   width: 600,</span></span><br><span class="line">  <span class="comment">//   height: 400,</span></span><br><span class="line">  <span class="comment">//   webPreferences: &#123;</span></span><br><span class="line">  <span class="comment">//     nodeIntegration: true,</span></span><br><span class="line">  <span class="comment">//     contextIsolation: false,</span></span><br><span class="line">  <span class="comment">//     enableRemoteModule: true,</span></span><br><span class="line">  <span class="comment">//   &#125;,</span></span><br><span class="line">  <span class="comment">//   // parent: mainWindow,</span></span><br><span class="line">  <span class="comment">// &#125;);</span></span><br><span class="line">  <span class="comment">// secondWindow.loadFile(&quot;./second.html&quot;);</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="使用remote"><a href="#使用remote" class="headerlink" title="使用remote"></a>使用remote</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安装 @electron/remote</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 主进程</span></span><br><span class="line"><span class="keyword">const</span> &#123; app, <span class="title class_">BrowserWindow</span>, ipcMain &#125; = <span class="built_in">require</span>(<span class="string">&quot;electron&quot;</span>);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">on</span>(<span class="string">&quot;ready&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 安装devtron</span></span><br><span class="line">  <span class="keyword">const</span> mainWindow = <span class="keyword">new</span> <span class="title class_">BrowserWindow</span>(&#123;</span><br><span class="line">    <span class="attr">width</span>: <span class="number">1800</span>,</span><br><span class="line">    <span class="attr">height</span>: <span class="number">1600</span>,</span><br><span class="line">    <span class="attr">webPreferences</span>: &#123;</span><br><span class="line">      <span class="attr">nodeIntegration</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">contextIsolation</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">enableRemoteModule</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">  mainWindow.<span class="title function_">loadFile</span>(<span class="string">&quot;./index.html&quot;</span>);</span><br><span class="line">  <span class="comment">// 打开 开发者工具</span></span><br><span class="line">  mainWindow.<span class="property">webContents</span>.<span class="title function_">openDevTools</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//初始化远程模块的主进程端</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">&quot;@electron/remote/main&quot;</span>).<span class="title function_">initialize</span>();</span><br><span class="line">  <span class="comment">// 启用webContents 远程</span></span><br><span class="line">  <span class="built_in">require</span>(<span class="string">&quot;@electron/remote/main&quot;</span>).<span class="title function_">enable</span>(mainWindow.<span class="property">webContents</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染进程</span></span><br><span class="line"><span class="keyword">const</span> &#123; ipcRenderer &#125; = <span class="built_in">require</span>(<span class="string">&quot;electron&quot;</span>);</span><br><span class="line"><span class="comment">// 这里的@electron/remote就相当于main process</span></span><br><span class="line"><span class="keyword">const</span> &#123; <span class="title class_">BrowserWindow</span> &#125; = <span class="built_in">require</span>(<span class="string">&quot;@electron/remote&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;DOMContentLoaded&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 点击完，新开窗口</span></span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;send-main&quot;</span>).<span class="property">onclick</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> win = <span class="keyword">new</span> <span class="title class_">BrowserWindow</span>(&#123;</span><br><span class="line">      <span class="attr">width</span>: <span class="number">800</span>,</span><br><span class="line">      <span class="attr">height</span>: <span class="number">600</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">    win.<span class="title function_">loadURL</span>(<span class="string">&quot;http://baidu.com&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="5-1-3-删除主键"><a href="#5-1-3-删除主键" class="headerlink" title="5.1.3 删除主键"></a>5.1.3 删除主键</h4><p><code>alter table 表名 drop primary key</code></p>
+<p>具体操作：</p>
+<ul>
+<li>删除hero表的主键</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> hero dr</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="5-1-4-主键自增"><a href="#5-1-4-主键自增" class="headerlink" title="5.1.4 主键自增"></a>5.1.4 主键自增</h4><blockquote>
+<p>主键如果自己设置很可能重复，通常想要每次插入新记录时，数据库自动生成主键字段的值，<code>auto_increment</code> 表示自动增长（字段类型必须是整数类型的）</p>
+</blockquote>
+<p>具体操作：</p>
+<ul>
+<li>创建英雄表1，包含字段<code>(id,name,age)</code>，将id作为主键并自动增长</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> hero2(</span><br><span class="line">	id <span class="type">int</span> <span class="keyword">primary</span> key auto_increment,</span><br><span class="line">    name <span class="type">varchar</span>(<span class="number">50</span>),</span><br><span class="line">    age <span class="type">int</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>插入数据</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 主键默认从1开始自动增长</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero2(name,age) <span class="keyword">values</span>(&quot;猪八戒&quot;,<span class="number">11</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero2(name,age) <span class="keyword">values</span>(&quot;唐僧&quot;,<span class="number">51</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero2(name,age) <span class="keyword">values</span>(&quot;孙悟空&quot;,<span class="number">16</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero2(name,age) <span class="keyword">values</span>(&quot;关羽&quot;,<span class="number">31</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-1-5-扩展"><a href="#5-1-5-扩展" class="headerlink" title="5.1.5 扩展"></a>5.1.5 扩展</h4><ul>
+<li><p>自增起始值</p>
+<ul>
+<li><p>默认<code>auto_increment</code>起始值为1，如果需要修改起始值，使用下面的sql语法</p>
+</li>
+<li><p><code>alter table 表名 auto_increment=起始值;</code></p>
+</li>
+</ul>
+</li>
+<li><p>delete和truncate的区别</p>
+<ul>
+<li>delete 删除表中的数据，但不重置<code>auto_increment</code>的值</li>
+<li>truncate 摧毁表，重建表，<code>auto_increment</code>重置为1</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-2-唯一"><a href="#5-2-唯一" class="headerlink" title="5.2  唯一"></a>5.2  唯一</h3><h4 id="5-2-1-唯一约束的格式"><a href="#5-2-1-唯一约束的格式" class="headerlink" title="5.2.1 唯一约束的格式"></a>5.2.1 唯一约束的格式</h4><p><code>字段名 字段类型 unique</code></p>
+<h4 id="5-2-2-实现唯一约束"><a href="#5-2-2-实现唯一约束" class="headerlink" title="5.2.2 实现唯一约束"></a>5.2.2 实现唯一约束</h4><p>具体实现：</p>
+<ul>
+<li>创建英雄表hero3，包含字段<code>(id,name)</code>，name这一列设置唯一约束，不能出现同名的英雄</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> hero3(id <span class="type">int</span> <span class="keyword">primary</span> key auto_increment,name <span class="type">varchar</span>(<span class="number">30</span>) <span class="keyword">unique</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加一个英雄</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero3(name) <span class="keyword">value</span>(<span class="string">&#x27;貂蝉&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> hero3</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 插入相同的名字出现name重复： Duplicate entry &#x27;貂蝉&#x27; for key &#x27;hero3.name&#x27;</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero3(name) <span class="keyword">value</span>(<span class="string">&#x27;貂蝉&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 插入多个null不会报错，因为null是没有值，所以不存在重复的问题</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero3(name) <span class="keyword">value</span>(<span class="keyword">null</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero3(name) <span class="keyword">value</span>(<span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-3-非空"><a href="#5-3-非空" class="headerlink" title="5.3 非空"></a>5.3 非空</h3><blockquote>
+<p>这个字段必须设置值，不能是null</p>
+</blockquote>
+<h4 id="5-3-1-非空约束的格式"><a href="#5-3-1-非空约束的格式" class="headerlink" title="5.3.1 非空约束的格式"></a>5.3.1 非空约束的格式</h4><p><code>字段名 字段类型 not null</code></p>
+<p>具体操作：</p>
+<ul>
+<li>创建表英雄hero4，包含字段<code>(id,name,gender)</code>，其中name不能为null</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> hero4(id <span class="type">int</span>,name <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="keyword">null</span>,gender <span class="type">char</span>(<span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加一条完整的记录</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero4 <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;张三&#x27;</span>,<span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero4 <span class="keyword">values</span>(<span class="number">2</span>,<span class="string">&#x27;张三2&#x27;</span>,<span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 姓名不能设置为null： Column &#x27;name&#x27; cannot be null</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero4 <span class="keyword">values</span>(<span class="number">3</span>,<span class="keyword">null</span>,<span class="string">&#x27;男&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-3-2-默认值"><a href="#5-3-2-默认值" class="headerlink" title="5.3.2 默认值"></a>5.3.2 默认值</h3><blockquote>
+<p>往表中添加数据时，如果不指定这个字段的数据，就使用默认值</p>
+</blockquote>
+<p>默认值格式：</p>
+<p><code>字段名 字段类型 default 默认值</code></p>
+<p>具体实现：</p>
+<ul>
+<li>创建一个英雄表hero5，包含<code>(id,name,location)</code>，默认定位是射手</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> hero5(id <span class="type">int</span>,name <span class="type">varchar</span>(<span class="number">20</span>),location <span class="type">varchar</span>(<span class="number">50</span>) <span class="keyword">default</span> <span class="string">&#x27;射手&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加一条记录，使用默认定位</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero5 (id,name) <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;后裔&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加一条记录，不使用默认定位</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> hero5 (id,name,location) <span class="keyword">values</span>(<span class="number">2</span>,<span class="string">&#x27;小乔&#x27;</span>,<span class="string">&#x27;法师&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" data-id="clots5in30042dwjw89ma3o2q" data-title="electron 基础使用" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%9F%BA%E7%A1%80/" data-id="clotsx2c2007xuwjw66zz709f" data-title="mysql基础" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/electron/" rel="tag">electron</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySql/" rel="tag">MySql</a></li></ul>
 
     </footer>
   </div>
@@ -234,7 +614,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -245,7 +625,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
     </div>
   </div>
 
@@ -255,7 +635,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySql/" rel="tag">MySql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
     </div>
   </div>
 
@@ -265,7 +645,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/electron/" style="font-size: 12.22px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 18.89px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 16.67px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 14.44px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 15.56px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 11.11px;">vite</a> <a href="/tags/vue/" style="font-size: 17.78px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+      <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 10px;">MySql</a> <a href="/tags/docker/" style="font-size: 14px;">docker</a> <a href="/tags/electron/" style="font-size: 13px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 19px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 17px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 16px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 12px;">vite</a> <a href="/tags/vue/" style="font-size: 18px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
     </div>
   </div>
 
@@ -287,23 +667,23 @@
       <ul>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/">electron 输出中文</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E5%A4%8D%E5%88%B6%E6%96%87%E6%9C%AC/">vue 复制文本</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/">electron 常用第三方库</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E6%89%93%E5%8D%B0/">vue 打印</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">electron 基础使用</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%9F%BA%E7%A1%80/">mysql基础</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">electron 基础概念</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/Linux%E6%93%8D%E4%BD%9CMongoDB/">Linux操作MongoDB</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/key%E7%9A%84%E4%BD%9C%E7%94%A8/">vue key的作用</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E7%A1%80/">MongoDB基础</a>
           </li>
         
       </ul>

@@ -73,10 +73,270 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-前端/electron/基础概念" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-数据库/MongoDB/Linux操作MongoDB" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T08:20:56.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/Linux%E6%93%8D%E4%BD%9CMongoDB/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:33:33.000Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/Linux%E6%93%8D%E4%BD%9CMongoDB/">Linux操作MongoDB</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer"/>
+
+<p>1.查看mongodb进程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux |grep mongodb</span><br></pre></td></tr></table></figure>
+
+<p>2.进入mongodb启动目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/mongodb/mongodb-5.0.5/bin</span><br></pre></td></tr></table></figure>
+
+<p>3.杀死mongodb的进程:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -2 11884</span><br></pre></td></tr></table></figure>
+
+<p>4.重启mongodb:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./mongod --config mongodb.conf</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20190626161001276.png" alt="img"></p>
+<p>关闭数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --journal --shutdown -f ./mongodb.conf</span><br></pre></td></tr></table></figure>
+
+<p>开启</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --journal -f ./mongodb.conf</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/Linux%E6%93%8D%E4%BD%9CMongoDB/" data-id="clotsx2c0007quwjw63fr8eac" data-title="Linux操作MongoDB" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-数据库/MongoDB/基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:32:30.000Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E7%A1%80/">MongoDB基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer"/>
+
+<h2 id="bson"><a href="#bson" class="headerlink" title="bson"></a>bson</h2><ul>
+<li>bson.D<ul>
+<li>有序的文档类型,键值对会按添加顺序排序</li>
+<li>键必须是字符串类型</li>
+<li>值可以是任意类型</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">doc := bson.D&#123;</span><br><span class="line">    &#123;<span class="string">&quot;name&quot;</span>, <span class="string">&quot;John&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;age&quot;</span>,  <span class="number">30</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;hobbies&quot;</span>, bson.A&#123;<span class="string">&quot;music&quot;</span>, <span class="string">&quot;skiing&quot;</span>&#125;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>bson.M<ul>
+<li>无序的文档类型,键值对不保证顺序</li>
+<li>键可以是任意类型,不限于字符串</li>
+<li>值也可以是任意类型</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">m := bson.M&#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;John&quot;</span>,</span><br><span class="line">    <span class="string">&quot;age&quot;</span>:  <span class="number">30</span>,</span><br><span class="line">    <span class="number">5</span>:      <span class="string">&quot;address&quot;</span>,  <span class="comment">// 键可以是非字符串</span></span><br><span class="line">    bson.A&#123;<span class="string">&quot;music&quot;</span>, <span class="string">&quot;skiing&quot;</span>&#125;: <span class="string">&quot;hobbies&quot;</span> <span class="comment">// 键也可以是文档 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><blockquote>
+<p>如果数据库不存在，则创建数据库，否则切换到指定数据库。</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use runoob</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use database</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看所有数据库"><a href="#查看所有数据库" class="headerlink" title="查看所有数据库"></a>查看所有数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> dbs</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 需要先切换到数据库在删除</span></span><br><span class="line">use test</span><br><span class="line">db.dropDatabase()</span><br></pre></td></tr></table></figure>
+
+<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建一个管理员权限的用户</span></span><br><span class="line">db.createUser(&#123;<span class="keyword">user</span>:&quot;root&quot;,pwd:&quot;123456&quot;,roles:[&#123;role:&quot;root&quot;,db:&quot;admin&quot;&#125;]&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建一个对某个数据库有读写权限的用户</span></span><br><span class="line">db.createUser(&#123;<span class="keyword">user</span>:&quot;user&quot;,pwd:&quot;123456&quot;,roles:[&#123;role:&quot;readWrite&quot;,db:&quot;test&quot;&#125;]&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看用户"><a href="#查看用户" class="headerlink" title="查看用户"></a>查看用户</h4><h5 id="查看当前库的用户"><a href="#查看当前库的用户" class="headerlink" title="查看当前库的用户"></a>查看当前库的用户</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 先切换到数据库</span></span><br><span class="line">use admin</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查看当前库的用户</span></span><br><span class="line"><span class="keyword">show</span> users</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看所有库的用户"><a href="#查看所有库的用户" class="headerlink" title="查看所有库的用户"></a>查看所有库的用户</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 先切换到数据库</span></span><br><span class="line">use admin</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 显示所有库的用户</span></span><br><span class="line">db.system.users.find()</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 进入到库</span></span><br><span class="line">use test</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 删除当前库的某个用户</span></span><br><span class="line">db.dropUser(&quot;user&quot;)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 再次查看所有用户</span></span><br><span class="line">use admin</span><br><span class="line">db.system.users.find()</span><br></pre></td></tr></table></figure>
+
+<h3 id="内置角色"><a href="#内置角色" class="headerlink" title="内置角色"></a>内置角色</h3><blockquote>
+<p>非root，都是值对非系统库的操作！！！！！！！</p>
+</blockquote>
+<ul>
+<li>root：超级权限</li>
+<li>readWrite：对某个库的读写权限</li>
+<li>read：对某个库的读权限</li>
+<li>readWriteAnyDatabase：对所有库的读写权限</li>
+</ul>
+<h2 id="集合（表）"><a href="#集合（表）" class="headerlink" title="集合（表）"></a>集合（表）</h2><blockquote>
+<p>MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。</p>
+</blockquote>
+<h3 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.createCollection(&quot;one&quot;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看所有集合"><a href="#查看所有集合" class="headerlink" title="查看所有集合"></a>查看所有集合</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> tables</span><br><span class="line"><span class="comment">-- 或者</span></span><br><span class="line"><span class="keyword">show</span> collections</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除集合"><a href="#删除集合" class="headerlink" title="删除集合"></a>删除集合</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.one.drop()</span><br></pre></td></tr></table></figure>
+
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><h3 id="插入文档"><a href="#插入文档" class="headerlink" title="插入文档"></a>插入文档</h3><p>MongoDB 使用 insert() 或 save() 方法向集合中插入文档，语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">db.one.insert(&#123;name:&quot;zhang&quot;&#125;)</span><br><span class="line">db.one.insert(&#123;name:&quot;zhang&quot;，age：<span class="number">20</span>&#125;)</span><br><span class="line"></span><br><span class="line">db.one.save(&#123;name:&quot;zhang&quot;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- insertMany</span></span><br><span class="line">db.one.insertMany([&#123;name:&quot;lisi&quot;,age:<span class="number">11</span>&#125;,&#123;name:&quot;zs&quot;,age:<span class="number">99</span>&#125;])</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 循环插入文档</span></span><br><span class="line"><span class="keyword">for</span> (var i<span class="operator">=</span><span class="number">1</span>;i<span class="operator">&lt;=</span><span class="number">100</span>;i<span class="operator">+</span><span class="operator">+</span>) db.one.insert(&#123;num:i,name:&quot;a&quot;&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>save()：如果 _id 主键存在则更新数据，如果不存在就插入数据。该方法新版本中已废弃，可以使用 <strong>db.collection.insertOne()</strong> 或 <strong>db.collection.replaceOne()</strong> 来代替。</li>
+<li>insert(): 若插入的数据主键已经存在，则会抛 <strong>org.springframework.dao.DuplicateKeyException</strong> 异常，提示主键重复，不保存当前数据。</li>
+<li>insertMany(): 用于向集合插入一个多个文档。</li>
+</ul>
+<h3 id="查询文档"><a href="#查询文档" class="headerlink" title="查询文档"></a>查询文档</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询所有</span></span><br><span class="line">db.one.find()</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询单条</span></span><br><span class="line">db.one.find(&#123;name:&quot;lisi&quot;&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="查文档总数"><a href="#查文档总数" class="headerlink" title="查文档总数"></a>查文档总数</h4><blockquote>
+<p>count方法已被弃用</p>
+</blockquote>
+<ul>
+<li>countDocuments</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询文档总数</span></span><br><span class="line">db.one.countDocuments()</span><br></pre></td></tr></table></figure>
+
+<h3 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.one.update(&#123;name:&quot;zhan&quot;&#125;,&#123;$<span class="keyword">set</span>:&#123;name:&quot;li&quot;&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>updateOne()</code> ：用于更新单个文档。它的返回值是一个 <code>UpdateResult</code> 对象，该对象包含了关于更新操作的详细信息。<ul>
+<li><code>acknowledged</code>: 布尔类型，表示更新操作是否被 MongoDB 服务器成功确认。</li>
+<li><code>matchedCount</code>: 整数类型，表示符合筛选条件的文档数量。</li>
+<li><code>modifiedCount</code>: 整数类型，表示实际被更新的文档数量。</li>
+<li><code>upsertedCount</code>: 整数类型，表示在执行更新操作时，如果指定的文档不存在，则插入新的文档的数量。</li>
+<li><code>upsertedId</code>: 对象类型，表示在执行更新操作时，如果插入新文档，则返回新文档的 <code>_id</code> 值。</li>
+</ul>
+</li>
+</ul>
+<h3 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 删除单条</span></span><br><span class="line">db.one.remove(&#123;name:&quot;lisi&quot;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 删除全部</span></span><br><span class="line">db.one.remove(&#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a>条件运算符</h3><ul>
+<li>(&gt;) 大于 - $gt</li>
+<li>(&lt;) 小于 - $lt</li>
+<li>(&gt;&#x3D;) 大于等于 - $gte</li>
+<li>(&lt;&#x3D; ) 小于等于 - $lte</li>
+<li>(!&#x3D;) 不等于 - $ne</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 大于 </span></span><br><span class="line">db.one.find(&#123;num:&#123;$gt:<span class="number">20</span>&#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 大于等于</span></span><br><span class="line">db.one.find(&#123;num:&#123;$gte:<span class="number">20</span>&#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 小于</span></span><br><span class="line">db.one.find(&#123;num:&#123;$lt:<span class="number">20</span>&#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 小于等于</span></span><br><span class="line">db.one.find(&#123;num:&#123;$lte:<span class="number">20</span>&#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 不等于</span></span><br><span class="line">db.one.find(&#123;num:&#123;$ne:<span class="number">66</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="逻辑操作符"><a href="#逻辑操作符" class="headerlink" title="逻辑操作符"></a>逻辑操作符</h3><ul>
+<li>$and - 并且</li>
+<li>$or - 或者</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">-</span>$<span class="keyword">and</span></span><br><span class="line"><span class="comment">-- 下面两行相等</span></span><br><span class="line">db.runoob.find(&#123;$<span class="keyword">and</span>:[&#123;name:&quot;lisi&quot;&#125;,&#123;age:<span class="number">11</span>&#125;]&#125;)</span><br><span class="line">db.runoob.find(&#123;name:&quot;lisi&quot;,age:<span class="number">11</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- $or</span></span><br><span class="line">db.col.find(&#123;$<span class="keyword">or</span>:[&#123;key1:value1&#125;,&#123;key2:value2&#125;]&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><ul>
+<li>sort<ul>
+<li>1：升序</li>
+<li>-1：降序</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- age升序</span></span><br><span class="line">db.one.find().sort(&#123;&quot;age&quot;:<span class="number">1</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 年龄大于20的，按年龄升序排序</span></span><br><span class="line">db.one.find(&#123;age:&#123;$gt:<span class="number">20</span>&#125;&#125;).sort(&#123;&quot;age&quot;:<span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h3><ul>
+<li>aggregate</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- db.three.aggregate([&#123;&quot;分组&quot;:&#123;_id:&quot;分组字段值&quot;,&quot;聚合输出的键名（平均值/求和...）&quot;:&#123;&quot;平均值/求和...&quot;:&quot;字段值&quot;&#125;&#125;&#125;])</span></span><br><span class="line"><span class="comment">-- 分组的字段名必须是 _id 不能更改！！！</span></span><br><span class="line">db.three.aggregate([&#123;&quot;$group&quot;:&#123;_id:&quot;$class&quot;,&quot;sum_score&quot;:&#123;&quot;$sum&quot;:&quot;$score&quot;&#125;&#125;&#125;])</span><br></pre></td></tr></table></figure>
+
+<h4 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h4><ul>
+<li>$group</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.three.aggregate([&#123;&quot;$group&quot;:&#123;_id:&quot;$class&quot;,&quot;sum_score&quot;:&#123;&quot;$sum&quot;:&quot;$score&quot;&#125;&#125;&#125;])</span><br></pre></td></tr></table></figure>
+
+<h4 id="求和"><a href="#求和" class="headerlink" title="求和"></a>求和</h4><ul>
+<li>$sum</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.three.aggregate([&#123;&quot;$group&quot;:&#123;_id:&quot;$class&quot;,&quot;sum_score&quot;:&#123;&quot;$sum&quot;:&quot;$score&quot;&#125;&#125;&#125;])</span><br></pre></td></tr></table></figure>
+
+<h4 id="平均"><a href="#平均" class="headerlink" title="平均"></a>平均</h4><ul>
+<li>$avg</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.three.aggregate([&#123;&quot;$group&quot;:&#123;_id:&quot;$class&quot;,&quot;avg_score&quot;:&#123;&quot;$avg&quot;:&quot;$score&quot;&#125;&#125;&#125;])</span><br></pre></td></tr></table></figure>
+
+<h4 id="最大值"><a href="#最大值" class="headerlink" title="最大值"></a>最大值</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.three.aggregate([&#123;&quot;$group&quot;:&#123;_id:&quot;$class&quot;,&quot;max_score&quot;:&#123;&quot;$max&quot;:&quot;$score&quot;&#125;&#125;&#125;])</span><br></pre></td></tr></table></figure>
+
+<h4 id="最小值"><a href="#最小值" class="headerlink" title="最小值"></a>最小值</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.three.aggregate([&#123;&quot;$group&quot;:&#123;_id:&quot;$class&quot;,&quot;min_score&quot;:&#123;&quot;$min&quot;:&quot;$score&quot;&#125;&#125;&#125;])</span><br></pre></td></tr></table></figure>
+
+<h3 id="Limit与Skip"><a href="#Limit与Skip" class="headerlink" title="Limit与Skip"></a>Limit与Skip</h3><blockquote>
+<p>一般用于分页</p>
+</blockquote>
+<ul>
+<li>limit：获取几条</li>
+<li>skip：跳过几条</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.three.find().limit(<span class="number">2</span>).<span class="keyword">skip</span>(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>略</p>
+<h3 id="查询计划"><a href="#查询计划" class="headerlink" title="查询计划"></a>查询计划</h3><p>略  </p>
+<h3 id="慢查询"><a href="#慢查询" class="headerlink" title="慢查询"></a>慢查询</h3><p>略</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E7%A1%80/" data-id="clotsx2c0007tuwjwf7os5s8h" data-title="MongoDB基础" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-前端/electron/输出中文" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:22:26.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
@@ -91,7 +351,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">electron 基础概念</a>
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/">electron 输出中文</a>
     </h1>
   
 
@@ -101,23 +361,14 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<h2 id="主进程-Main-Process"><a href="#主进程-Main-Process" class="headerlink" title="主进程 Main Process"></a>主进程 Main Process</h2><ul>
-<li>可以使用和系统对接的Electron API - 创建菜单，上传文件等</li>
-<li>创建渲染进程 - Renderer Process</li>
-<li>全面支持Node.js</li>
-<li>只有一个，作为整个程序的入口点</li>
-</ul>
-<h2 id="渲染进程-Renderer-Process"><a href="#渲染进程-Renderer-Process" class="headerlink" title="渲染进程 - Renderer Process"></a>渲染进程 - Renderer Process</h2><ul>
-<li>可以有多个，每个对应一个窗口</li>
-<li>每个都是一个单独的进程</li>
-<li>全面支持Node.js 和 DOM API</li>
-<li>可以使用一部分 Electron 提供的 API</li>
-</ul>
+<p>我们可能在Windows的控制台会出现中文<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E4%B9%B1%E7%A0%81&spm=1001.2101.3001.7020">乱码</a>的问题，当我们在Windows的控制台下输入chcp,可以查看到当前字符编码，常见的gb2312的值是936，utf8的值是65001。这种情况下只要对package.json进行设置就能解决。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chcp <span class="number">65001</span> &amp;&amp; nodemon --watch main.js --exec electron .</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" data-id="clots5in40045dwjwcz9g46pg" data-title="electron 基础概念" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/" data-id="clotsx2ae000euwjwgnz6akqa" data-title="electron 输出中文" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -131,115 +382,11 @@
 
 
   
-    <article id="post-前端/vue/key的作用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/key%E7%9A%84%E4%BD%9C%E7%94%A8/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T08:19:20.000Z" itemprop="datePublished">2023-11-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/key%E7%9A%84%E4%BD%9C%E7%94%A8/">vue key的作用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <meta name="referrer" content="no-referrer"/>
-
-<h2 id="Vue-中-v-if-和-v-for-为何不能连用"><a href="#Vue-中-v-if-和-v-for-为何不能连用" class="headerlink" title="Vue 中 v-if 和 v-for 为何不能连用"></a>Vue 中 v-if 和 v-for 为何不能连用</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v-<span class="keyword">for</span>优先执行，会创建对应的dom节点，如果v-<span class="keyword">if</span>为<span class="literal">false</span>，会删除这个dom节点；这样创建后再删除，会造成页面卡顿。</span><br><span class="line"><span class="comment">// 可以在v-for里面用v-if只显示符合条件的数组数据，但效率会低，所以一般是先提取需要的数据再用v-for</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="vue-中-key-的作用"><a href="#vue-中-key-的作用" class="headerlink" title="vue 中:key 的作用"></a>vue 中:key 的作用</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5d771cf57012">https://www.jianshu.com/p/5d771cf57012</a></p>
-<p>使用 key <br><br><img src="https://upload-images.jianshu.io/upload_images/13201627-c3e12cdb02d59c24.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/477/format/webp"></p>
-<p>不使用 key，则 diff 算法默认是这样的： <br><br><img src="https://upload-images.jianshu.io/upload_images/13201627-9d6226c6268a341b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/572/format/webp"></p>
-<p>即把 C 更新成 F，D 更新成 C，E 更新成 D，最后再插入 E，是不是很没有效率？ 更新了 3 次，之后做了一次创建插入的操作<br>所以我们需要使用 key 来给每个节点做一个唯一标识，Diff 算法就可以正确的识别此节点，找到正确的位置区插入新的节点。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/13201627-d0b3a1577860fda9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/452/format/webp"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/vue/key%E7%9A%84%E4%BD%9C%E7%94%A8/" data-id="clots5inn006ddwjwbwkk4mj6" data-title="vue key的作用" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-前端/vue/watch" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/watch/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T08:18:00.000Z" itemprop="datePublished">2023-11-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/watch/">vue watch</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <meta name="referrer" content="no-referrer"/>
-
-<h2 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> sum = <span class="title function_">ref</span>(<span class="number">0</span>)</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="comment">/* 监听ref 基本类型 */</span></span></span><br><span class="line"><span class="language-javascript"><span class="comment">// ！！！！！！！！！！不能这么监听，因为这样就相当于监听0值</span></span></span><br><span class="line"><span class="language-javascript"><span class="comment">// watch(sum.value,(newVal,oldVal)=&gt;&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="comment">//     console.log(newVal,oldVal)</span></span></span><br><span class="line"><span class="language-javascript"><span class="comment">// &#125;)</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 正确监听</span></span></span><br><span class="line"><span class="language-javascript"><span class="title function_">watch</span>(<span class="function">()=&gt;</span>sum.<span class="property">value</span>,<span class="function">(<span class="params">newVal,oldVal</span>)=&gt;</span>&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(newVal,oldVal)</span></span><br><span class="line"><span class="language-javascript">&#125;)</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="comment">/* 监听ref 对象类型 */</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> obj = <span class="title function_">ref</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">name</span>:<span class="string">&#x27;张三&#x27;</span></span></span><br><span class="line"><span class="language-javascript">&#125;)</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 正确监听</span></span></span><br><span class="line"><span class="language-javascript"><span class="comment">// 这里的监听相当于监听ref 里面的reactive对象。而不是ref基本类型的值</span></span></span><br><span class="line"><span class="language-javascript"><span class="title function_">watch</span>(obj.<span class="property">value</span>,<span class="function">(<span class="params">newVal,oldVal</span>)=&gt;</span>&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(newVal,oldVal)</span></span><br><span class="line"><span class="language-javascript">&#125;)</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="watchEffect"><a href="#watchEffect" class="headerlink" title="watchEffect"></a>watchEffect</h2><ol>
-<li><code>watchEffect</code> 回调里，用到了什么数据，就监听什么数据</li>
-</ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123;ref,watchEffect&#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>)</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="title function_">watchEffect</span>(<span class="function">()=&gt;</span>&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;watchEffect&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">&#125;)</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/vue/watch/" data-id="clots5inr006ydwjw5rn17g4p" data-title="vue watch" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -250,7 +397,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
     </div>
   </div>
 
@@ -260,7 +407,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySql/" rel="tag">MySql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
     </div>
   </div>
 
@@ -270,7 +417,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/electron/" style="font-size: 12.22px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 18.89px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 16.67px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 14.44px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 15.56px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 11.11px;">vite</a> <a href="/tags/vue/" style="font-size: 17.78px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+      <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 10px;">MySql</a> <a href="/tags/docker/" style="font-size: 14px;">docker</a> <a href="/tags/electron/" style="font-size: 13px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 19px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 17px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 16px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 12px;">vite</a> <a href="/tags/vue/" style="font-size: 18px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
     </div>
   </div>
 
@@ -292,23 +439,23 @@
       <ul>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/">electron 输出中文</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E5%A4%8D%E5%88%B6%E6%96%87%E6%9C%AC/">vue 复制文本</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/">electron 常用第三方库</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E6%89%93%E5%8D%B0/">vue 打印</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">electron 基础使用</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%9F%BA%E7%A1%80/">mysql基础</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">electron 基础概念</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/Linux%E6%93%8D%E4%BD%9CMongoDB/">Linux操作MongoDB</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/key%E7%9A%84%E4%BD%9C%E7%94%A8/">vue key的作用</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E7%A1%80/">MongoDB基础</a>
           </li>
         
       </ul>

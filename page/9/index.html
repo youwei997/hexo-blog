@@ -73,10 +73,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-前端/nuxt/runtimeConfig" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-前端/nuxt/layout" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/runtimeConfig/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T07:59:45.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/layout/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:03:05.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
@@ -91,7 +91,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/runtimeConfig/">nuxt runtimeConfig</a>
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/layout/">nuxt layout</a>
     </h1>
   
 
@@ -101,19 +101,21 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<h2 id="nuxt-config-ts配置"><a href="#nuxt-config-ts配置" class="headerlink" title="nuxt.config.ts配置"></a>nuxt.config.ts配置</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// nuxt.config.ts</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineNuxtConfig</span>(&#123;</span><br><span class="line">  <span class="attr">runtimeConfig</span>: &#123;</span><br><span class="line">    <span class="comment">// The private keys which are only available within server-side</span></span><br><span class="line">    <span class="attr">apiSecret</span>: <span class="string">&#x27;123&#x27;</span>,</span><br><span class="line">    <span class="comment">// Keys within public, will be also exposed to the client-side</span></span><br><span class="line">    <span class="attr">public</span>: &#123;</span><br><span class="line">      <span class="attr">apiBase</span>: <span class="string">&#x27;/api&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
+<li>创建 layouts 文件夹</li>
+<li>创建 default.vue 和 custom.vue</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// default.vue</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        使用layout布局，在app.vue中使用，所有页面都会被包含</span><br><span class="line">        <span class="tag">&lt;<span class="name">slot</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// ts/js or vue</span><br><span class="line">const runtimeConfig = useRuntimeConfig()</span><br><span class="line"></span><br><span class="line">console.log(runtimeConfig.apiSecret)</span><br><span class="line">console.log(runtimeConfig.public.apiBase)</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// custom.vue</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>custom layout<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">slot</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="env文件配置"><a href="#env文件配置" class="headerlink" title="env文件配置"></a>env文件配置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// .env</span><br><span class="line">NUXT_API_SECRET=api_secret_token</span><br><span class="line">NUXT_PUBLIC_API_BASE=https://nuxtjs.org</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// app.vue</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;NuxtLayout :name=&quot;layout&quot;&gt;</span></span><br><span class="line"><span class="comment">        &lt;NuxtPage /&gt;</span></span><br><span class="line"><span class="comment">    &lt;/NuxtLayout&gt; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">NuxtLayout</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">NuxtPage</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">NuxtLayout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// You might choose this based on an API call or logged-in status</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> layout = <span class="string">&quot;default&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// nuxt.config.ts</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineNuxtConfig</span>(&#123;</span><br><span class="line">  <span class="attr">runtimeConfig</span>: &#123;</span><br><span class="line">    <span class="attr">apiSecret</span>: <span class="string">&#x27;&#x27;</span>, <span class="comment">// can be overridden by NUXT_API_SECRET environment variable</span></span><br><span class="line">    <span class="attr">public</span>: &#123;</span><br><span class="line">      <span class="attr">apiBase</span>: <span class="string">&#x27;&#x27;</span>, <span class="comment">// can be overridden by NUXT_PUBLIC_API_BASE environment variable</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// publicApiBase:&quot;&quot;,// 和上面public:&#123;apiBase: &#x27;&#x27;&#125;, 是一样的</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
+<h2 id="动态更改布局"><a href="#动态更改布局" class="headerlink" title="动态更改布局"></a>动态更改布局</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;enableCustomLayout&quot;</span>&gt;</span>Update layout<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">enableCustomLayout</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">setPageLayout</span>(<span class="string">&quot;custom&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">definePageMeta</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">layout</span>: <span class="literal">false</span>,</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/runtimeConfig/" data-id="clots5ine0057dwjw3z1l3gqc" data-title="nuxt runtimeConfig" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/layout/" data-id="clotsx2ai000ruwjw4zst5pqo" data-title="nuxt layout" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -127,10 +129,10 @@
 
 
   
-    <article id="post-前端/nuxt/seo和meta" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-前端/nuxt/middleware" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/seo%E5%92%8Cmeta/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T07:58:36.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/middleware/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:02:39.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
@@ -145,7 +147,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/seo%E5%92%8Cmeta/">nuxt seo和meta</a>
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/middleware/">nuxt middleware</a>
     </h1>
   
 
@@ -155,24 +157,21 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<h2 id="设置-Head-属性"><a href="#设置-Head-属性" class="headerlink" title="设置 Head 属性"></a>设置 Head 属性</h2><ol>
-<li>使用<code>&lt;Title&gt;</code>等元组件</li>
-</ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 会被markdown格式化成小写，先注释 --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;Title&gt;nuxt 标题&lt;/Title&gt; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span> <span class="attr">lang</span>=<span class="string">&quot;ts&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> <span class="title function_">navigate</span> = (<span class="params"></span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> <span class="title function_">navigateTo</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">path</span>: <span class="string">&quot;/about&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">        &#125;);</span></span><br><span class="line"><span class="language-javascript">    &#125;;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="路由中间件"><a href="#路由中间件" class="headerlink" title="路由中间件"></a>路由中间件</h2><ul>
+<li>auth.ts</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineNuxtRouteMiddleware</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;auth&quot;</span>, to);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// if (to.params.id === &quot;1&quot;) &#123;</span></span><br><span class="line">    <span class="comment">//     return abortNavigation();</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// return navigateTo(&quot;/&quot;);</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<ol start="2">
-<li>使用 <code>useHead</code> hook</li>
-</ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nuxt-link</span> <span class="attr">to</span>=<span class="string">&quot;/&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">nuxt-link</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;Title&gt;nuxt 标题&lt;/Title&gt; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span> <span class="attr">lang</span>=<span class="string">&quot;ts&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">useHead</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">title</span>: <span class="string">&quot;title use useHead&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="全局中间件"><a href="#全局中间件" class="headerlink" title="全局中间件"></a>全局中间件</h2><ul>
+<li>auth.global.ts</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineNuxtRouteMiddleware</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;auth-global&quot;</span>, to);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// if (to.params.id === &quot;1&quot;) &#123;</span></span><br><span class="line">    <span class="comment">//     return abortNavigation();</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">// return navigateTo(&quot;/&quot;);</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<ol start="3">
-<li>使用 js</li>
-</ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nuxt-link</span> <span class="attr">to</span>=<span class="string">&quot;/&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">nuxt-link</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;Title&gt;nuxt 标题&lt;/Title&gt; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span> <span class="attr">lang</span>=<span class="string">&quot;ts&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">useHead</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">title</span>: <span class="string">&quot;title use useHead&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">script</span>: [</span></span><br><span class="line"><span class="language-javascript">            &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="comment">// 本地js路径</span></span></span><br><span class="line"><span class="language-javascript">                <span class="attr">src</span>: <span class="string">&quot;/a.js&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">                <span class="comment">// 把放在body里</span></span></span><br><span class="line"><span class="language-javascript">                <span class="comment">// body如果是false，在引入的js里，会取不到dom元素</span></span></span><br><span class="line"><span class="language-javascript">                <span class="attr">body</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="language-javascript">            &#125;,</span></span><br><span class="line"><span class="language-javascript">        ],</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/seo%E5%92%8Cmeta/" data-id="clots5ind0053dwjwexci19f2" data-title="nuxt seo和meta" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/middleware/" data-id="clotsx2ap001cuwjwc36t7x9j" data-title="nuxt middleware" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -186,10 +185,10 @@
 
 
   
-    <article id="post-前端/nuxt/server" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-前端/nuxt/pages" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/server/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T07:57:39.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/pages/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:02:13.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
@@ -204,7 +203,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/server/">nuxt server服务器使用</a>
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/pages/">nuxt pages</a>
     </h1>
   
 
@@ -214,67 +213,35 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<h2 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h2><ul>
-<li>在中创建一个新文件 server&#x2F;api&#x2F;hello.ts：</li>
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><ul>
+<li>访问 <a target="_blank" rel="noopener" href="http://localhost:3000/about%60">http://localhost:3000/about`</a></li>
+<li>文件夹 <code>/pages/about.vue</code></li>
+<li>文件 <code>about.vue</code></li>
 </ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineEventHandler</span>(<span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">api</span>: <span class="string">&quot;works&quot;</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>使用</li>
+<h2 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h2><h3 id="id-访问"><a href="#id-访问" class="headerlink" title="id 访问"></a>id 访问</h3><ul>
+<li>访问 <a target="_blank" rel="noopener" href="http://localhost:3000/user/1">http://localhost:3000/user/1</a></li>
+<li>文件夹 <code>/pages/user/[id].vue</code></li>
+<li>文件 <code>[id].vue</code></li>
 </ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>获取数据<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nuxt-link</span> <span class="attr">to</span>=<span class="string">&quot;/&quot;</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">nuxt-link</span>&gt;</span>-</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">lang</span>=<span class="string">&quot;ts&quot;</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// const res = await useFetch(&quot;/api/hello&quot;);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// console.log(res.data.value.api);</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> &#123; data, error &#125; = <span class="keyword">await</span> <span class="title function_">useAsyncData</span>(<span class="string">&quot;hello&quot;</span>, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> $fetch(<span class="string">&quot;/api/hello&quot;</span>); <span class="comment">// 请求地址</span></span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(data.<span class="property">value</span>.<span class="property">api</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="服务器路由"><a href="#服务器路由" class="headerlink" title="服务器路由"></a>服务器路由</h2><ol>
-<li><code>~/server/api</code> 在 api 目录下的接口，需要带&#x2F;api。完整路径:</li>
+<h3 id="动态路由默认页面"><a href="#动态路由默认页面" class="headerlink" title="动态路由默认页面"></a>动态路由默认页面</h3><ul>
+<li>文件夹<code>/pages/user/index.vue</code></li>
+<li>文件 <code>index.vue</code></li>
+</ul>
+<h3 id="获取-参数"><a href="#获取-参数" class="headerlink" title="获取 参数"></a>获取 参数</h3><h4 id="获取-params"><a href="#获取-params" class="headerlink" title="获取 params"></a>获取 params</h4><ol>
+<li>使用<code>$route.params</code>获取</li>
+<li>使用<code>const route = useRoute();</code>函数获取</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:3000/api/hello</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><code>~/server/routes</code> 在 api 目录下的接口，不需要带&#x2F;api。完整路径:</li>
+<h4 id="获取-query"><a href="#获取-query" class="headerlink" title="获取 query"></a>获取 query</h4><ol>
+<li>使用<code>$route.query</code>获取</li>
+<li>使用<code>const route = useRoute();</code>函数获取</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:3000/hello</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;&quot;</span>&gt;</span>&#123;&#123; $route.params &#125;&#125; &#123;&#123; $route.query &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">lang</span>=<span class="string">&quot;ts&quot;</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> route = <span class="title function_">useRoute</span>();</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(route.<span class="property">params</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(route.<span class="property">query</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="服务器中间件"><a href="#服务器中间件" class="headerlink" title="服务器中间件"></a>服务器中间件</h2><p>Nuxt 会自动读入任何文件，~&#x2F;server&#x2F;middleware 为你的项目创建服务器中间件。</p>
-<p>中间件处理程序将在任何其他服务器路由之前在每个请求上运行，以添加或检查标头、记录请求或扩展事件的请求对象。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineEventHandler</span>(<span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;New request: &quot;</span> + event.<span class="property">req</span>.<span class="property">url</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><p>重要：<code>server/api/hello.ts</code>这种路由，默认响应所有请求方法</p>
-<h3 id="匹配路由参数"><a href="#匹配路由参数" class="headerlink" title="匹配路由参数"></a>匹配路由参数</h3><p>服务器路由可以在文件名中使用括号内的动态参数，例如<code>/api/hello/[name].ts</code>，并通过<code>event.context.params</code>.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineEventHandler</span>(</span><br><span class="line">    <span class="function">(<span class="params">event</span>) =&gt;</span> <span class="string">`获取name请求接口，不分请求方法, <span class="subst">$&#123;event.context.params.name&#125;</span>!`</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<p>您现在可以使用<code>await $fetch(&#39;/api/hello/nuxt&#39;)</code>和 get普遍调用此 API <code>Hello, nuxt!</code>。</p>
-<h3 id="匹配-HTTP-方法"><a href="#匹配-HTTP-方法" class="headerlink" title="匹配 HTTP 方法"></a>匹配 HTTP 方法</h3><p>句柄文件名可以后缀为<code>.get</code>, <code>.post</code>, <code>.put</code>, <code>.delete</code>, … 以匹配请求的<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods">HTTP Method</a>。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server/test.get.ts</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineEventHandler</span>(<span class="keyword">async</span> (event) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> query = <span class="keyword">await</span> <span class="title function_">useQuery</span>(event);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`响应 /api/test get请求 <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(query)&#125;</span>`</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server/test.post.ts</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineEventHandler</span>(<span class="keyword">async</span> (event) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> body = <span class="keyword">await</span> <span class="title function_">useBody</span>(event);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`响应 /api/test post请求 <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(body)&#125;</span>`</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>给定上面的例子，获取<code>/test</code>：</p>
-<ul>
-<li><strong>GET</strong>方法：返回<code>Test get handler</code></li>
-<li><strong>POST</strong>方法：返回<code>Test post handler</code></li>
-<li>任何其他方法：返回 405 错误</li>
-</ul>
-<h3 id="包罗万象的路线"><a href="#包罗万象的路线" class="headerlink" title="包罗万象的路线"></a>包罗万象的路线</h3><p>包罗万象的路由有助于回退路由处理。例如，创建一个名为的文件<code>~/server/api/foo/[...].ts</code>将为所有不匹配任何路由处理程序的请求注册一个包罗万象的路由，例如<code>/api/foo/bar/baz</code>.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server/api/foo/[...].ts</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineEventHandler</span>(<span class="function">() =&gt;</span> <span class="string">`Default foo handler`</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server/api/[...].ts</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineEventHandler</span>(<span class="function">() =&gt;</span> <span class="string">`Default api handler`</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server/api/all/[...].ts</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineEventHandler</span>(</span><br><span class="line">    <span class="function">() =&gt;</span> <span class="string">`/api/all/*，所有请求接口和请求方法都响应`</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用正文处理请求-（获取body）"><a href="#使用正文处理请求-（获取body）" class="headerlink" title="使用正文处理请求 （获取body）"></a>使用正文处理请求 （获取body）</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server/api/submit.post.ts</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineEventHandler</span>(<span class="keyword">async</span> (event) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> body = <span class="keyword">await</span> <span class="title function_">useBody</span>(event)</span><br><span class="line">    <span class="keyword">return</span> &#123; body &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>您现在可以使用<code>$fetch(&#39;/api/submit&#39;, &#123; method: &#39;post&#39;, body: &#123; test: 123 &#125; &#125;)</code>.</p>
-<div style="background:rgba(255,251,235,1);color:rgba(217,119,6,1);padding:10px">
-我们`submit.post.ts`在文件名中使用仅用于将请求与`POST`可以接受请求正文的方法匹配。`useBody`在GET 请求中使用时，`useBody`会抛出`405 Method Not Allowed`HTTP 错误。
-</div>
-
-
-<h3 id="使用查询参数处理请求"><a href="#使用查询参数处理请求" class="headerlink" title="使用查询参数处理请求"></a>使用查询参数处理请求</h3><p>示例查询<code>/api/query?param1=a&amp;param2=b</code></p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server/api/query.get.ts</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineEventHandler</span>(<span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> query = <span class="title function_">useQuery</span>(event)</span><br><span class="line">  <span class="keyword">return</span> &#123; <span class="attr">a</span>: query.<span class="property">param1</span>, <span class="attr">b</span>: query.<span class="property">param2</span> &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="跳转"><a href="#跳转" class="headerlink" title="跳转"></a>跳转</h2><h3 id="nuxt-link"><a href="#nuxt-link" class="headerlink" title="nuxt-link"></a>nuxt-link</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">nuxt-link</span> <span class="attr">:to</span>=<span class="string">&quot;&#123; path: &#x27;/user/1&#x27; &#125;&quot;</span>&gt;</span>跳转到某个用户信息<span class="tag">&lt;/<span class="name">nuxt-link</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span> <span class="attr">lang</span>=<span class="string">&quot;ts&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/server/" data-id="clots5ine0059dwjwh4ba77pz" data-title="nuxt server服务器使用" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/nuxt/pages/" data-id="clotsx2aj000uuwjwfsivc5to" data-title="nuxt pages" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -292,7 +259,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/8/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="extend next" rel="next" href="/page/10/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/8/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/10/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -303,7 +270,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
     </div>
   </div>
 
@@ -313,7 +280,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySql/" rel="tag">MySql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
     </div>
   </div>
 
@@ -323,7 +290,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/electron/" style="font-size: 12.22px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 18.89px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 16.67px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 14.44px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 15.56px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 11.11px;">vite</a> <a href="/tags/vue/" style="font-size: 17.78px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+      <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 10px;">MySql</a> <a href="/tags/docker/" style="font-size: 14px;">docker</a> <a href="/tags/electron/" style="font-size: 13px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 19px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 17px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 16px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 12px;">vite</a> <a href="/tags/vue/" style="font-size: 18px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
     </div>
   </div>
 
@@ -345,23 +312,23 @@
       <ul>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/">electron 输出中文</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E5%A4%8D%E5%88%B6%E6%96%87%E6%9C%AC/">vue 复制文本</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/">electron 常用第三方库</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%B7%A5%E5%85%B7%E5%BA%93/%E6%89%93%E5%8D%B0/">vue 打印</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">electron 基础使用</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%9F%BA%E7%A1%80/">mysql基础</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">electron 基础概念</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/Linux%E6%93%8D%E4%BD%9CMongoDB/">Linux操作MongoDB</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/key%E7%9A%84%E4%BD%9C%E7%94%A8/">vue key的作用</a>
+            <a href="/2023/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E7%A1%80/">MongoDB基础</a>
           </li>
         
       </ul>
