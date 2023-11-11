@@ -1,5 +1,5 @@
 ---
-title: typeorm基本使用
+title: nestjs typeorm基本使用
 date: 2023-11-11 14:24:10
 tags: typeorm
 categories: 后端

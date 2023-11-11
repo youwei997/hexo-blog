@@ -1,5 +1,5 @@
 ---
-title: Providers依赖注入
+title: nestjs Providers依赖注入
 date: 2023-11-11 14:26:27
 tags: nestjs
 categories: 后端
