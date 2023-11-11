@@ -4,25 +4,15 @@
   <meta charset="utf-8">
   
   
-  <title>uniapp 基础 | 博客</title>
+  <title>博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="软件就像做爱。一次犯错，你需要用余下一生来维护支持。—— Michael Sinz  本章我们来学习 Vue 基础，认识 Vue 开发。 为什么是了解 Vue 基础呢？因为 Uniapp 设计的开发标准是：Vue的语法 + 小程序的API + 条件编译扩展平台个性化能力。了解完 Vue 基本开发原理就可使用 Uniapp 了。 什么是 MVC 与 MVVM ？在开始之前，我们先来了解什么是 MV">
-<meta property="og:type" content="article">
-<meta property="og:title" content="uniapp 基础">
-<meta property="og:url" content="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/uniapp/mvvm/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="博客">
+<meta property="og:url" content="https://youwei997.github.io/page/6/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="软件就像做爱。一次犯错，你需要用余下一生来维护支持。—— Michael Sinz  本章我们来学习 Vue 基础，认识 Vue 开发。 为什么是了解 Vue 基础呢？因为 Uniapp 设计的开发标准是：Vue的语法 + 小程序的API + 条件编译扩展平台个性化能力。了解完 Vue 基本开发原理就可使用 Uniapp 了。 什么是 MVC 与 MVVM ？在开始之前，我们先来了解什么是 MV">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/18/170ec6e02ca8e1a4~tplv-t2oaga2asx-watermark.awebp">
-<meta property="og:image" content="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/18/170ec6e39f709d44~tplv-t2oaga2asx-watermark.awebp">
-<meta property="og:image" content="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/11/16/16e71f120e22121a~tplv-t2oaga2asx-watermark.awebp">
-<meta property="og:image" content="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/18/170ec6f33375f853~tplv-t2oaga2asx-watermark.awebp">
-<meta property="article:published_time" content="2023-11-10T17:41:30.668Z">
-<meta property="article:modified_time" content="2023-11-11T05:36:46.696Z">
 <meta property="article:author" content="youwe1">
-<meta property="article:tag" content="uniapp">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/18/170ec6e02ca8e1a4~tplv-t2oaga2asx-watermark.awebp">
   
     <link rel="alternate" href="/atom.xml" title="博客" type="application/atom+xml">
   
@@ -81,7 +71,61 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-前端/uniapp/mvvm" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main">
+  
+    <article id="post-性能优化/gzip" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/gzip/" class="article-date">
+  <time class="dt-published" datetime="2023-11-10T18:35:11.564Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/gzip/">开启gzip</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p><code>npm i -D compression-webpack-plugin</code></p>
+</li>
+<li><p>修改 <em>vue.config.js</em> 配置</p>
+</li>
+</ol>
+   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">CompressionPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;compression-webpack-plugin&#x27;</span>)</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line"> ...</span><br><span class="line">  <span class="attr">configureWebpack</span>: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (process.<span class="property">env</span>.<span class="property">NODE_ENV</span> === <span class="string">&#x27;production&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">plugins</span>: [</span><br><span class="line">          <span class="keyword">new</span> <span class="title class_">CompressionPlugin</span>(&#123;</span><br><span class="line">            <span class="attr">test</span>: <span class="regexp">/\.js$|\.html$|\.css$|\.jpg$|\.jpeg$|\.png/</span>, <span class="comment">// 需要压缩的文件类型</span></span><br><span class="line">            <span class="attr">threshold</span>: <span class="number">10240</span>, <span class="comment">// 归档需要进行压缩的文件大小最小值，这里是10K以上的进行压缩</span></span><br><span class="line">            <span class="attr">deleteOriginalAssets</span>: <span class="literal">false</span> <span class="comment">// 是否删除原文件</span></span><br><span class="line">          &#125;)</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>nginx启用gzip<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="comment"># 开启|关闭 gzip。</span></span><br><span class="line">    <span class="attribute">gzip</span> <span class="literal">on</span>|<span class="literal">off</span>;</span><br><span class="line">      <span class="comment"># 文件大于指定 size 才压缩，以 kb 为单位。</span></span><br><span class="line">      <span class="attribute">gzip_min_length</span> <span class="number">10</span>;</span><br><span class="line">      <span class="comment"># 压缩级别，1-9，值越大压缩比越大，但更加占用 CPU，且压缩效率越来越低。</span></span><br><span class="line">      <span class="attribute">gzip_comp_level</span> <span class="number">2</span>;</span><br><span class="line">      <span class="comment"># 压缩的文件类型。</span></span><br><span class="line">      <span class="attribute">gzip_types</span> text/plain application/javascript application/x-javascript text/css application/xml text/javascript;</span><br><span class="line">      <span class="comment"># 开启后如果能找到 .gz 文件，直接返回该文件，不会启用服务端压缩。</span></span><br><span class="line">      <span class="attribute">gzip_static</span> <span class="literal">on</span>|<span class="literal">off</span></span><br><span class="line">      <span class="comment"># 是否添加响应头 Vary: Accept-Encoding 建议开启。</span></span><br><span class="line">      gzip_vary <span class="literal">on</span>;</span><br><span class="line">      <span class="comment"># 请求压缩的缓冲区数量和大小，以 4k 为单位，32 为倍数。</span></span><br><span class="line">      <span class="attribute">gzip_buffers</span> <span class="number">32</span> <span class="number">4K</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/gzip/" data-id="clotoo99b0003aojwfufe6guq" data-title="开启gzip" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-前端/uniapp/mvvm" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/uniapp/mvvm/" class="article-date">
   <time class="dt-published" datetime="2023-11-10T17:41:30.668Z" itemprop="datePublished">2023-11-11</time>
@@ -98,8 +142,8 @@
       <header class="article-header">
         
   
-    <h1 class="p-name article-title" itemprop="headline name">
-      uniapp 基础
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/uniapp/mvvm/">uniapp 基础</a>
     </h1>
   
 
@@ -232,29 +276,70 @@
     </footer>
   </div>
   
-    
-<nav id="article-nav">
-  
-    <a href="/2023/11/11/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/gzip/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          开启gzip
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2023/11/11/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">Hello World</div>
-    </a>
-  
-</nav>
+</article>
 
+
+
+  
+    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2023-11-10T16:19:58.832Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/hello-world/" data-id="clotoo9950001aojw13ylajxw" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
+
+    </footer>
+  </div>
   
 </article>
 
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
 
 </section>
         
