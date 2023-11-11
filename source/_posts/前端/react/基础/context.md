@@ -1,6 +1,6 @@
 ---
 title: react context
-tags: typescript
+tags: react
 categories: 前端
 date: 2023-11-11 15:38:42
 ---

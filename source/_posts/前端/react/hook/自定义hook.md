@@ -1,6 +1,6 @@
 ---
 title: react 自定义hook
-tags: typescript
+tags: react
 categories: 前端
 date: 2023-11-11 15:34:05
 ---
