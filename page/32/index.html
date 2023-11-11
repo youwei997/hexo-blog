@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="博客">
+<meta property="og:url" content="https://youwei997.github.io/page/32/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="youwe1">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://youwei997.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-第三方平台/腾讯云点播上传视频入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/%E8%85%BE%E8%AE%AF%E4%BA%91%E7%82%B9%E6%92%AD%E4%B8%8A%E4%BC%A0%E8%A7%86%E9%A2%91%E5%85%A5%E9%97%A8/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T06:07:19.000Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/%E8%85%BE%E8%AE%AF%E4%BA%91%E7%82%B9%E6%92%AD%E4%B8%8A%E4%BC%A0%E8%A7%86%E9%A2%91%E5%85%A5%E9%97%A8/">腾讯云点播上传视频入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer"/>
+## 前端
+- 前端使用的`vue3`
+- 需要安装 `vod-js-sdk-v6`
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">TcVod</span> <span class="keyword">from</span> <span class="string">&quot;vod-js-sdk-v6&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">inputChange</span> = (<span class="params">e</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> tcVod = <span class="keyword">new</span> <span class="title class_">TcVod</span>(&#123;</span><br><span class="line">    <span class="attr">getSignature</span>: getSignature, <span class="comment">// 获取上传签名的函数</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> vUploader = tcVod.<span class="title function_">upload</span>(&#123;</span><br><span class="line">    <span class="comment">// 腾讯云-初始化上传功能</span></span><br><span class="line">    <span class="attr">mediaFile</span>: e.<span class="property">target</span>.<span class="property">files</span>[<span class="number">0</span>],</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  vUploader.<span class="title function_">done</span>().<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 上传完成回调</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取签名  这里的签名请求是由后端提供的，只需要拿到后端给的签名请求即可</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">getVodSignature</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> url = <span class="string">&quot;http://localhost:3000/api/video/getvod&quot;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">fetch</span>(url)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="function">(<span class="params">response</span>) =&gt;</span> response.<span class="title function_">json</span>())</span><br><span class="line">    .<span class="title function_">then</span>(<span class="function">(<span class="params">data</span>) =&gt;</span> data);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//必须以函数的形式返回  sdk参数限制</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">getSignature</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> data = <span class="keyword">await</span> <span class="title function_">getVodSignature</span>();</span><br><span class="line">  <span class="keyword">return</span> data;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> @<span class="attr">change</span>=<span class="string">&quot;inputChange&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="后端-返回签名"><a href="#后端-返回签名" class="headerlink" title="后端 返回签名"></a>后端 返回签名</h2><ul>
+<li>使用<code>nodejs express</code>框架</li>
+<li><code>querystring</code>和<code>crypto</code>是<code>node</code>自带的模块，无需安装<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> querystring = <span class="built_in">require</span>(<span class="string">&quot;querystring&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> crypto = <span class="built_in">require</span>(<span class="string">&quot;crypto&quot;</span>);</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">getvod</span> = <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">    <span class="comment">// 腾讯云生成签名文档 https://cloud.tencent.com/document/product/266/10638</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> querystring = <span class="built_in">require</span>(<span class="string">&quot;querystring&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> crypto = <span class="built_in">require</span>(<span class="string">&#x27;crypto&#x27;</span>);</span><br><span class="line">    <span class="comment">// 确定 app 的云 API 密钥</span></span><br><span class="line">    <span class="keyword">const</span> secret_id = <span class="string">&quot;这里填secret_id&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> secret_key = <span class="string">&quot;这里填secret_key&quot;</span>;</span><br><span class="line">    <span class="comment">// 确定签名的当前时间和失效时间</span></span><br><span class="line">    <span class="keyword">const</span> current = <span class="built_in">parseInt</span>((<span class="keyword">new</span> <span class="title class_">Date</span>()).<span class="title function_">getTime</span>() / <span class="number">1000</span>)</span><br><span class="line">    <span class="keyword">const</span> expired = current + <span class="number">86400</span>;  <span class="comment">// 签名有效期：1天</span></span><br><span class="line">    <span class="comment">// 向参数列表填入参数</span></span><br><span class="line">    <span class="keyword">const</span> arg_list = &#123;</span><br><span class="line">        <span class="attr">secretId</span>: secret_id,</span><br><span class="line">        <span class="attr">currentTimeStamp</span>: current,</span><br><span class="line">        <span class="attr">expireTime</span>: expired,</span><br><span class="line">        <span class="attr">random</span>: <span class="title class_">Math</span>.<span class="title function_">round</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="title class_">Math</span>.<span class="title function_">pow</span>(<span class="number">2</span>, <span class="number">32</span>))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 计算签名</span></span><br><span class="line">    <span class="keyword">const</span> orignal = querystring.<span class="title function_">stringify</span>(arg_list);</span><br><span class="line">    <span class="keyword">const</span> orignal_buffer = <span class="keyword">new</span> <span class="title class_">Buffer</span>(orignal, <span class="string">&quot;utf8&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> hmac = crypto.<span class="title function_">createHmac</span>(<span class="string">&quot;sha1&quot;</span>, secret_key);</span><br><span class="line">    <span class="keyword">const</span> hmac_buffer = hmac.<span class="title function_">update</span>(orignal_buffer).<span class="title function_">digest</span>();</span><br><span class="line">    <span class="keyword">const</span> signature = <span class="title class_">Buffer</span>.<span class="title function_">concat</span>([hmac_buffer, orignal_buffer]).<span class="title function_">toString</span>(<span class="string">&quot;base64&quot;</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(signature);</span><br><span class="line">    res.<span class="title function_">json</span>(signature)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="点击上传"><a href="#点击上传" class="headerlink" title="点击上传"></a>点击上传</h2><ul>
+<li>没有报错就是上传成功</li>
+<li>在<a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/vod/media">腾讯云点播控制台查看上传的视频</a><br><img src="https://img-blog.csdnimg.cn/2d9056e36798484a89d26563e23c2f9a.png"></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/%E8%85%BE%E8%AE%AF%E4%BA%91%E7%82%B9%E6%92%AD%E4%B8%8A%E4%BC%A0%E8%A7%86%E9%A2%91%E5%85%A5%E9%97%A8/" data-id="clots5ilw0003dwjw6ts19owe" data-title="腾讯云点播上传视频入门" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-后端/nodejs/nodejs入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E5%85%A5%E9%97%A8/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T06:02:17.000Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E5%85%A5%E9%97%A8/">nodejs入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>web 服务 如何处理一个请求</p>
+</blockquote>
+<h2 id="url–-网络–-dns-解析–-目标服务器"><a href="#url–-网络–-dns-解析–-目标服务器" class="headerlink" title="url–&gt;网络–&gt;dns 解析–&gt;目标服务器"></a>url–&gt;网络–&gt;dns 解析–&gt;目标服务器</h2><ol>
+<li>如何响应这个请求 –&gt; 路由&#x2F;&#x2F;规则</li>
+</ol>
+<h2 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);  </span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();  </span><br><span class="line"><span class="comment">//app --&gt; application --&gt; web服务的实例  </span></span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="function">() =&gt;</span> &#123;  </span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;服务器启动成功&quot;</span>);  </span><br><span class="line">&#125;);  </span><br></pre></td></tr></table></figure>
+
+<h2 id="请求的方法来区分"><a href="#请求的方法来区分" class="headerlink" title="请求的方法来区分"></a>请求的方法来区分</h2><ol>
+<li>get  </li>
+<li>post  </li>
+<li>put  </li>
+<li>delete  </li>
+<li>…</li>
+</ol>
+<h2 id="通过-uri-–-路径"><a href="#通过-uri-–-路径" class="headerlink" title="通过 uri –&gt; 路径"></a>通过 uri –&gt; 路径</h2><p><code>/user/getList</code>  </p>
+<h3 id="需要定义一个-api-路由，需要满足客户端，无论什么请求方式，请求方法或-uri-都可以得到响应"><a href="#需要定义一个-api-路由，需要满足客户端，无论什么请求方式，请求方法或-uri-都可以得到响应" class="headerlink" title="需要定义一个 api&#x2F;路由，需要满足客户端，无论什么请求方式，请求方法或 uri 都可以得到响应"></a>需要定义一个 api&#x2F;路由，需要满足客户端，无论什么请求方式，请求方法或 uri 都可以得到响应</h3><ol>
+<li>使用 app.all</li>
+</ol>
+<ul>
+<li>任何请求方法都响应</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">all</span>(<span class="string">&quot;/demo&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;  </span><br><span class="line">  res.<span class="title function_">json</span>(&#123;  </span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&quot;任何请求方法都响应&quot;</span>,  </span><br><span class="line">    <span class="attr">method</span>: req.<span class="property">method</span>,  </span><br><span class="line">  &#125;);  </span><br><span class="line">&#125;);  </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>任何请求方法及任何 uri 都响应</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用通配符  </span></span><br><span class="line">app.<span class="title function_">all</span>(<span class="string">&quot;*&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;  </span><br><span class="line">  res.<span class="title function_">json</span>(&#123;    <span class="attr">msg</span>: <span class="string">&quot;任何请求方法及任何uri都响应&quot;</span>,  </span><br><span class="line">    <span class="attr">method</span>: req.<span class="property">method</span>,    <span class="attr">uri</span>: req.<span class="property">path</span>,  &#125;);&#125;);  </span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用中间件，无论客户端使用任何 uri，服务端都可以响应 （日志）</li>
+</ol>
+<ul>
+<li>使用中间件拦截请求–任何请求方法都响应</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(<span class="string">&quot;/middleware&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;  </span><br><span class="line">  res.<span class="title function_">json</span>(&#123;  </span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&quot;使用中间件拦截请求--任何请求方法都响应&quot;</span>,  </span><br><span class="line">    <span class="attr">method</span>: req.<span class="property">method</span>,  </span><br><span class="line">    <span class="attr">path</span>: req.<span class="property">path</span>,  </span><br><span class="line">  &#125;);  </span><br><span class="line">&#125;);  </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用中间件拦截请求–任何请求方法及任何 uri 都响应</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(<span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;  </span><br><span class="line">  res.<span class="title function_">json</span>(&#123;  </span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&quot;使用中间件拦截请求--任何请求方法及任何uri都响应&quot;</span>,  </span><br><span class="line">    <span class="attr">method</span>: req.<span class="property">method</span>,  </span><br><span class="line">    <span class="attr">path</span>: req.<span class="property">path</span>,  </span><br><span class="line">  &#125;);  </span><br><span class="line">&#125;);  </span><br></pre></td></tr></table></figure>
+
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><h3 id="路由拆分"><a href="#路由拆分" class="headerlink" title="路由拆分"></a>路由拆分</h3><ol>
+<li>user  </li>
+<li>login  </li>
+<li>register</li>
+</ol>
+<h3 id="express-Router"><a href="#express-Router" class="headerlink" title="express.Router"></a>express.Router</h3><ol>
+<li><p>创建 routes 目录，存放路由文件  </p>
+<ul>
+<li><p>路由文件 如<strong>user</strong>  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);   </span><br><span class="line"><span class="keyword">const</span> router = express.<span class="title class_">Router</span>();   </span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&quot;/user&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;     </span><br><span class="line">    res.<span class="title function_">json</span>(&#123;       </span><br><span class="line">        <span class="attr">id</span>: <span class="number">123</span>,       </span><br><span class="line">        <span class="attr">name</span>: <span class="string">&quot;张三&quot;</span>,  </span><br><span class="line">	&#125;);   </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>app.js 使用  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);   </span><br><span class="line"><span class="keyword">const</span> userRouter = <span class="built_in">require</span>(<span class="string">&quot;./routes/user&quot;</span>);   </span><br><span class="line">app.<span class="title function_">use</span>(userRouter);  </span><br><span class="line"><span class="comment">//路由前缀命名空间  </span></span><br><span class="line"><span class="comment">// app.use(&#x27;/&#x27;,userRouter);  </span></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="function">() =&gt;</span> &#123;     </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;服务器启动成功&quot;</span>);  </span><br><span class="line">&#125;);  </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h2><h3 id="是一个函数"><a href="#是一个函数" class="headerlink" title="是一个函数"></a>是一个函数</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// err, req, res, next--&gt;function  </span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">demo_middleware</span>(<span class="params">err, req, res, next</span>) &#123;  </span><br><span class="line">  <span class="comment">// 1. 异常处理  </span></span><br><span class="line">  <span class="comment">// 2. 处理业务功能，然后转交控制权--next  </span></span><br><span class="line">  <span class="comment">// 3. 响应请求--结束响应--&gt;当作路由的处理函数  </span></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>app 级别  </p>
+<ul>
+<li>app 注册时，在最上层  </li>
+<li>app.use(middleware) app 级别中间件，处理任何请求</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//下面两个几乎相等  </span><br><span class="line">// app.all(&quot;\*&quot;, valid_name_middleware);  </span><br><span class="line">app.use(valid_name_middleware);   </span><br></pre></td></tr></table></figure>
+<ul>
+<li>express 内置中间件  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//express.static() 第一个参数为和 package.json 同级的一个目录。第二个为配置参数  </span></span><br><span class="line"><span class="comment">//浏览器输入 localhost:3000/index.html 会显示 static 目录下 index.html 页面  </span></span><br><span class="line"><span class="comment">//在配置参数配置 extensions: [&quot;html&quot;, &quot;htm&quot;], 就可以不写后面的,html。否则会去匹配路由  </span></span><br><span class="line">app.<span class="title function_">use</span>(  </span><br><span class="line">  express.<span class="title function_">static</span>(<span class="string">&quot;static&quot;</span>, &#123;       </span><br><span class="line">      <span class="comment">// extensions: [&quot;html&quot;, &quot;htm&quot;],     </span></span><br><span class="line">  &#125;)   </span><br><span class="line">);  </span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>router 级别  </p>
+<ul>
+<li><p>在 app 使用  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(<span class="string">&quot;/user&quot;</span>, userRouter);  </span><br></pre></td></tr></table></figure></li>
+<li><p>路由中间件  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);   </span><br><span class="line"><span class="keyword">const</span> router = express.<span class="title class_">Router</span>(); <span class="comment">//路由对象，类似子app  </span></span><br><span class="line">router.<span class="title function_">use</span>(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;     </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;user 路由中间件&quot;</span>);  </span><br><span class="line">	<span class="title function_">next</span>();   </span><br><span class="line">&#125;);   </span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&quot;/demo&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;     </span><br><span class="line">    res.<span class="title function_">json</span>(&#123;       </span><br><span class="line">        <span class="attr">msg</span>: <span class="string">&quot;user 路由&quot;</span>,  </span><br><span class="line">	&#125;);   </span><br><span class="line">&#125;);   </span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = router;  </span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>异常处理  </p>
+<ul>
+<li><p>app 级别异常处理  </p>
+</li>
+<li><p>路由级别异常处理，每个路由使用不同的异常处理</p>
+</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E5%85%A5%E9%97%A8/" data-id="clots5imw0036dwjw937ygaye" data-title="nodejs入门" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-前端/开发工具/webpack/webapck.config.js基本使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/webpack/webapck.config.js%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T05:59:11.000Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/webpack/webapck.config.js%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">webpack.config.js基本使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">HtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&quot;html-webpack-plugin&quot;</span>);</span><br><span class="line"><span class="comment">// const &#123; CleanWebpackPlugin &#125; = require(&quot;clean-webpack-plugin&quot;);</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">mode</span>: process.<span class="property">env</span>.<span class="property">NODE_ENV</span> === <span class="string">&quot;development&quot;</span> ? <span class="string">&quot;development&quot;</span> : <span class="string">&quot;production&quot;</span>,</span><br><span class="line">  <span class="comment">// 入口文件</span></span><br><span class="line">  <span class="attr">entry</span>: <span class="string">&quot;./src/index.ts&quot;</span>,</span><br><span class="line">  <span class="comment">// 输出到某个文件</span></span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&quot;main.js&quot;</span>,</span><br><span class="line">    <span class="attr">clean</span>: <span class="literal">true</span>, <span class="comment">// 输出之前清理文件，开启这个就可以不用 clean-webpack-plugin</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">resolve</span>: &#123;</span><br><span class="line">    <span class="comment">// 自动解析文件拓展。引入js文件时，无需再加上文件后缀</span></span><br><span class="line">    <span class="attr">extensions</span>: [<span class="string">&quot;.js&quot;</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="comment">// 匹配文件名，使用loader</span></span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.tsx?$/</span>,</span><br><span class="line">        <span class="attr">use</span>: <span class="string">&quot;ts-loader&quot;</span>,</span><br><span class="line">        <span class="comment">// 排除某些文件夹下对应的文件</span></span><br><span class="line">        <span class="attr">exclude</span>: <span class="regexp">/node_module/</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 开发环境启用source-map，用于定位文件代码</span></span><br><span class="line">  <span class="attr">devtool</span>: process.<span class="property">env</span>.<span class="property">NODE_ENV</span> === <span class="string">&quot;development&quot;</span> ? <span class="string">&quot;inline-source-map&quot;</span> : <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">devServer</span>: &#123;</span><br><span class="line">    <span class="comment">// 基于哪个目录运行代码</span></span><br><span class="line">    <span class="comment">// contentBase: &quot;./dist&quot;,</span></span><br><span class="line">    <span class="comment">// 启用压缩</span></span><br><span class="line">    <span class="attr">compress</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="comment">// host</span></span><br><span class="line">    <span class="attr">host</span>: <span class="string">&quot;localhost&quot;</span>,</span><br><span class="line">    <span class="comment">//端口</span></span><br><span class="line">    <span class="attr">port</span>: <span class="number">8089</span>,</span><br><span class="line">    <span class="comment">// 监测html文件</span></span><br><span class="line">    <span class="attr">watchFiles</span>: [<span class="string">&quot;./src/index.html&quot;</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="comment">// new CleanWebpackPlugin(&#123; cleanOnceBeforeBuildPatterns: [&quot;./dist&quot;] &#125;),</span></span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">HtmlWebpackPlugin</span>(&#123; <span class="attr">template</span>: <span class="string">&quot;./src/index.html&quot;</span> &#125;),</span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 控制台显示哪些信息</span></span><br><span class="line">  <span class="attr">stats</span>: <span class="string">&quot;errors-only&quot;</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;typescript-lison&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;index.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cross-env NODE_ENV=production webpack --config ./build/webpack.config.js&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;keywords&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;license&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ISC&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;devDependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;cross-env&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^7.0.3&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;eslint&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^8.25.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;ts-loader&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^9.4.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;typescript&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.8.4&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;webpack&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^5.74.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;webpack-cli&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.10.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;webpack-dev-server&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.11.1&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;clean-webpack-plugin&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;html-webpack-plugin&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^5.5.0&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/webpack/webapck.config.js%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" data-id="clots5ior00a5dwjw230r92be" data-title="webpack.config.js基本使用" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/31/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="extend next" rel="next" href="/page/33/">下一页 &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/electron/" style="font-size: 12.22px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 18.89px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 16.67px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 14.44px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 15.56px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 11.11px;">vite</a> <a href="/tags/vue/" style="font-size: 17.78px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/">electron 输出中文</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/">electron 常用第三方库</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">electron 基础使用</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">electron 基础概念</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/key%E7%9A%84%E4%BD%9C%E7%94%A8/">vue key的作用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 youwe1<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

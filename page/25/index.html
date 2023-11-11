@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="博客">
+<meta property="og:url" content="https://youwei997.github.io/page/25/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="youwe1">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://youwei997.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-后端/nestjs/管道" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/%E7%AE%A1%E9%81%93/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T06:54:54.000Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/%E7%AE%A1%E9%81%93/">nestjs 管道</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer"/>
+
+<p>管道有两个典型的用例：</p>
+<ul>
+<li>转换：将输入数据转换为所需的形式（例如，从字符串到整数）</li>
+<li>验证：评估输入数据，如果有效，则简单地通过不变；否则，当数据不正确时抛出异常</li>
+</ul>
+<h2 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h2><p>在 controller 里使用</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Get</span>(<span class="string">&#x27;:id&#x27;</span>)</span><br><span class="line"><span class="keyword">async</span> <span class="title function_">findOne</span>(<span class="params"><span class="meta">@Param</span>(<span class="string">&#x27;id&#x27;</span>, ParseIntPipe) id: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">catsService</span>.<span class="title function_">findOne</span>(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请求(传非数字)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET localhost:3000/abc</span><br></pre></td></tr></table></figure>
+
+<p>报错(将阻止 findOne()方法的主体执行)</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;statusCode&quot;</span><span class="punctuation">:</span> <span class="number">400</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Validation failed (numeric string is expected)&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;error&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Bad Request&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/%E7%AE%A1%E9%81%93/" data-id="clots5ims002pdwjw9fgheult" data-title="nestjs 管道" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-后端/nestjs/全局配置" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T06:53:57.000Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE/">nestjs 全局配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer"/>
+
+<h2 id="配置公共前缀-setGlobalPrefix"><a href="#配置公共前缀-setGlobalPrefix" class="headerlink" title="配置公共前缀 setGlobalPrefix"></a>配置公共前缀 setGlobalPrefix</h2><p>访问 <code>localhost:3000/api/user</code></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NestFactory</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@nestjs/core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AppModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./app.module&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">bootstrap</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> app = <span class="keyword">await</span> <span class="title class_">NestFactory</span>.<span class="title function_">create</span>(<span class="title class_">AppModule</span>);</span><br><span class="line">    app.<span class="title function_">setGlobalPrefix</span>(<span class="string">&quot;api&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 全局中间件</span></span><br><span class="line">    <span class="comment">// app.use(logger)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 全局异常过滤器</span></span><br><span class="line">    <span class="comment">// app.useGlobalFilters()</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 全局管道</span></span><br><span class="line">    <span class="comment">// app.useGlobalPipes()</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> app.<span class="title function_">listen</span>(<span class="number">3000</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">bootstrap</span>();</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE/" data-id="clots5imo002ddwjwd4jkd473" data-title="nestjs 全局配置" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-后端/nestjs/mongoose" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/mongoose/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T06:53:22.000Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/mongoose/">nestjs使用mongoose</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer"/>
+
+<h2 id="安装-mongoose"><a href="#安装-mongoose" class="headerlink" title="安装 mongoose"></a>安装 mongoose</h2><p><code>npm i @nestjs/mongoose mongoose</code></p>
+<h2 id="nestjs-使用-mongoose-模块"><a href="#nestjs-使用-mongoose-模块" class="headerlink" title="nestjs 使用 mongoose 模块"></a>nestjs 使用 mongoose 模块</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.module.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Module</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@nestjs/common&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">MongooseModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@nestjs/mongoose&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AppController</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./app.controller&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AppService</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./app.service&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">VideoModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./video/video.module&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">UserModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./user/user.module&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// nest 中的模块装饰器</span></span><br><span class="line"><span class="meta">@Module</span>(&#123;</span><br><span class="line">    <span class="comment">// 引入子模块</span></span><br><span class="line">    <span class="attr">imports</span>: [</span><br><span class="line">        <span class="title class_">VideoModule</span>,</span><br><span class="line">        <span class="title class_">UserModule</span>,</span><br><span class="line">        <span class="title class_">MongooseModule</span>.<span class="title function_">forRoot</span>(<span class="string">&quot;mongodb://localhost:27017/nestApp&quot;</span>),</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">controllers</span>: [<span class="title class_">AppController</span>],</span><br><span class="line">    <span class="attr">providers</span>: [<span class="title class_">AppService</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppModule</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建-schema"><a href="#创建-schema" class="headerlink" title="创建 schema"></a>创建 schema</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// /src/user/schemas/user.schemas.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Prop</span>, <span class="title class_">Schema</span>, <span class="title class_">SchemaFactory</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@nestjs/mongoose&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Document</span> &#125; <span class="keyword">from</span> <span class="string">&quot;mongoose&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将User 和 Document类型合并</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> <span class="title class_">UserDocument</span> = <span class="title class_">User</span> &amp; <span class="title class_">Document</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Schema 装饰器</span></span><br><span class="line"><span class="comment">// 装饰器将@Schema()一个类标记为模式定义。它将我们的类映射Cat到同名的 MongoDB 集合</span></span><br><span class="line"><span class="meta">@Schema</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">User</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Document</span> &#123;</span><br><span class="line">    <span class="comment">// 配置schema属性</span></span><br><span class="line">    <span class="meta">@Prop</span>(&#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">type</span>: <span class="title class_">String</span> &#125;)</span><br><span class="line">    <span class="comment">// 这里的类型是ts的类型</span></span><br><span class="line">    <span class="attr">username</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Prop</span>(&#123; <span class="attr">required</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">    <span class="attr">email</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// select 是否允许查询是查到的数据</span></span><br><span class="line">    <span class="meta">@Prop</span>(&#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">select</span>: <span class="literal">false</span> &#125;)</span><br><span class="line">    <span class="attr">password</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建schema</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title class_">UserSchema</span> = <span class="title class_">SchemaFactory</span>.<span class="title function_">createForClass</span>(<span class="title class_">User</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="引入到对应的功能的-module"><a href="#引入到对应的功能的-module" class="headerlink" title="引入到对应的功能的 module"></a>引入到对应的功能的 module</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// user.module.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Module</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@nestjs/common&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">UserService</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./user.service&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">UserController</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./user.controller&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">MongooseModule</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@nestjs/mongoose&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">User</span>, <span class="title class_">UserSchema</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./schemas/user.schemas&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Module</span>(&#123;</span><br><span class="line">    <span class="attr">imports</span>: [</span><br><span class="line">        <span class="title class_">MongooseModule</span>.<span class="title function_">forFeature</span>([&#123; <span class="attr">name</span>: <span class="title class_">User</span>.<span class="property">name</span>, <span class="attr">schema</span>: <span class="title class_">UserSchema</span> &#125;]),</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">controllers</span>: [<span class="title class_">UserController</span>],</span><br><span class="line">    <span class="attr">providers</span>: [<span class="title class_">UserService</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UserModule</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现增删改查功能"><a href="#实现增删改查功能" class="headerlink" title="实现增删改查功能"></a>实现增删改查功能</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// user.controller.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">    <span class="title class_">Controller</span>,</span><br><span class="line">    <span class="title class_">Get</span>,</span><br><span class="line">    <span class="title class_">Post</span>,</span><br><span class="line">    <span class="title class_">Body</span>,</span><br><span class="line">    <span class="title class_">Patch</span>,</span><br><span class="line">    <span class="title class_">Param</span>,</span><br><span class="line">    <span class="title class_">Delete</span>,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;@nestjs/common&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">UserService</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./user.service&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">CreateUserDto</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./dto/create-user.dto&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">UpdateUserDto</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./dto/update-user.dto&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ApiTags</span>, <span class="title class_">ApiOperation</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@nestjs/swagger&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// swagger 标签分类</span></span><br><span class="line"><span class="meta">@ApiTags</span>(<span class="string">&quot;user&quot;</span>)</span><br><span class="line"><span class="comment">// 将装饰的class 装饰成controller</span></span><br><span class="line"><span class="comment">// 路径 http://localhost3000/user</span></span><br><span class="line"><span class="comment">// 括号里是路由</span></span><br><span class="line"><span class="meta">@Controller</span>(<span class="string">&quot;user&quot;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line">    <span class="comment">// 使用依赖注入的方式引入 service</span></span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> <span class="keyword">readonly</span> userService: UserService</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation</span>(&#123;</span><br><span class="line">        <span class="attr">summary</span>: <span class="string">&quot;添加用户&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 方法装饰器，将controller里的方法装饰成路由，并且以请求方法调用</span></span><br><span class="line">    <span class="comment">// @Post post调用 http://localhost3000/user</span></span><br><span class="line">    <span class="comment">// 以下方法装饰器同理</span></span><br><span class="line">    <span class="meta">@Post</span>()</span><br><span class="line">    <span class="comment">// @Body() 使用装饰器装饰 http 请求体参数</span></span><br><span class="line">    <span class="comment">// CreateUserDto ts 参数类型约束</span></span><br><span class="line">    <span class="title function_">create</span>(<span class="params"><span class="meta">@Body</span>() createUserDto: CreateUserDto</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">userService</span>.<span class="title function_">create</span>(createUserDto);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// @Get get调用 http://localhost3000/user</span></span><br><span class="line">    <span class="meta">@Get</span>()</span><br><span class="line">    <span class="title function_">findAll</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">userService</span>.<span class="title function_">findAll</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// @Get get调用 http://localhost3000/user/123</span></span><br><span class="line">    <span class="meta">@Get</span>(<span class="string">&quot;:id&quot;</span>)</span><br><span class="line">    <span class="title function_">findOne</span>(<span class="params"><span class="meta">@Param</span>(<span class="string">&quot;id&quot;</span>) id: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">userService</span>.<span class="title function_">findOne</span>(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Patch</span>(<span class="string">&quot;:id&quot;</span>)</span><br><span class="line">    <span class="title function_">update</span>(<span class="params"><span class="meta">@Param</span>(<span class="string">&quot;id&quot;</span>) id: <span class="built_in">string</span>, <span class="meta">@Body</span>() updateUserDto: UpdateUserDto</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">userService</span>.<span class="title function_">update</span>(id, updateUserDto);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Delete</span>(<span class="string">&quot;:id&quot;</span>)</span><br><span class="line">    <span class="title function_">remove</span>(<span class="params"><span class="meta">@Param</span>(<span class="string">&quot;id&quot;</span>) id: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">userService</span>.<span class="title function_">remove</span>(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 自定义路径</span></span><br><span class="line">    <span class="comment">// 和上面 @Get(&#x27;:id&#x27;) 装饰的方法会冲突</span></span><br><span class="line">    <span class="comment">// @Get(&#x27;/customPath&#x27;)</span></span><br><span class="line">    <span class="comment">// customPath() &#123;</span></span><br><span class="line">    <span class="comment">//   return this.userService.customPath();</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// user.service.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Injectable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@nestjs/common&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">InjectModel</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@nestjs/mongoose&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">User</span>, <span class="title class_">UserDocument</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./schemas/user.schemas&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">CreateUserDto</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./dto/create-user.dto&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">UpdateUserDto</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./dto/update-user.dto&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Model</span> &#125; <span class="keyword">from</span> <span class="string">&quot;mongoose&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">        <span class="meta">@InjectModel</span>(User.name) <span class="keyword">private</span> userModel: Model&lt;UserDocument&gt;</span></span><br><span class="line"><span class="params">    </span>) &#123;&#125;</span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">create</span>(<span class="params">createUserDto: CreateUserDto</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> createdUser = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">userModel</span>.<span class="title function_">create</span>(createUserDto);</span><br><span class="line">        <span class="keyword">return</span> createdUser;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">findAll</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> result = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">userModel</span>.<span class="title function_">find</span>().<span class="title function_">exec</span>();</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">findOne</span>(<span class="params">id: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">userModel</span>.<span class="title function_">findById</span>(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">update</span>(<span class="params">id: <span class="built_in">string</span>, updateUserDto: UpdateUserDto</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">userModel</span>.<span class="title function_">findByIdAndUpdate</span>(id, updateUserDto, &#123;</span><br><span class="line">            <span class="attr">new</span>: <span class="literal">true</span>,</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">remove</span>(<span class="params">id: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">userModel</span>.<span class="title function_">findByIdAndRemove</span>(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/mongoose/" data-id="clots5iml001xdwjw3di21kgt" data-title="nestjs使用mongoose" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/24/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="extend next" rel="next" href="/page/26/">下一页 &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/electron/" style="font-size: 12.22px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 18.89px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 16.67px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 14.44px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 15.56px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 11.11px;">vite</a> <a href="/tags/vue/" style="font-size: 17.78px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">十一月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/">electron 输出中文</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/">electron 常用第三方库</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">electron 基础使用</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">electron 基础概念</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/key%E7%9A%84%E4%BD%9C%E7%94%A8/">vue key的作用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 youwe1<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

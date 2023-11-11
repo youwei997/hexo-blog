@@ -73,215 +73,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-后端/nodejs/nodejs常用工具库" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-前端/vue/结合ts" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E5%BA%93/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T06:19:14.000Z" itemprop="datePublished">2023-11-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E5%BA%93/">nodejs常用工具库</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <meta name="referrer" content="no-referrer"/>
-
-<h2 id="密码加密"><a href="#密码加密" class="headerlink" title="密码加密"></a>密码加密</h2><ol>
-<li><p>bcrypt</p>
-<ul>
-<li><p>加密</p>
-<ul>
-<li><p>hash （异步）</p>
-</li>
-<li><p>hashSync （同步）第一个为加密的值（密码），第二个为加密的等级</p>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bcrypt = <span class="built_in">require</span>(<span class="string">&quot;bcrypt&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">UserSchema</span> = <span class="keyword">new</span> mongoose.<span class="title class_">Schema</span>(&#123;</span><br><span class="line">  <span class="attr">username</span>: &#123; </span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">String</span>,</span><br><span class="line">    <span class="attr">unique</span>: <span class="literal">true</span>, <span class="comment">//限唯一值</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">password</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">String</span>,</span><br><span class="line">    <span class="title function_">set</span>(<span class="params">value</span>) &#123; <span class="comment">//在这里使用 bcrypt.hashSync 加密（散列）密码</span></span><br><span class="line">      <span class="keyword">return</span> bcrypt.<span class="title function_">hashSync</span>(value, <span class="number">1</span>);</span><br><span class="line">        <span class="comment">//加密后 $2b$04$ziX.qnWtqjnnwrYjTEG.tuYGmQXCgK8PjjFn3VjWJo/2pBpaqTye6</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">User</span> = mongoose.<span class="title function_">model</span>(<span class="string">&quot;User&quot;</span>, <span class="title class_">UserSchema</span>);</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123; <span class="title class_">User</span> &#125;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>​	对比</p>
-<ul>
-<li>compare （异步）</li>
-<li>compareSync（同步） 第一个为接口传入，第二个为数据库取出。返回<code>boolean</code></li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">post</span>(<span class="string">&quot;/api/login&quot;</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; username, password &#125; = req.<span class="property">body</span>;</span><br><span class="line">  <span class="keyword">const</span> user = <span class="keyword">await</span> <span class="title class_">User</span>.<span class="title function_">findOne</span>(&#123;</span><br><span class="line">    username,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">if</span> (!user) &#123;</span><br><span class="line">    <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">422</span>).<span class="title function_">send</span>(&#123; <span class="attr">msg</span>: <span class="string">&quot;用户名不存在&quot;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> isPasswordValid = bcrypt.<span class="title function_">compareSync</span>(password, user.<span class="property">password</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(isPasswordValid);<span class="comment">// true/false</span></span><br><span class="line">  res.<span class="title function_">send</span>(user);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-<h2 id="token"><a href="#token" class="headerlink" title="token"></a>token</h2><ol>
-<li><p>jsonwebtoken</p>
-<ul>
-<li><p>jwt.sign({ id: String(user._id) }, SECRET,option)  第一个参数为id等可以查找对应用户的数据（对象）</p>
-<p>第二个为<code>SECRET</code>一般放在.env等被gitignore忽略的文件中，第三个为配置项（过期时间等）：<code>&#123;expiresIn:3600&#125;</code>,第四个为回调函数</p>
-</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> jwt = <span class="built_in">require</span>(<span class="string">&quot;jsonwebtoken&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">SECRET</span> = <span class="string">&quot;secret&quot;</span>;</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&quot;/api/login&quot;</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; username, password &#125; = req.<span class="property">body</span>;</span><br><span class="line">  <span class="comment">//查询用户</span></span><br><span class="line">  <span class="keyword">const</span> user = <span class="keyword">await</span> <span class="title class_">User</span>.<span class="title function_">findOne</span>(&#123;</span><br><span class="line">    username,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">//用户是否存在</span></span><br><span class="line">  <span class="keyword">if</span> (!user) &#123;</span><br><span class="line">    <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">422</span>).<span class="title function_">send</span>(&#123; <span class="attr">msg</span>: <span class="string">&quot;用户名不存在&quot;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//校验密码</span></span><br><span class="line">  <span class="keyword">const</span> isPasswordValid = bcrypt.<span class="title function_">compareSync</span>(password, user.<span class="property">password</span>);</span><br><span class="line">  <span class="keyword">if</span> (!isPasswordValid) &#123;</span><br><span class="line">    <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">422</span>).<span class="title function_">send</span>(&#123; <span class="attr">msg</span>: <span class="string">&quot;密码无效&quot;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//生成token</span></span><br><span class="line">  <span class="keyword">const</span> token = jwt.<span class="title function_">sign</span>(&#123; <span class="attr">id</span>: <span class="title class_">String</span>(user.<span class="property">_id</span>) &#125;, <span class="variable constant_">SECRET</span>); <span class="comment">//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNGE2MmNmYjNmMDg4MmUyMmY1NmMyMiIsImlhdCI6MTY0OTA0OTM0OX0.O0poGl9KpakXAN9v0CDDiJXrEGqNpzRTYjppkn9Uvs8</span></span><br><span class="line">  </span><br><span class="line">    res.<span class="title function_">send</span>(&#123;</span><br><span class="line">    user,</span><br><span class="line">    token,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>jwt.verify(token, SECRET) 第一个参数为前端传来的<code>token</code>，第二个为<code>SECRET</code></li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> jwt = <span class="built_in">require</span>(<span class="string">&quot;jsonwebtoken&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">SECRET</span> = <span class="string">&quot;secret&quot;</span>;</span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;/api/profile&quot;</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line"> <span class="keyword">let</span> authorization = req.<span class="property">headers</span>.<span class="property">authorization</span>;</span><br><span class="line"> <span class="keyword">const</span> token = <span class="title class_">String</span>(authorization).<span class="title function_">split</span>(<span class="string">&quot; &quot;</span>)[<span class="number">1</span>];</span><br><span class="line"> <span class="comment">// const tokenVerify = jwt.verify(token, SECRET); //&#123; id: &#x27;624a62cfb3f0882e22f56c22&#x27;, iat: 1649049349 &#125;</span></span><br><span class="line"> <span class="keyword">const</span> &#123; id &#125; = jwt.<span class="title function_">verify</span>(token, <span class="variable constant_">SECRET</span>);</span><br><span class="line"> <span class="keyword">const</span> user = <span class="keyword">await</span> <span class="title class_">User</span>.<span class="title function_">findById</span>(id);</span><br><span class="line"> res.<span class="title function_">send</span>(user);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>验证token是否过期并规定哪些路由不用验证，需要npm 引入 express-jwt</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> expressJwt = <span class="built_in">require</span>(<span class="string">&#x27;express-jwt&#x27;</span>)</span><br><span class="line"><span class="comment">// app.use(</span></span><br><span class="line"><span class="comment">//   expressJwt(&#123;</span></span><br><span class="line"><span class="comment">//     secret: &quot;mes_qdhd_mobile_xhykjyxgs&quot;,</span></span><br><span class="line"><span class="comment">//   &#125;).unless(&#123;</span></span><br><span class="line"><span class="comment">//     path: [&quot;/login&quot;], //除了这个地址，其他的URL都需要验证</span></span><br><span class="line"><span class="comment">//   &#125;)</span></span><br><span class="line"><span class="comment">// );</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>passport &amp; passport-jwt</p>
-<ol>
-<li>具体使用看这个项目<code>https://gitee.com/youwei997/nodejs-element-wuhaiyang</code></li>
-</ol>
-</li>
-</ol>
-<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><ol>
-<li><p>cors</p>
-</li>
-<li><p>手动封装跨域中间件</p>
-<ol>
-<li>接口形式</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置跨域访问</span></span><br><span class="line">app.<span class="title function_">all</span>(<span class="string">&quot;*&quot;</span>,<span class="keyword">function</span>(<span class="params">req,res,next</span>)&#123;</span><br><span class="line">    <span class="comment">//设置允许跨域的域名，*代表允许任意域名跨域</span></span><br><span class="line">    res.<span class="title function_">header</span>(<span class="string">&quot;Access-Control-Allow-Origin&quot;</span>,<span class="string">&quot;*&quot;</span>);</span><br><span class="line">    <span class="comment">//允许的header类型</span></span><br><span class="line">    res.<span class="title function_">header</span>(<span class="string">&quot;Access-Control-Allow-Headers&quot;</span>,<span class="string">&quot;content-type&quot;</span>);</span><br><span class="line">    <span class="comment">//跨域允许的请求方式 </span></span><br><span class="line">    res.<span class="title function_">header</span>(<span class="string">&quot;Access-Control-Allow-Methods&quot;</span>,<span class="string">&quot;DELETE,PUT,POST,GET,OPTIONS&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (req.<span class="property">method</span>.<span class="title function_">toLowerCase</span>() == <span class="string">&#x27;options&#x27;</span>)</span><br><span class="line">        res.<span class="title function_">send</span>(<span class="number">200</span>);  <span class="comment">//让options尝试请求快速结束</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="title function_">next</span>();</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>全局中间件形式</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自定义跨域中间件</span></span><br><span class="line"><span class="keyword">var</span> allowCors = <span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">    res.<span class="title function_">header</span>(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>, req.<span class="property">headers</span>.<span class="property">origin</span>);</span><br><span class="line">    res.<span class="title function_">header</span>(<span class="string">&#x27;Access-Control-Allow-Methods&#x27;</span>, <span class="string">&#x27;GET,PUT,POST,DELETE,OPTIONS&#x27;</span>);</span><br><span class="line">    res.<span class="title function_">header</span>(<span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span>, <span class="string">&#x27;Content-Type&#x27;</span>);</span><br><span class="line">    res.<span class="title function_">header</span>(<span class="string">&#x27;Access-Control-Allow-Credentials&#x27;</span>,<span class="string">&#x27;true&#x27;</span>);</span><br><span class="line">    <span class="title function_">next</span>();</span><br><span class="line">&#125;;</span><br><span class="line">app.<span class="title function_">use</span>(allowCors);<span class="comment">//使用跨域中间件</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>cors 第三方中间件</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> cors = <span class="built_in">require</span>(<span class="string">&quot;cors&quot;</span>);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="title function_">cors</span>()); <span class="comment">//允许跨域</span></span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;/&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  res.<span class="title function_">send</span>(<span class="string">&quot;ok&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;服务端启动&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="参数解析"><a href="#参数解析" class="headerlink" title="参数解析"></a>参数解析</h2><ol>
-<li><strong>内置</strong> <code>express.json &amp; express.urlencoded(&#123; extended: false &#125;)</code></li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">urlencoded</span>(&#123; <span class="attr">extended</span>: <span class="literal">false</span> &#125;)); <span class="comment">//x-www-form-urlencoded</span></span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">json</span>()); <span class="comment">//使用ui框架，发送纯json时有用，或者postman body raw。使用postman x-www-form-urlencoded无效</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><strong>第三方</strong> body-parser</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">&quot;body-parser&quot;</span>);</span><br><span class="line">app.<span class="title function_">use</span>(bodyParser.<span class="title function_">json</span>());</span><br><span class="line">app.<span class="title function_">use</span>(bodyParser.<span class="title function_">urlencoded</span>(&#123; <span class="attr">extended</span>: <span class="literal">false</span> &#125;));</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E5%BA%93/" data-id="clotooqkz001phcjw5w1v43kl" data-title="nodejs常用工具库" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-后端/nodejs/nodejs原生获取参数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E5%8E%9F%E7%94%9F%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T06:18:17.000Z" itemprop="datePublished">2023-11-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E5%8E%9F%E7%94%9F%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0/">nodejs原生获取参数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <meta name="referrer" content="no-referrer"/>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//req.body</span></span><br><span class="line"><span class="comment">//包含了提交数据的键值对在请求的body中，默认是underfined,</span></span><br><span class="line">解析body不是nodejs默认提供的，你需要载入body-parser中间件才可以使用req.<span class="property">body</span>；</span><br><span class="line">此方法通常用来解析<span class="variable constant_">POST</span>请求中的数据</span><br><span class="line"></span><br><span class="line"><span class="comment">//原生获取参数</span></span><br><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>)</span><br><span class="line">app.<span class="title function_">createServer</span>(<span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">method</span>);</span><br><span class="line">  <span class="keyword">if</span>(req.<span class="property">method</span> === <span class="string">&#x27;POST&#x27;</span>)&#123;</span><br><span class="line">  <span class="comment">//数据格式</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;content-type&#x27;</span>,req.<span class="property">headers</span>[<span class="string">&#x27;content-type&#x27;</span>])</span><br><span class="line">      <span class="comment">//接收数据</span></span><br><span class="line">      <span class="keyword">let</span> postData = <span class="string">&#x27;&#x27;</span></span><br><span class="line">      req.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>,<span class="function"><span class="params">chunk</span>=&gt;</span>&#123;</span><br><span class="line">          postData+=chunk.<span class="title function_">toString</span>()</span><br><span class="line">      &#125;)</span><br><span class="line">      req.<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(postData)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">server.<span class="title function_">listen</span>(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//req.query</span></span><br><span class="line"><span class="comment">//包含在路由中每个查询字符串参数属性的对象。如果没有，默认为&#123;&#125;</span></span><br><span class="line"><span class="comment">// GET /search?q=tobi+ferret</span></span><br><span class="line">req.<span class="property">query</span>.<span class="property">q</span></span><br><span class="line"><span class="comment">// =&gt; &quot;tobi ferret&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// GET /shoes?order=desc&amp;shoe[color]=blue&amp;shoe[type]=converse</span></span><br><span class="line">req.<span class="property">query</span>.<span class="property">order</span></span><br><span class="line"><span class="comment">// =&gt; &quot;desc&quot;</span></span><br><span class="line">req.<span class="property">query</span>.<span class="property">shoe</span>.<span class="property">color</span></span><br><span class="line"><span class="comment">// =&gt; &quot;blue&quot;</span></span><br><span class="line">req.<span class="property">query</span>.<span class="property">shoe</span>.<span class="property">type</span></span><br><span class="line"><span class="comment">// =&gt; &quot;converse&quot;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//req.params</span></span><br><span class="line"><span class="comment">//包含映射到指定的路线“参数”属性的对象。</span></span><br><span class="line">例如，如果你有route/user/：name，那么“name”属性可作为req.<span class="property">params</span>.<span class="property">name</span>。</span><br><span class="line">该对象默认为&#123;&#125;。</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E5%8E%9F%E7%94%9F%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0/" data-id="clotooqky001mhcjwg3okc130" data-title="nodejs原生获取参数" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-后端/nodejs/nodejs跨域" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E8%B7%A8%E5%9F%9F/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T06:16:10.000Z" itemprop="datePublished">2023-11-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E8%B7%A8%E5%9F%9F/">nodejs跨域</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <meta name="referrer" content="no-referrer"/>
-
-<h2 id="koa"><a href="#koa" class="headerlink" title="koa"></a>koa</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置跨域访问</span></span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    ctx.<span class="title function_">set</span>(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>, <span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">    ctx.<span class="title function_">set</span>(<span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span>, <span class="string">&#x27;Content-Type,Content-Length,Authorization,Accept,X-Requested-With&#x27;</span>)</span><br><span class="line">    ctx.<span class="title function_">set</span>(<span class="string">&#x27;Access-Control-Allow-Methods&#x27;</span>, <span class="string">&#x27;PUT,POST,GET,DELETE,OPTIONS&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> (ctx.<span class="property">method</span> == <span class="string">&#x27;OPTIONS&#x27;</span>) &#123;</span><br><span class="line">        ctx.<span class="property">body</span> = <span class="number">200</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">await</span> <span class="title function_">next</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="express"><a href="#express" class="headerlink" title="express"></a>express</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置跨域访问</span></span><br><span class="line">app.<span class="title function_">all</span>(<span class="string">&#x27;*&#x27;</span>, <span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">    res.<span class="title function_">header</span>(<span class="string">&quot;Access-Control-Allow-Origin&quot;</span>, <span class="string">&quot;*&quot;</span>);</span><br><span class="line">    res.<span class="title function_">header</span>(<span class="string">&quot;Access-Control-Allow-Headers&quot;</span>, <span class="string">&quot;X-Requested-With&quot;</span>);</span><br><span class="line">    res.<span class="title function_">header</span>(<span class="string">&quot;Access-Control-Allow-Methods&quot;</span>,<span class="string">&quot;PUT,POST,GET,DELETE,OPTIONS&quot;</span>);</span><br><span class="line">    res.<span class="title function_">header</span>(<span class="string">&quot;X-Powered-By&quot;</span>,<span class="string">&#x27; 3.2.1&#x27;</span>)</span><br><span class="line">    res.<span class="title function_">header</span>(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/json;charset=utf-8&quot;</span>);</span><br><span class="line">    <span class="title function_">next</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/nodejs%E8%B7%A8%E5%9F%9F/" data-id="clotooql2001whcjwfxpj74vq" data-title="nodejs跨域" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-后端/nodejs/koa洋葱模型" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/koa%E6%B4%8B%E8%91%B1%E6%A8%A1%E5%9E%8B/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T06:15:08.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E7%BB%93%E5%90%88ts/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:17:36.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
@@ -296,7 +91,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/koa%E6%B4%8B%E8%91%B1%E6%A8%A1%E5%9E%8B/">koa洋葱模型</a>
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E7%BB%93%E5%90%88ts/">vue 结合ts</a>
     </h1>
   
 
@@ -306,16 +101,30 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//洋葱模型</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Koa</span>=<span class="built_in">require</span>(<span class="string">&#x27;koa&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app=<span class="keyword">new</span> <span class="title class_">Koa</span>();</span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;第一1&#x27;</span>);</span><br><span class="line">    <span class="keyword">await</span> <span class="title function_">next</span>(); <span class="comment">// 调用下一个middleware</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;第一2&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;第二1&#x27;</span>);</span><br><span class="line">    <span class="keyword">await</span> <span class="title function_">next</span>(); <span class="comment">// 调用下一个middleware</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;第二2&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;第三1&#x27;</span>);</span><br><span class="line">    <span class="keyword">await</span> <span class="title function_">next</span>();</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;第三2&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line">输出顺序：</span><br><span class="line">第一<span class="number">1</span></span><br><span class="line">第二<span class="number">1</span></span><br><span class="line">第三<span class="number">1</span></span><br><span class="line">第三<span class="number">2</span></span><br><span class="line">第二<span class="number">2</span></span><br><span class="line">第一<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h2 id="defineProps-defineEmits"><a href="#defineProps-defineEmits" class="headerlink" title="defineProps &amp; defineEmits"></a>defineProps &amp; defineEmits</h2><p>注：在使用了 <code>script setup</code> 如果script里不需要用到props可以不接收，因为在模板里可以直接使用父级传递的值，无需<code>props.xxx</code>!!!!!!!!!</p>
+<p>无ts用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">// 数组</span><br><span class="line">const props = defineProps([&#x27;foo&#x27;])</span><br><span class="line">console.log(props.foo)</span><br><span class="line">    </span><br><span class="line">// 对象</span><br><span class="line">const props = defineProps(&#123;</span><br><span class="line">  title: String,</span><br><span class="line">  likes: Number</span><br><span class="line">&#125;)</span><br><span class="line">console.log(props.foo)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>以下组件使用ts：</p>
+<ol>
+<li><code>defineEmits</code>：使用了<code>v-model</code>加 <code>update</code>结合使用，这样无需在父组件在写一个方法接收，调用修改值</li>
+<li><code>defineProps</code>：子组件使用了 泛型参数来定义 props 的类型</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// 父组件</span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">import NavHeader from &#x27;@/components/container/navHeader/index.vue&#x27;</span><br><span class="line">import NavSide from &#x27;@/components/container/navSide/index.vue&#x27;</span><br><span class="line"></span><br><span class="line">import &#123; ref &#125; from &#x27;vue&#x27;</span><br><span class="line"></span><br><span class="line">const isCollapse = ref(false)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;common-layout&quot;&gt;</span><br><span class="line">    &lt;el-container&gt;</span><br><span class="line">      &lt;el-aside width=&quot;auto&quot;&gt;</span><br><span class="line">        &lt;NavSide :collapse=&quot;isCollapse&quot; /&gt;</span><br><span class="line">      &lt;/el-aside&gt;</span><br><span class="line">      &lt;el-container&gt;</span><br><span class="line">        &lt;el-header&gt;</span><br><span class="line">          &lt;NavHeader v-model:collapse=&quot;isCollapse&quot; /&gt;</span><br><span class="line">        &lt;/el-header&gt;</span><br><span class="line">      &lt;/el-container&gt;</span><br><span class="line">    &lt;/el-container&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 子组件1</span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">const props = defineProps&lt;&#123; collapse: boolean &#125;&gt;()</span><br><span class="line">const emits = defineEmits([&#x27;update:collapse&#x27;])</span><br><span class="line">const toggle = () =&gt; &#123;</span><br><span class="line">  emits(&#x27;update:collapse&#x27;, !props.collapse)</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;span @click=&quot;toggle&quot;&gt;</span><br><span class="line">    &lt;el-icon-expand v-if=&quot;collapse&quot;&gt;&lt;/el-icon-expand&gt;</span><br><span class="line">    &lt;el-icon-fold v-else&gt;&lt;/el-icon-fold&gt;</span><br><span class="line">  &lt;/span&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">// 子组件2</span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line"></span><br><span class="line">const props = defineProps&lt;&#123; collapse: boolean &#125;&gt;()</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;el-menu class=&quot;el-menu-vertical-demo&quot; :collapse=&quot;collapse&quot; default-active=&quot;1&quot;&gt;</span><br><span class="line">    &lt;el-menu-item index=&quot;1&quot;&gt;</span><br><span class="line">      &lt;el-icon&gt;&lt;el-icon-menu /&gt;&lt;/el-icon&gt;</span><br><span class="line">      &lt;span&gt;导航1&lt;/span&gt;</span><br><span class="line">    &lt;/el-menu-item&gt;</span><br><span class="line">    &lt;el-menu-item index=&quot;2&quot;&gt;</span><br><span class="line">      &lt;el-icon&gt;&lt;el-icon-menu /&gt;&lt;/el-icon&gt;</span><br><span class="line">      &lt;span&gt;导航2&lt;/span&gt;</span><br><span class="line">    &lt;/el-menu-item&gt;</span><br><span class="line">    &lt;el-menu-item index=&quot;3&quot;&gt;</span><br><span class="line">      &lt;el-icon&gt;&lt;el-icon-menu /&gt;&lt;/el-icon&gt;</span><br><span class="line">      &lt;span&gt;导航3&lt;/span&gt;</span><br><span class="line">    &lt;/el-menu-item&gt;</span><br><span class="line">  &lt;/el-menu&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.el-menu-vertical-demo:not(.el-menu--collapse) &#123;</span><br><span class="line">  width: 200px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/koa%E6%B4%8B%E8%91%B1%E6%A8%A1%E5%9E%8B/" data-id="clotooqkp001bhcjwbe4ifmab" data-title="koa洋葱模型" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E7%BB%93%E5%90%88ts/" data-id="clots5inu007gdwjw6wse1xdk" data-title="vue 结合ts" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/koa/" rel="tag">koa</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
 
     </footer>
   </div>
@@ -325,10 +134,10 @@
 
 
   
-    <article id="post-后端/nodejs/mongoose，findOne查询使用变量做字段名" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-前端/vue/响应式数据的判断" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/mongoose%EF%BC%8CfindOne%E6%9F%A5%E8%AF%A2%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F%E5%81%9A%E5%AD%97%E6%AE%B5%E5%90%8D/" class="article-date">
-  <time class="dt-published" datetime="2023-11-11T06:12:19.000Z" itemprop="datePublished">2023-11-11</time>
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%93%8D%E5%BA%94%E5%BC%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%A4%E6%96%AD/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:17:10.000Z" itemprop="datePublished">2023-11-11</time>
 </a>
     
   <div class="article-category">
@@ -343,7 +152,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/mongoose%EF%BC%8CfindOne%E6%9F%A5%E8%AF%A2%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F%E5%81%9A%E5%AD%97%E6%AE%B5%E5%90%8D/">mongoose，findOne查询使用变量做字段名</a>
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%93%8D%E5%BA%94%E5%BC%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%A4%E6%96%AD/">vue 响应式数据的判断</a>
     </h1>
   
 
@@ -353,19 +162,71 @@
       
         <meta name="referrer" content="no-referrer"/>
 
-<ol>
-<li>使用新建对象<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">validateCustom</span> = <span class="keyword">async</span> (<span class="params">type, val</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> obj = &#123;&#125;;</span><br><span class="line">  obj[type] = val;</span><br><span class="line">  <span class="keyword">const</span> validate = <span class="keyword">await</span> <span class="title class_">User</span>.<span class="title function_">findOne</span>(obj);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 同上</span></span><br><span class="line">  <span class="comment">// const validate = await User.findOne(&#123; [type]: val &#125;);</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (validate) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-<li>使用where<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">validateCustom</span> = <span class="keyword">async</span> (<span class="params">type, val</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> validate = <span class="keyword">await</span> <span class="title class_">User</span>.<span class="title function_">find</span>().<span class="title function_">where</span>(type, val);</span><br><span class="line">  <span class="keyword">if</span> (validate.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-</ol>
+<ul>
+<li><strong>isRef</strong>: 检查一个值是否为一个 <code>ref</code> 对象</li>
+<li><strong>isReactive</strong>: 检查一个对象是否是由 <code>reactive</code> 创建的响应式代理</li>
+<li><strong>isReadonly</strong>: 检查一个对象是否是由 <code>readonly</code> 创建的只读代理</li>
+<li><strong>isProxy</strong>: 检查一个对象是否是由 <code>reactive</code> 或者 <code>readonly</code> 方法创建的代理。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setup</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> state1 = <span class="title function_">ref</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;isref:&#x27;</span>, <span class="title function_">isRef</span>(state1));<span class="comment">//isref: true</span></span><br><span class="line">    <span class="keyword">const</span> state2 = <span class="title function_">reactive</span>(&#123;&#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;isReactive:&#x27;</span>, <span class="title function_">isReactive</span>(state2));<span class="comment">//isReactive: true</span></span><br><span class="line">    <span class="keyword">const</span> state3 = <span class="title function_">readonly</span>(&#123;&#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;isReadonly:&#x27;</span>, <span class="title function_">isReadonly</span>(state3));<span class="comment">//isReadonly: true</span></span><br><span class="line">    <span class="keyword">const</span> state4 = <span class="title function_">reactive</span>(&#123;&#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;isProxy:&#x27;</span>, <span class="title function_">isProxy</span>(state2));<span class="comment">//isProxy: true</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;isProxy:&#x27;</span>, <span class="title function_">isProxy</span>(state4));<span class="comment">//isProxy: true</span></span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://youwei997.github.io/2023/11/11/%E5%90%8E%E7%AB%AF/nodejs/mongoose%EF%BC%8CfindOne%E6%9F%A5%E8%AF%A2%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F%E5%81%9A%E5%AD%97%E6%AE%B5%E5%90%8D/" data-id="clotooqkq001fhcjwc611dfos" data-title="mongoose，findOne查询使用变量做字段名" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/vue/%E5%93%8D%E5%BA%94%E5%BC%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%A4%E6%96%AD/" data-id="clots5int0079dwjw9t9e41em" data-title="vue 响应式数据的判断" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-前端/vue/proxy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/proxy/" class="article-date">
+  <time class="dt-published" datetime="2023-11-11T08:15:23.000Z" itemprop="datePublished">2023-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/proxy/">vue proxy</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer"/>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> person = &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">name</span>: <span class="string">&#x27;John&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">age</span>:<span class="number">12</span>,</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> p = <span class="keyword">new</span> <span class="title class_">Proxy</span>(person,&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">get</span>(<span class="params">target,propName</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;读取p的&#x27;</span>+propName+<span class="string">&#x27;属性&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> target[propName]</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">set</span>(<span class="params">target,propName,value</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">             <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;修改或新增p的&#x27;</span>+propName+<span class="string">&#x27;属性&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">             target[propName] = value</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">deleteProperty</span>(<span class="params">target,propName</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;删除p的&#x27;</span>+propName+<span class="string">&#x27;属性&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="keyword">delete</span> target[propName]</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://youwei997.github.io/2023/11/11/%E5%89%8D%E7%AB%AF/vue/proxy/" data-id="clots5inp006odwjw8xwg3r26" data-title="vue proxy" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
 
     </footer>
   </div>
@@ -379,7 +240,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -390,7 +251,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/">第三方平台</a></li></ul>
     </div>
   </div>
 
@@ -400,7 +261,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/electron/" rel="tag">electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/" rel="tag">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/koa/" rel="tag">koa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose/" rel="tag">mongoose</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nestjs/" rel="tag">nestjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nuxtjs/" rel="tag">nuxtjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typeorm/" rel="tag">typeorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typescript/" rel="tag">typescript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/uniapp/" rel="tag">uniapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vite/" rel="tag">vite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
     </div>
   </div>
 
@@ -410,7 +271,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 20px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 13.33px;">vite</a> <a href="/tags/vue/" style="font-size: 16.67px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+      <a href="/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/tags/electron/" style="font-size: 12.22px;">electron</a> <a href="/tags/go/" style="font-size: 20px;">go</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/mongoose/" style="font-size: 10px;">mongoose</a> <a href="/tags/nestjs/" style="font-size: 18.89px;">nestjs</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nuxtjs/" style="font-size: 16.67px;">nuxtjs</a> <a href="/tags/react/" style="font-size: 14.44px;">react</a> <a href="/tags/typeorm/" style="font-size: 10px;">typeorm</a> <a href="/tags/typescript/" style="font-size: 15.56px;">typescript</a> <a href="/tags/uniapp/" style="font-size: 10px;">uniapp</a> <a href="/tags/vite/" style="font-size: 11.11px;">vite</a> <a href="/tags/vue/" style="font-size: 17.78px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
     </div>
   </div>
 
@@ -432,23 +293,23 @@
       <ul>
         
           <li>
-            <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/%E9%82%AE%E7%AE%B1/">nest 邮箱</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87/">electron 输出中文</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/%E4%B8%AD%E9%97%B4%E4%BB%B6/">nestjs 中间件</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/">electron 常用第三方库</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/%E8%A3%85%E9%A5%B0%E5%99%A8/">nestjs 装饰器</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">electron 基础使用</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/dto/">nestjs dto (Data Transfer Object) 数据传输对象</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/electron/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">electron 基础概念</a>
           </li>
         
           <li>
-            <a href="/2023/11/11/%E5%90%8E%E7%AB%AF/nestjs/dto%E5%92%8Centities/">nestjs dto和entities</a>
+            <a href="/2023/11/11/%E5%89%8D%E7%AB%AF/vue/key%E7%9A%84%E4%BD%9C%E7%94%A8/">vue key的作用</a>
           </li>
         
       </ul>
