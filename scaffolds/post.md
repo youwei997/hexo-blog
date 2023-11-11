@@ -1,8 +1,8 @@
 ---
 title: {{ title }}
 date: {{ date }}
-tags: electron
-categories: 前端
+tags: MySql
+categories: 数据库
 ---
 <meta name="referrer" content="no-referrer"/>
 
