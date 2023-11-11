@@ -1,8 +1,8 @@
 ---
 title: {{ title }}
 date: {{ date }}
-tags: docker
-categories: 开发工具
+tags: typescript
+categories: 前端
 ---
 <meta name="referrer" content="no-referrer"/>
 
